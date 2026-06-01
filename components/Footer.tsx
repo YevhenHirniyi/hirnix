@@ -9,9 +9,6 @@ export function Footer({ t }: Props) {
   return (
     <footer className="hx-footer">
       <div className="container">
-        <div className="hx-footer-big" aria-hidden="true">
-          hirnix<span className="dot" />
-        </div>
         <div className="hx-footer-grid">
           <div className="hx-footer-brand">
             <Logo size={22} />
