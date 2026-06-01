@@ -20,7 +20,7 @@ export function Services({ t }: Props) {
             <span className="eyebrow"><span className="dot" />{t.eyebrow}</span>
             <h2 className="section-label" style={{ marginTop: 16 }}>
               {t.h2.pre}<br />
-              <span className="glue">{t.h2.mid}</span> a ne<br />
+              {t.h2.mid && <><span className="glue">{t.h2.mid}</span><br /></>}
               <span style={{ color: 'var(--brand-primary)' }}>{t.h2.accent}</span>
             </h2>
           </div>
