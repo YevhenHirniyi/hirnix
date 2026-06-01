@@ -1,4 +1,5 @@
-import uk from '@/config/i18n/uk';
+import type { Metadata } from 'next';
+import cz from '@/config/i18n/cz';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Hero, Marquee } from '@/components/Hero';
@@ -13,8 +14,13 @@ import { Calc } from '@/components/Calc';
 import { FAQ } from '@/components/FAQ';
 import { FinalCTA } from '@/components/FinalCTA';
 
-export default function Home() {
-  const t = uk;
+export const metadata: Metadata = {
+  title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
+  description: 'hirnix pomáhá ukrajinským podnikatelům v Česku vypadat profesionálně online. Weby, Google Business Profile, lokální SEO. První konzultace zdarma.',
+};
+
+export default function CZHome() {
+  const t = cz;
   return (
     <>
       <Header t={t.header} />

@@ -1,7 +1,11 @@
-import { ArrowUpRight, Send, Camera, Briefcase, Mail } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
 import { Logo } from './Header';
+import contacts from '@/config/contacts';
+import type { FooterT } from '@/config/i18n/types';
 
-export function Footer() {
+interface Props { t: FooterT }
+
+export function Footer({ t }: Props) {
   return (
     <footer className="hx-footer">
       <div className="container">
@@ -11,44 +15,27 @@ export function Footer() {
         <div className="hx-footer-grid">
           <div className="hx-footer-brand">
             <Logo size={22} />
-            <p style={{ marginTop: 14 }}>
-              Сайти, Google Business Profile та локальне SEO для українських
-              підприємців у Чехії.
-            </p>
+            <p style={{ marginTop: 14 }}>{t.brand}</p>
             <div style={{ display: 'flex', gap: 10 }}>
-              {[
-                { icon: <Send size={16} strokeWidth={1.8} />, label: 'Telegram', href: '#' },
-                { icon: <Camera size={16} strokeWidth={1.8} />, label: 'Instagram', href: '#' },
-                { icon: <Briefcase size={16} strokeWidth={1.8} />, label: 'LinkedIn', href: '#' },
-                { icon: <Mail size={16} strokeWidth={1.8} />, label: 'Email', href: 'mailto:hello@hirnix.cz' },
-              ].map(({ icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  style={{
-                    width: 38, height: 38, borderRadius: 999,
-                    border: '1px solid var(--border-light)',
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'var(--text-primary)',
-                  }}
-                >
-                  {icon}
-                </a>
-              ))}
+              <a
+                href={contacts.email}
+                aria-label="Email"
+                style={{
+                  width: 38, height: 38, borderRadius: 999,
+                  border: '1px solid var(--border-light)',
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--text-primary)',
+                }}
+              >
+                <Mail size={16} strokeWidth={1.8} />
+              </a>
             </div>
           </div>
 
           <div className="hx-footer-col">
-            <h4>Що ми робимо</h4>
+            <h4>{t.servicesHeading}</h4>
             <ul>
-              {[
-                'Сайт або лендинг',
-                'Онлайн-присутність',
-                'Підтримка та розвиток',
-                'Google Business Profile',
-                'Локальне SEO',
-              ].map((item) => (
+              {t.servicesList.map((item) => (
                 <li key={item}>
                   <a href="#services">
                     {item} <ArrowUpRight size={12} strokeWidth={2} />
@@ -59,23 +46,29 @@ export function Footer() {
           </div>
 
           <div className="hx-footer-col">
-            <h4>Студія</h4>
+            <h4>{t.studioHeading}</h4>
             <ul>
-              <li><a href="#for-whom">Для кого</a></li>
-              <li><a href="#process">Як працюємо</a></li>
-              <li><a href="#examples">Приклади</a></li>
-              <li><a href="#about">Про hirnix</a></li>
-              <li><a href="#faq">FAQ</a></li>
+              {t.studioLinks.map((link) => (
+                <li key={link.href}><a href={link.href}>{link.label}</a></li>
+              ))}
             </ul>
           </div>
 
           <div className="hx-footer-col">
-            <h4>Контакти</h4>
+            <h4>{t.contactsHeading}</h4>
             <ul>
-              <li><a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a></li>
-              <li><a href="#">Telegram · @hirnix</a></li>
-              <li><a href="#">WhatsApp</a></li>
-              <li><a href="#">Прага, Чехія</a></li>
+              <li><a href={contacts.email}>{contacts.emailDisplay}</a></li>
+              <li>
+                <a href={contacts.telegram} target="_blank" rel="noopener noreferrer">
+                  {t.telegramLabel}
+                </a>
+              </li>
+              <li>
+                <a href={contacts.whatsapp} target="_blank" rel="noopener noreferrer">
+                  {t.whatsappLabel}
+                </a>
+              </li>
+              <li><span>{t.locationLabel}</span></li>
             </ul>
           </div>
         </div>
@@ -83,9 +76,9 @@ export function Footer() {
         <div className="hx-footer-bottom">
           <div>© 2026 hirnix. Усі права захищені.</div>
           <div className="legal">
-            <a href="#">Privacy</a>
-            <a href="#">Cookies</a>
-            <a href="#">Impressum</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/cookies">Cookies</a>
+            <a href="/impressum">Impressum</a>
           </div>
         </div>
       </div>

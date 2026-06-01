@@ -1,7 +1,11 @@
 import { ArrowUpRight, Bell, Lock, Phone, Navigation, Globe } from 'lucide-react';
 import { EdgeMesh } from './MeshGradient';
+import type { HeroT, HeroMockupT } from '@/config/i18n/types';
 
-export function Hero() {
+interface Props { t: HeroT }
+
+export function Hero({ t }: Props) {
+  const h = t.h1;
   return (
     <section className="hero edge-mesh-host" id="top">
       <EdgeMesh corner="tr" size={760} opacity={0.55} />
@@ -9,51 +13,44 @@ export function Hero() {
         <div className="hero-meta-row">
           <div className="meta-block">
             <span>· 01 / hirnix studio</span>
-            <strong>Прага · Чехія · 2026</strong>
+            <strong>{t.meta.location}</strong>
           </div>
           <div className="meta-block" style={{ alignItems: 'flex-end', textAlign: 'right' }}>
-            <span>↘ Для українського бізнесу</span>
-            <strong>Сайт · GBP · локальне SEO</strong>
+            <span>{t.meta.audience}</span>
+            <strong>{t.meta.services}</strong>
           </div>
         </div>
 
         <h1 className="hero-title">
-          Сайт, <span className="ital">Google-профіль</span> і<br />
-          <span className="hl">онлайн-присутність</span><br />
-          для вашого бізнесу <span className="accent">в&nbsp;Чехії.</span>
+          {h.pre}<span className="ital">{h.italic}</span>{h.mid}<br />
+          <span className="hl">{h.highlight}</span><br />
+          {h.after} <span className="accent">{h.accent}</span>
         </h1>
 
         <div className="hero-grid">
           <div className="hero-lead-block">
-            <p className="hero-lead">
-              hirnix допомагає українським підприємцям у Чехії виглядати
-              професійно онлайн, бути зрозумілими для місцевих клієнтів і
-              отримувати більше заявок через сайт, Google та соціальні мережі.
-            </p>
+            <p className="hero-lead">{t.lead}</p>
             <div className="hero-actions">
               <a href="#cta" className="btn btn-primary btn-lg">
-                Обговорити мій бізнес
+                {t.cta1}
                 <ArrowUpRight size={18} strokeWidth={2.2} />
-              </a>
-              <a href="#examples" className="btn btn-secondary btn-lg">
-                Подивитися приклади
               </a>
             </div>
             <div className="hero-fineprint">
-              <span><span className="bullet" />Перша консультація безкоштовна</span>
-              <span><span className="bullet" />Українською мовою</span>
-              <span><span className="bullet" />Без складної технічної мови</span>
+              {t.fineprint.map((f, i) => (
+                <span key={i}><span className="bullet" />{f}</span>
+              ))}
             </div>
           </div>
 
-          <HeroMockup />
+          <HeroMockup m={t.mockup} />
         </div>
       </div>
     </section>
   );
 }
 
-function HeroMockup() {
+function HeroMockup({ m }: { m: HeroMockupT }) {
   return (
     <div className="hero-mockup">
       <div className="mk-lang">
@@ -66,10 +63,10 @@ function HeroMockup() {
           <Bell size={18} strokeWidth={2} />
         </div>
         <div className="mk-notif-body">
-          <div className="mk-notif-title">Нова заявка</div>
-          <div className="mk-notif-msg">Олена — манікюр у п'ятницю о 16:00</div>
+          <div className="mk-notif-title">{m.notifTitle}</div>
+          <div className="mk-notif-msg">{m.notifMsg}</div>
         </div>
-        <div className="mk-notif-time">щойно</div>
+        <div className="mk-notif-time">{m.notifTime}</div>
       </div>
 
       <div className="mk-card mk-browser" style={{ flex: 1 }}>
@@ -86,20 +83,21 @@ function HeroMockup() {
           <div className="mk-site-head">
             <div className="mk-site-logo">studio mariia<span className="dot" /></div>
             <div className="mk-site-nav">
-              <span>Послуги</span>
-              <span>Майстри</span>
-              <span>Контакти</span>
+              {m.siteNav.map((label) => <span key={label}>{label}</span>)}
             </div>
           </div>
           <div className="mk-site-hero">
-            Краса і догляд<br /><span className="accent">у самому центрі Праги</span>
+            {m.siteHeadline.includes(' у ') || m.siteHeadline.includes(' v ')
+              ? (() => {
+                  const parts = m.siteHeadline.split(/( у | v )/);
+                  return <>{parts[0]}<br /><span className="accent">{parts.slice(1).join('')}</span></>;
+                })()
+              : m.siteHeadline}
           </div>
-          <div className="mk-site-lead">
-            Манікюр, брови, макіяж · працюємо українською та чеською.
-          </div>
+          <div className="mk-site-lead">{m.siteLead}</div>
           <div className="mk-cta-row">
-            <span className="mk-mini-btn">Записатися</span>
-            <span className="mk-mini-btn ghost">Прайс</span>
+            <span className="mk-mini-btn">{m.siteCta1}</span>
+            <span className="mk-mini-btn ghost">{m.siteCta2}</span>
           </div>
           <div className="mk-gallery">
             <div /><div /><div />
@@ -111,17 +109,17 @@ function HeroMockup() {
         <div className="mk-gbp-header">
           <div className="mk-gbp-avatar">SM</div>
           <div>
-            <div className="mk-gbp-title">Studio Mariia · Praha 2</div>
+            <div className="mk-gbp-title">{m.gbpName}</div>
             <div className="mk-gbp-rating">
               <span className="stars">★★★★★</span>
-              <span style={{ color: 'var(--text-muted)' }}>4.9 · 87 відгуків</span>
+              <span style={{ color: 'var(--text-muted)' }}>{m.gbpRating}</span>
             </div>
           </div>
         </div>
         <div className="mk-gbp-actions">
-          <div className="mk-gbp-action"><Phone size={12} strokeWidth={2} />Зв'язок</div>
-          <div className="mk-gbp-action"><Navigation size={12} strokeWidth={2} />Маршрут</div>
-          <div className="mk-gbp-action"><Globe size={12} strokeWidth={2} />Сайт</div>
+          <div className="mk-gbp-action"><Phone size={12} strokeWidth={2} />{m.gbpContact}</div>
+          <div className="mk-gbp-action"><Navigation size={12} strokeWidth={2} />{m.gbpRoute}</div>
+          <div className="mk-gbp-action"><Globe size={12} strokeWidth={2} />{m.gbpSite}</div>
         </div>
       </div>
     </div>

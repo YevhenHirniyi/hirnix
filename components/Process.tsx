@@ -1,65 +1,26 @@
 import { ArrowUpRight } from 'lucide-react';
+import type { ProcessT } from '@/config/i18n/types';
 
-const steps = [
-  {
-    num: '01',
-    title: 'Безкоштовна консультація',
-    body: 'Розбираємо ваш бізнес, послуги, клієнтів, поточну ситуацію і цілі.',
-    when: '20–30 хв · Telegram або відеодзвінок',
-  },
-  {
-    num: '02',
-    title: 'Пропозиція та прорахунок',
-    body: 'Готуємо індивідуальний план: етапи, терміни та фінальна вартість.',
-    when: 'Після консультації',
-  },
-  {
-    num: '03',
-    title: 'Матеріали та старт',
-    body: 'Ви надсилаєте фото, тексти, послуги. Немає матеріалів — допомагаємо зібрати структуру.',
-    when: 'День 1–2',
-  },
-  {
-    num: '04',
-    title: 'Дизайн і перша версія',
-    body: 'Створюємо перший варіант сайту. Ви переглядаєте, даєте коментарі, ми вносимо правки.',
-    when: 'День 3–6',
-  },
-  {
-    num: '05',
-    title: 'SEO, Google і техніка',
-    body: 'Базове SEO, Google Business Profile, аналітика, форми заявок, мобільна адаптація.',
-    when: 'День 7–9',
-  },
-  {
-    num: '06',
-    title: 'Запуск і доступи',
-    body: 'Перевіряємо сайт, підключаємо домен, передаємо доступи та інструкцію.',
-    when: 'День 10',
-  },
-];
+interface Props { t: ProcessT }
 
-export function Process() {
+export function Process({ t }: Props) {
   return (
     <section className="section section-soft" id="process">
       <div className="container">
         <div className="section-head">
           <div>
-            <span className="eyebrow"><span className="dot" />Процес</span>
+            <span className="eyebrow"><span className="dot" />{t.eyebrow}</span>
             <h2 className="section-label" style={{ marginTop: 16 }}>
-              Чітко, передбачувано,<br />
-              <span className="glue">без зайвого</span>{' '}
-              <span style={{ color: 'var(--brand-primary)' }}>хаосу.</span>
+              {t.h2.pre}<br />
+              <span className="glue">{t.h2.mid}</span>{' '}
+              <span style={{ color: 'var(--brand-primary)' }}>{t.h2.accent}</span>
             </h2>
           </div>
-          <p className="lead">
-            Шість зрозумілих кроків від першої розмови до запуску.
-            Ми завжди скажемо, де ми зараз, що відбувається далі і коли чекати наступний крок.
-          </p>
+          <p className="lead">{t.lead}</p>
         </div>
 
         <div className="process-shell">
-          {steps.map((s, i) => (
+          {t.steps.map((s, i) => (
             <article key={i} className="process-step">
               <div className="num-row">
                 <span>STEP / {s.num}</span>

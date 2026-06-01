@@ -1,43 +1,44 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, ChevronDown, ArrowUpRight } from 'lucide-react';
+import { Check, ChevronDown, ArrowUpRight, Loader2 } from 'lucide-react';
+import type { CalcT } from '@/config/i18n/types';
 
-const factors = [
-  'Кількість сторінок',
-  'Кількість мов',
-  'Обсяг текстів',
-  'Наявність фото',
-  'Google Business Profile',
-  'SEO-налаштування',
-  'Інтеграції та форми',
-  'Терміновість запуску',
-];
+interface ContactFormProps {
+  t: CalcT;
+  pages: string;
+  langs: string;
+  scope: string;
+}
 
-const bizOptions = [
-  'Салон краси / манікюр',
-  'Ресторан / кафе',
-  'Будівництво / ремонт',
-  'Клінінг',
-  'Фото / відео',
-  'Юридичні послуги',
-  'Доставка / логістика',
-  'Репетитор / курси',
-  'Автосервіс',
-  'Інший локальний сервіс',
-];
-
-function ContactForm() {
+function ContactForm({ t, pages, langs, scope }: ContactFormProps) {
   const [name, setName] = useState('');
   const [biz, setBiz] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, biz, email, phone, pages, langs, scope }),
+      });
+
+      if (!res.ok) throw new Error('server');
+      setSent(true);
+    } catch {
+      setError('Щось пішло не так. Напишіть нам у Telegram.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (sent) {
@@ -47,10 +48,8 @@ function ContactForm() {
           <Check size={18} strokeWidth={2.5} />
         </div>
         <div>
-          <div className="form-sent-title">Дякуємо, {name || 'друже'}!</div>
-          <p className="form-sent-msg">
-            Отримали вашу заявку. Напишемо в Telegram або на email протягом кількох годин.
-          </p>
+          <div className="form-sent-title">{t.sentTitlePrefix}{name || t.sentTitleFallback}!</div>
+          <p className="form-sent-msg">{t.sentMsg}</p>
         </div>
       </div>
     );
@@ -59,20 +58,20 @@ function ContactForm() {
   return (
     <form className="hx-form" onSubmit={onSubmit}>
       <div className="form-row">
-        <label htmlFor="cf-name">Ім'я та прізвище</label>
+        <label htmlFor="cf-name">{t.nameLabel}</label>
         <input
           id="cf-name"
           type="text"
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Олена Коваленко"
+          placeholder={t.namePlaceholder}
           autoComplete="name"
         />
       </div>
 
       <div className="form-row">
-        <label htmlFor="cf-biz">Тип бізнесу</label>
+        <label htmlFor="cf-biz">{t.bizLabel}</label>
         <div className="select-wrap">
           <select
             id="cf-biz"
@@ -80,8 +79,8 @@ function ContactForm() {
             value={biz}
             onChange={(e) => setBiz(e.target.value)}
           >
-            <option value="">Оберіть напрям…</option>
-            {bizOptions.map((o) => (
+            <option value="">{t.bizPlaceholder}</option>
+            {t.bizOptions.map((o) => (
               <option key={o} value={o}>{o}</option>
             ))}
           </select>
@@ -91,7 +90,7 @@ function ContactForm() {
 
       <div className="form-row form-row-2">
         <div>
-          <label htmlFor="cf-email">Email</label>
+          <label htmlFor="cf-email">{t.emailLabel}</label>
           <input
             id="cf-email"
             type="email"
@@ -103,25 +102,32 @@ function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="cf-phone">Номер телефону</label>
+          <label htmlFor="cf-phone">{t.phoneLabel}</label>
           <input
             id="cf-phone"
             type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="+420 …"
+            placeholder={t.phonePlaceholder}
             autoComplete="tel"
           />
         </div>
       </div>
 
+      {error && (
+        <p style={{ fontSize: 13, color: 'var(--brand-primary)', margin: 0 }}>{error}</p>
+      )}
+
       <button
         type="submit"
+        disabled={loading}
         className="btn btn-primary btn-md"
-        style={{ width: '100%', justifyContent: 'center', marginTop: 6 }}
+        style={{ width: '100%', justifyContent: 'center', marginTop: 6, opacity: loading ? 0.7 : 1 }}
       >
-        Отримати прорахунок
-        <ArrowUpRight size={16} strokeWidth={2.2} />
+        {loading
+          ? <Loader2 size={16} strokeWidth={2} style={{ animation: 'spin 1s linear infinite' }} />
+          : t.submitLabel}
+        {!loading && <ArrowUpRight size={16} strokeWidth={2.2} />}
       </button>
     </form>
   );
@@ -150,29 +156,26 @@ const groupLabel: React.CSSProperties = {
   marginBottom: 8,
 };
 
-export function Calc() {
-  const [pages, setPages] = useState('одна-сторінка');
-  const [langs, setLangs] = useState('ua-cz');
-  const [scope, setScope] = useState('full');
+interface Props { t: CalcT }
+
+export function Calc({ t }: Props) {
+  const [pages, setPages] = useState(t.formatOptions[0].v);
+  const [langs, setLangs] = useState(t.langOptions[1].v);
+  const [scope, setScope] = useState(t.scopeOptions[1].v);
 
   return (
     <section className="section section-soft" id="calc">
       <div className="container">
         <div className="calc-shell">
           <div>
-            <span className="eyebrow"><span className="dot" />Прорахунок</span>
+            <span className="eyebrow"><span className="dot" />{t.eyebrow}</span>
             <h2 style={{ marginTop: 16 }}>
-              Вартість залежить<br />
-              <span className="ital">від задачі,</span><br />
-              обсягу та цілей.
+              {t.h2.pre}<br />
+              <span className="ital">{t.h2.italic}</span><br />
+              {t.h2.post}
             </h2>
-            <p className="lead">
-              Ми не показуємо фіксовані ціни — кожен бізнес має різні потреби.
-              Після короткої консультації підготуємо зрозумілий прорахунок саме
-              під вашу ситуацію.
-            </p>
             <div className="calc-factors mt-32">
-              {factors.map((f, i) => (
+              {t.factors.map((f, i) => (
                 <div key={i} className="calc-factor">
                   <Check size={14} strokeWidth={2.4} style={{ color: 'var(--brand-primary)', flexShrink: 0, marginTop: 2 }} />
                   <span>{f}</span>
@@ -184,20 +187,16 @@ export function Calc() {
           <div className="calc-summary">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
               <span className="eyebrow"><span className="dot" />Залишити заявку</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>~ 2 хв</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>{t.timeLabel}</span>
             </div>
             <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15, margin: '2px 0 4px', color: 'var(--text-primary)' }}>
-              Розкажіть про <span className="ital" style={{ fontFamily: '"Times New Roman", serif', fontWeight: 400 }}>бізнес.</span>
+              <span className="ital" style={{ fontFamily: '"Times New Roman", serif', fontWeight: 400 }}>{t.formHeading}</span>
             </h3>
 
             <div>
-              <label style={groupLabel}>Формат</label>
+              <label style={groupLabel}>{t.groupFormat}</label>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {[
-                  { v: 'одна-сторінка', l: 'Лендинг' },
-                  { v: 'кілька-сторінок', l: '3–5 сторінок' },
-                  { v: 'багатосторінковий', l: 'Багато сторінок' },
-                ].map((o) => (
+                {t.formatOptions.map((o) => (
                   <button key={o.v} type="button" onClick={() => setPages(o.v)} style={pillStyle(pages === o.v)}>
                     {o.l}
                   </button>
@@ -206,13 +205,9 @@ export function Calc() {
             </div>
 
             <div>
-              <label style={groupLabel}>Мови</label>
+              <label style={groupLabel}>{t.groupLangs}</label>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {[
-                  { v: 'ua', l: 'UA' },
-                  { v: 'ua-cz', l: 'UA + CZ' },
-                  { v: 'ua-cz-en', l: 'UA + CZ + EN' },
-                ].map((o) => (
+                {t.langOptions.map((o) => (
                   <button key={o.v} type="button" onClick={() => setLangs(o.v)} style={pillStyle(langs === o.v)}>
                     {o.l}
                   </button>
@@ -221,13 +216,9 @@ export function Calc() {
             </div>
 
             <div>
-              <label style={groupLabel}>Обсяг</label>
+              <label style={groupLabel}>{t.groupScope}</label>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {[
-                  { v: 'site', l: 'Тільки сайт' },
-                  { v: 'full', l: '+ Google + SEO' },
-                  { v: 'full-ads', l: '+ реклама' },
-                ].map((o) => (
+                {t.scopeOptions.map((o) => (
                   <button key={o.v} type="button" onClick={() => setScope(o.v)} style={pillStyle(scope === o.v)}>
                     {o.l}
                   </button>
@@ -236,12 +227,10 @@ export function Calc() {
             </div>
 
             <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: 18, marginTop: 4 }}>
-              <ContactForm />
+              <ContactForm t={t} pages={pages} langs={langs} scope={scope} />
             </div>
 
-            <p className="footnote">
-              Натискаючи кнопку, ви погоджуєтесь з обробкою даних. Без спаму — лише відповідь по справі.
-            </p>
+            <p className="footnote">{t.footnote}</p>
           </div>
         </div>
       </div>
