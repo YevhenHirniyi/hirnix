@@ -27,7 +27,7 @@ export default function PrivacyPage() {
 
             <h3>1. Хто ми</h3>
             <p>
-              Ця Політика конфіденційності стосується сайту <strong>hirnix.cz</strong>, що
+              Ця Політика конфіденційності стосується сайту <strong>hirnix.studio</strong>, що
               належить та управляється hirnix studio (надалі — «ми», «hirnix»).
               Контактний email: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
@@ -104,7 +104,7 @@ export default function PrivacyPage() {
 
             <h3>1. Kdo jsme</h3>
             <p>
-              Tyto zásady ochrany osobních údajů se vztahují na web <strong>hirnix.cz</strong>,
+              Tyto zásady ochrany osobních údajů se vztahují na web <strong>hirnix.studio</strong>,
               provozovaný hirnix studio. Kontaktní e-mail: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
 

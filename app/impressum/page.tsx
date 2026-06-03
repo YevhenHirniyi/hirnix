@@ -5,7 +5,7 @@ import uk from '@/config/i18n/uk';
 
 export const metadata: Metadata = {
   title: 'Impressum | hirnix',
-  description: 'Identifikační údaje provozovatele webu hirnix.cz.',
+  description: 'Identifikační údaje provozovatele webu hirnix.studio.',
 };
 
 export default function ImpressumPage() {
@@ -53,7 +53,7 @@ export default function ImpressumPage() {
                 </tr>
                 <tr>
                   <td style={{ padding: '12px 0', fontWeight: 600, color: 'var(--text-muted)' }}>Web</td>
-                  <td style={{ padding: '12px 0' }}>hirnix.cz</td>
+                  <td style={{ padding: '12px 0' }}>hirnix.studio</td>
                 </tr>
               </tbody>
             </table>
@@ -62,7 +62,7 @@ export default function ImpressumPage() {
           <section style={{ marginBottom: 48 }}>
             <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Odpovědnost za obsah</h2>
             <p>
-              Provozovatel tohoto webu je odpovědný za obsah zveřejněný na hirnix.cz.
+              Provozovatel tohoto webu je odpovědný za obsah zveřejněný na hirnix.studio.
               Obsah je průběžně aktualizován. Přestože usilujeme o správnost a úplnost
               informací, nepřebíráme odpovědnost za jejich aktuálnost nebo přesnost.
             </p>
@@ -79,7 +79,7 @@ export default function ImpressumPage() {
           <section>
             <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Авторські права</h2>
             <p>
-              Усі матеріали сайту hirnix.cz (тексти, графіка, логотипи) є власністю
+              Усі матеріали сайту hirnix.studio (тексти, графіка, логотипи) є власністю
               hirnix studio. Використання без письмового дозволу заборонено.
             </p>
           </section>

@@ -5,7 +5,7 @@ import uk from '@/config/i18n/uk';
 
 export const metadata: Metadata = {
   title: 'Cookies | hirnix',
-  description: 'Política cookies hirnix.cz — jak používáme soubory cookie.',
+  description: 'Política cookies hirnix.studio — jak používáme soubory cookie.',
 };
 
 export default function CookiesPage() {

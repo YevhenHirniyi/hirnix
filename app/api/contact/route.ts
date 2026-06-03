@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     };
 
     const text = [
-      '🆕 *Нова заявка з hirnix.cz*',
+      '🆕 *Нова заявка з hirnix.studio*',
       '',
       `👤 *Ім'я:* ${name}`,
       `💼 *Бізнес:* ${biz || '—'}`,
