@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             <p>
               Ця Політика конфіденційності стосується сайту <strong>hirnix.cz</strong>, що
               належить та управляється hirnix studio (надалі — «ми», «hirnix»).
-              Контактний email: <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>.
+              Контактний email: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
 
             <h3>2. Які дані ми збираємо</h3>
@@ -81,7 +81,7 @@ export default function PrivacyPage() {
               <li>Подати скаргу до Úřad pro ochranu osobních údajů (ÚOOÚ).</li>
             </ul>
             <p>
-              Для реалізації прав звертайтесь: <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>.
+              Для реалізації прав звертайтесь: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
 
             <h3>8. Cookies</h3>
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
             <h3>1. Kdo jsme</h3>
             <p>
               Tyto zásady ochrany osobních údajů se vztahují na web <strong>hirnix.cz</strong>,
-              provozovaný hirnix studio. Kontaktní e-mail: <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>.
+              provozovaný hirnix studio. Kontaktní e-mail: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
 
             <h3>2. Jaké údaje zpracováváme</h3>
@@ -152,7 +152,7 @@ export default function PrivacyPage() {
               <li>Podání stížnosti u Úřadu pro ochranu osobních údajů (ÚOOÚ).</li>
             </ul>
             <p>
-              Kontakt: <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>.
+              Kontakt: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
 
             <h3>8. Cookies</h3>

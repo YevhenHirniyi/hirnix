@@ -71,7 +71,7 @@ export default function CookiesPage() {
             <p>
               Ви можете в будь-який момент змінити або відкликати згоду на cookies через
               налаштування браузера або звернувшись до нас за адресою{' '}
-              <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>.
+              <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
             <p>
               Інструкції для популярних браузерів:
@@ -140,7 +140,7 @@ export default function CookiesPage() {
             <p>
               Svůj souhlas s cookies můžete kdykoli změnit nebo odvolat prostřednictvím
               nastavení prohlížeče nebo kontaktováním na{' '}
-              <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>.
+              <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
             </p>
 
             <h3>Více informací</h3>

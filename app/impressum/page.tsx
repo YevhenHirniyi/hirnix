@@ -48,7 +48,7 @@ export default function ImpressumPage() {
                 <tr style={{ borderBottom: '1px solid var(--border-light)' }}>
                   <td style={{ padding: '12px 0', fontWeight: 600, color: 'var(--text-muted)' }}>E-mail</td>
                   <td style={{ padding: '12px 0' }}>
-                    <a href="mailto:hello@hirnix.cz">hello@hirnix.cz</a>
+                    <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>
                   </td>
                 </tr>
                 <tr>
