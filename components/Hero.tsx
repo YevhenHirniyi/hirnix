@@ -15,7 +15,7 @@ export function Hero({ t }: Props) {
             <span>· 01 / hirnix studio</span>
             <strong>{t.meta.location}</strong>
           </div>
-          <div className="meta-block" style={{ alignItems: 'flex-end', textAlign: 'right' }}>
+          <div className="meta-block meta-block--right">
             <span>{t.meta.audience}</span>
             <strong>{t.meta.services}</strong>
           </div>
