@@ -103,6 +103,7 @@ export interface CalcT {
   h2: { pre: string; italic: string; post: string };
   factors: string[];
   formHeading: string;
+  formEyebrow: string;
   nameLabel: string;
   namePlaceholder: string;
   bizLabel: string;
@@ -115,6 +116,8 @@ export interface CalcT {
   sentTitlePrefix: string;
   sentTitleFallback: string;
   sentMsg: string;
+  errorMsg: string;
+  errorPhoneInvalid: string;
   groupFormat: string;
   groupLangs: string;
   groupScope: string;
@@ -165,6 +168,7 @@ export interface FooterT {
   telegramLabel: string;
   whatsappLabel: string;
   locationLabel: string;
+  copyright: string;
 }
 
 export interface SiteT {

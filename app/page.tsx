@@ -1,4 +1,5 @@
-import uk from '@/config/i18n/uk';
+import type { Metadata } from 'next';
+import { getSiteContent } from '@/lib/content'
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Hero, Marquee } from '@/components/Hero';
@@ -12,11 +13,39 @@ import { Examples } from '@/components/Examples';
 import { Calc } from '@/components/Calc';
 import { FAQ } from '@/components/FAQ';
 import { FinalCTA } from '@/components/FinalCTA';
+import { JsonLd } from '@/components/JsonLd';
 
-export default function Home() {
-  const t = uk;
+export const metadata: Metadata = {
+  title: 'hirnix — Сайти та Google Business для українців у Чехії',
+  description: 'hirnix допомагає українським підприємцям у Чехії виглядати професійно онлайн. Сайти, Google Business Profile, локальне SEO. Перша консультація безкоштовна.',
+  alternates: {
+    canonical: 'https://hirnix.studio',
+    languages: {
+      'uk': 'https://hirnix.studio',
+      'cs': 'https://hirnix.studio/cz',
+      'x-default': 'https://hirnix.studio',
+    },
+  },
+  openGraph: {
+    title: 'hirnix — Сайти та Google Business для українців у Чехії',
+    description: 'Допомагаємо українським підприємцям у Чехії бути видимими онлайн: сайти, Google Business Profile, локальне SEO.',
+    url: 'https://hirnix.studio',
+    locale: 'uk_UA',
+    alternateLocale: ['cs_CZ'],
+  },
+  twitter: {
+    title: 'hirnix — Сайти та Google Business для українців у Чехії',
+    description: 'Допомагаємо українським підприємцям у Чехії бути видимими онлайн.',
+  },
+};
+
+export const dynamic = 'force-dynamic'
+
+export default async function Home() {
+  const t = await getSiteContent('uk')
   return (
     <>
+      <JsonLd lang="uk" faqItems={t.faq.items} />
       <Header t={t.header} />
 
       <Marquee items={t.marqueeTop} />

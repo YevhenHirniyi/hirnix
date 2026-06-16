@@ -1,4 +1,4 @@
-import { Send, Mail, MapPin, Clock, ArrowUpRight } from 'lucide-react';
+import { Send, Mail, MapPin, Clock } from 'lucide-react';
 import contacts from '@/config/contacts';
 import type { FinalCTAT } from '@/config/i18n/types';
 

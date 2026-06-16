@@ -40,6 +40,9 @@ yarn-error.log*
 .open-next/
 .wrangler/
 
+# supabase CLI local state
+supabase/.temp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

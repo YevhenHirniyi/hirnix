@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import cz from '@/config/i18n/cz';
+import { getSiteContent } from '@/lib/content';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Hero, Marquee } from '@/components/Hero';
@@ -13,16 +13,41 @@ import { Examples } from '@/components/Examples';
 import { Calc } from '@/components/Calc';
 import { FAQ } from '@/components/FAQ';
 import { FinalCTA } from '@/components/FinalCTA';
+import { JsonLd } from '@/components/JsonLd';
+import { LangSetter } from '@/components/LangSetter';
 
 export const metadata: Metadata = {
   title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
   description: 'hirnix pomáhá ukrajinským podnikatelům v Česku vypadat profesionálně online. Weby, Google Business Profile, lokální SEO. První konzultace zdarma.',
+  alternates: {
+    canonical: 'https://hirnix.studio/cz',
+    languages: {
+      'cs': 'https://hirnix.studio/cz',
+      'uk': 'https://hirnix.studio',
+      'x-default': 'https://hirnix.studio',
+    },
+  },
+  openGraph: {
+    title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
+    description: 'Pomáháme ukrajinským podnikatelům v Česku být viditelní online: weby, Google Business Profile, lokální SEO.',
+    url: 'https://hirnix.studio/cz',
+    locale: 'cs_CZ',
+    alternateLocale: ['uk_UA'],
+  },
+  twitter: {
+    title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
+    description: 'Pomáháme ukrajinským podnikatelům v Česku být viditelní online.',
+  },
 };
 
-export default function CZHome() {
-  const t = cz;
+export const dynamic = 'force-dynamic'
+
+export default async function CZHome() {
+  const t = await getSiteContent('cz');
   return (
     <>
+      <LangSetter lang="cs" />
+      <JsonLd lang="cz" faqItems={t.faq.items} />
       <Header t={t.header} />
 
       <Marquee items={t.marqueeTop} />

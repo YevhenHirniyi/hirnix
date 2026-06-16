@@ -71,7 +71,7 @@ export function Footer({ t }: Props) {
         </div>
 
         <div className="hx-footer-bottom">
-          <div>© 2026 hirnix. Усі права захищені.</div>
+          <div>{t.copyright}</div>
           <div className="legal">
             <a href="/privacy">Privacy</a>
             <a href="/cookies">Cookies</a>

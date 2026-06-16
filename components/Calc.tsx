@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import { Check, ChevronDown, ArrowUpRight, Loader2 } from 'lucide-react';
 import type { CalcT } from '@/config/i18n/types';
 
@@ -15,27 +16,33 @@ function ContactForm({ t, pages, langs, scope }: ContactFormProps) {
   const [name, setName] = useState('');
   const [biz, setBiz] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState<string | undefined>(undefined);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+
+    if (phone && !isValidPhoneNumber(phone)) {
+      setError(t.errorPhoneInvalid);
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, biz, email, phone, pages, langs, scope }),
+        body: JSON.stringify({ name, biz, email, phone: phone || '', pages, langs, scope }),
       });
 
       if (!res.ok) throw new Error('server');
       setSent(true);
     } catch {
-      setError('Щось пішло не так. Напишіть нам у Telegram.');
+      setError(t.errorMsg);
     } finally {
       setLoading(false);
     }
@@ -102,20 +109,19 @@ function ContactForm({ t, pages, langs, scope }: ContactFormProps) {
           />
         </div>
         <div>
-          <label htmlFor="cf-phone">{t.phoneLabel}</label>
-          <input
-            id="cf-phone"
-            type="tel"
+          <label>{t.phoneLabel}</label>
+          <PhoneInput
+            defaultCountry="CZ"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={setPhone}
             placeholder={t.phonePlaceholder}
-            autoComplete="tel"
+            international
           />
         </div>
       </div>
 
       {error && (
-        <p style={{ fontSize: 13, color: 'var(--brand-primary)', margin: 0 }}>{error}</p>
+        <p style={{ fontSize: 13, color: '#c0392b', margin: 0 }}>{error}</p>
       )}
 
       <button
@@ -186,7 +192,7 @@ export function Calc({ t }: Props) {
 
           <div className="calc-summary">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
-              <span className="eyebrow"><span className="dot" />Залишити заявку</span>
+              <span className="eyebrow"><span className="dot" />{t.formEyebrow}</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-muted)' }}>{t.timeLabel}</span>
             </div>
             <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15, margin: '2px 0 4px', color: 'var(--text-primary)' }}>

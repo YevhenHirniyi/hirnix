@@ -35,10 +35,13 @@ export function Header({ t }: Props) {
 
   const close = () => setMenuOpen(false);
 
+  const isMainPage = pathname === '/' || pathname === '/cz';
+  const logoHref = isMainPage ? (isCZ ? '/cz' : '/') : (isCZ ? '/cz' : '/');
+
   return (
     <header className={`hx-header${scrolled ? ' scrolled' : ''}`}>
       <div className="container hx-header-inner">
-        <Logo />
+        <Logo href={logoHref} />
         <nav className="hx-nav">
           {t.nav.map((item) => (
             <a key={item.href} href={item.href}>{item.label}</a>
@@ -86,9 +89,9 @@ export function Header({ t }: Props) {
   );
 }
 
-export function Logo({ size = 22 }: { size?: number }) {
+export function Logo({ size = 22, href = '/' }: { size?: number; href?: string }) {
   return (
-    <a href="#top" className="hx-logo" style={{ fontSize: size }}>
+    <a href={href} className="hx-logo" style={{ fontSize: size }}>
       hirnix
       <span
         className="hx-logo-dot"
