@@ -15,6 +15,11 @@ const scopeLabels: Record<string, string> = {
   'full-ads': '+ реклама',
 }
 
+const sourceLabels: Record<string, string> = {
+  'saas-uk': 'CRM · UA',
+  'saas-en': 'CRM · EN',
+}
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('uk-UA', {
     day: '2-digit',
@@ -63,6 +68,7 @@ export default async function LeadsPage() {
                 <th className="px-4 py-3 font-medium">Формат</th>
                 <th className="px-4 py-3 font-medium">Мова</th>
                 <th className="px-4 py-3 font-medium">Обсяг</th>
+                <th className="px-4 py-3 font-medium">Джерело</th>
                 <th className="px-4 py-3 font-medium">Дата</th>
               </tr>
             </thead>
@@ -97,6 +103,9 @@ export default async function LeadsPage() {
                   </td>
                   <td className="px-4 py-3 text-gray-300">
                     {scopeLabels[lead.scope] ?? lead.scope ?? '—'}
+                  </td>
+                  <td className="px-4 py-3 text-gray-300">
+                    {sourceLabels[lead.source] ?? lead.source ?? '—'}
                   </td>
                   <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
                     {lead.created_at ? formatDate(lead.created_at) : '—'}

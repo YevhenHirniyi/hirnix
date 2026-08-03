@@ -1,71 +1,73 @@
 import type { Metadata } from 'next';
-import { getSiteContent } from '@/lib/content'
+import { PhoneCall, NotebookPen, CalendarClock, UserX } from 'lucide-react';
+import saasUk from '@/config/i18n/saas-uk';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { Hero, Marquee } from '@/components/Hero';
-import { ForWhom } from '@/components/ForWhom';
+import { Marquee } from '@/components/Hero';
+import { SaasHero } from '@/components/SaasHero';
 import { Pain } from '@/components/Pain';
-import { Manifesto } from '@/components/Manifesto';
+import { Solution } from '@/components/Solution';
+import { Process } from '@/components/Process';
+import { Demo } from '@/components/Demo';
 import { Services } from '@/components/Services';
 import { Stats } from '@/components/Stats';
-import { Process } from '@/components/Process';
 import { Examples } from '@/components/Examples';
-import { Calc } from '@/components/Calc';
-import { FAQ } from '@/components/FAQ';
+import { BeforeAfter } from '@/components/BeforeAfter';
+import { DemoLeadForm } from '@/components/DemoLeadForm';
 import { FinalCTA } from '@/components/FinalCTA';
 import { JsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'hirnix — Сайти та Google Business для українців у Чехії',
-  description: 'hirnix допомагає українським підприємцям у Чехії виглядати професійно онлайн. Сайти, Google Business Profile, локальне SEO. Перша консультація безкоштовна.',
+  title: 'hirnix — CRM для сфери послуг',
+  description: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси. Швидкий запис для клієнта. Просте керування для бізнесу.',
   alternates: {
     canonical: 'https://hirnix.studio',
     languages: {
       'uk': 'https://hirnix.studio',
-      'cs': 'https://hirnix.studio/cz',
+      'en': 'https://hirnix.studio/en',
       'x-default': 'https://hirnix.studio',
     },
   },
   openGraph: {
-    title: 'hirnix — Сайти та Google Business для українців у Чехії',
-    description: 'Допомагаємо українським підприємцям у Чехії бути видимими онлайн: сайти, Google Business Profile, локальне SEO.',
+    title: 'hirnix — CRM для сфери послуг',
+    description: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.',
     url: 'https://hirnix.studio',
     locale: 'uk_UA',
-    alternateLocale: ['cs_CZ'],
+    alternateLocale: ['en_US'],
   },
   twitter: {
-    title: 'hirnix — Сайти та Google Business для українців у Чехії',
-    description: 'Допомагаємо українським підприємцям у Чехії бути видимими онлайн.',
+    title: 'hirnix — CRM для сфери послуг',
+    description: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.',
   },
 };
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static';
 
-export default async function Home() {
-  const t = await getSiteContent('uk')
+const painIcons = [PhoneCall, NotebookPen, CalendarClock, UserX];
+
+export default function Home() {
+  const t = saasUk;
   return (
     <>
-      <JsonLd lang="uk" faqItems={t.faq.items} />
-      <Header t={t.header} />
+      <JsonLd lang="uk" faqItems={[]} variant="saas" />
+      <Header t={t.header} langs={['uk', 'en']} />
 
       <Marquee items={t.marqueeTop} />
 
-      <Hero t={t.hero} />
+      <SaasHero t={t.hero} />
 
-      <Marquee dark separator="plus" items={t.marqueeDark} />
-
-      <ForWhom t={t.forWhom} />
-      <Pain t={t.pain} />
-      <Manifesto t={t.manifesto} />
+      <Pain t={t.pain} icons={painIcons} />
+      <Solution t={t.solution} />
+      <Process t={t.process} />
+      <Demo t={t.demo} />
       <Services t={t.services} />
       <Stats t={t.stats} />
-      <Process t={t.process} />
       <Examples t={t.examples} />
-      <Calc t={t.calc} />
-      <FAQ t={t.faq} />
-      <FinalCTA t={t.finalCta} />
+      <BeforeAfter t={t.beforeAfter} />
+      <Process t={t.startProcess} id="start" />
+      <FinalCTA t={t.finalCta} rightSlot={<DemoLeadForm t={t.demoForm} source="saas-uk" />} />
 
-      <Footer t={t.footer} />
+      <Footer t={t.footer} waHref="https://wa.me/380995542545" />
     </>
   );
 }

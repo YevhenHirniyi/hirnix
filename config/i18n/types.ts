@@ -154,8 +154,8 @@ export interface FinalCTAT {
   cta2: string;
   note1: string;
   note2: string;
-  labels: { email: string; telegram: string; location: string; schedule: string };
-  values: { location: string; schedule: string };
+  labels: { email: string; telegram: string; location?: string; schedule: string };
+  values: { location?: string; schedule: string };
 }
 
 export interface FooterT {
@@ -167,8 +167,100 @@ export interface FooterT {
   contactsHeading: string;
   telegramLabel: string;
   whatsappLabel: string;
-  locationLabel: string;
+  locationLabel?: string;
   copyright: string;
+}
+
+// ============ SaaS landing (hirnix booking CRM) ============
+
+export interface SaasHeroMockupT {
+  notifTitle: string;
+  notifMsg: string;
+  notifTime: string;
+  urlLabel: string;
+  statsTitle: string;
+  stat1Label: string; stat1Value: string;
+  stat2Label: string; stat2Value: string;
+  stat3Label: string; stat3Value: string;
+}
+
+export interface SaasHeroT {
+  h1: { pre: string; italic: string; mid: string; highlight: string; after: string; accent: string };
+  meta: { location: string; audience: string; services: string };
+  lead: string;
+  cta1: string;
+  fineprint: [string, string, string];
+  mockup: SaasHeroMockupT;
+}
+
+export interface SolutionCardT { tag: string; title: string; desc: string; items: string[] }
+
+export interface SolutionT {
+  eyebrow: string;
+  h2: { pre: string; accent: string };
+  lead: string;
+  cta: string;
+  client: SolutionCardT;
+  business: SolutionCardT;
+}
+
+export interface DemoSideT { tag: string; title: string; caption: string; alt: string }
+
+export interface DemoT {
+  eyebrow: string;
+  h2: { pre: string; accent: string };
+  lead: string;
+  client: DemoSideT;
+  business: DemoSideT;
+}
+
+export interface BeforeAfterRow { before: string; after: string }
+
+export interface BeforeAfterT {
+  eyebrow: string;
+  h2: { pre: string; mid: string; accent: string };
+  lead: string;
+  beforeLabel: string;
+  afterLabel: string;
+  rows: BeforeAfterRow[];
+}
+
+export interface DemoFormT {
+  eyebrow: string;
+  heading: string;
+  nameLabel: string;
+  namePlaceholder: string;
+  bizLabel: string;
+  bizPlaceholder: string;
+  bizOptions: string[];
+  emailLabel: string;
+  phoneLabel: string;
+  phonePlaceholder: string;
+  submitLabel: string;
+  sentTitlePrefix: string;
+  sentTitleFallback: string;
+  sentMsg: string;
+  errorMsg: string;
+  errorPhoneInvalid: string;
+  footnote: string;
+}
+
+export interface SaasSiteT {
+  header: HeaderT;
+  marqueeTop: string[];
+  hero: SaasHeroT;
+  pain: PainT;
+  solution: SolutionT;
+  process: ProcessT;
+  demo: DemoT;
+  services: ServicesT;
+  stats: StatsT;
+  examples: ExamplesT;
+  beforeAfter: BeforeAfterT;
+  startProcess: ProcessT;
+  demoForm: DemoFormT;
+  finalCta: FinalCTAT;
+  footer: FooterT;
 }
 
 export interface SiteT {

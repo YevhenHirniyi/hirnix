@@ -3,15 +3,15 @@ import { Logo } from './Header';
 import contacts from '@/config/contacts';
 import type { FooterT } from '@/config/i18n/types';
 
-interface Props { t: FooterT }
+interface Props { t: FooterT; basePath?: string; waHref?: string }
 
-export function Footer({ t }: Props) {
+export function Footer({ t, basePath = '', waHref = contacts.whatsapp }: Props) {
   return (
     <footer className="hx-footer">
       <div className="container">
         <div className="hx-footer-grid">
           <div className="hx-footer-brand">
-            <Logo size={22} />
+            <Logo size={22} href={basePath || '/'} />
             <p style={{ marginTop: 14 }}>{t.brand}</p>
             <div style={{ display: 'flex', gap: 10 }}>
               <a
@@ -61,11 +61,11 @@ export function Footer({ t }: Props) {
                 </a>
               </li>
               <li>
-                <a href={contacts.whatsapp} target="_blank" rel="noopener noreferrer">
+                <a href={waHref} target="_blank" rel="noopener noreferrer">
                   {t.whatsappLabel}
                 </a>
               </li>
-              <li><span>{t.locationLabel}</span></li>
+              {t.locationLabel && <li><span>{t.locationLabel}</span></li>}
             </ul>
           </div>
         </div>
@@ -75,7 +75,6 @@ export function Footer({ t }: Props) {
           <div className="legal">
             <a href="/privacy">Privacy</a>
             <a href="/cookies">Cookies</a>
-            <a href="/impressum">Impressum</a>
           </div>
         </div>
       </div>

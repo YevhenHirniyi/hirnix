@@ -121,7 +121,7 @@ function ContactForm({ t, pages, langs, scope }: ContactFormProps) {
       </div>
 
       {error && (
-        <p style={{ fontSize: 13, color: '#c0392b', margin: 0 }}>{error}</p>
+        <p style={{ fontSize: 13, color: 'var(--color-error)', margin: 0 }}>{error}</p>
       )}
 
       <button

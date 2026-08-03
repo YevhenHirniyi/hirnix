@@ -1,17 +1,17 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import uk from '@/config/i18n/uk';
+import saasUk from '@/config/i18n/saas-uk';
 
 export const metadata: Metadata = {
   title: 'Політика конфіденційності | hirnix',
-  description: 'Політика конфіденційності hirnix studio. Zásady ochrany osobních údajů.',
+  description: 'Політика конфіденційності hirnix.',
 };
 
 export default function PrivacyPage() {
   return (
     <>
-      <Header t={uk.header} />
+      <Header t={saasUk.header} langs={['uk', 'en']} anchorHome="/" />
       <main style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="container" style={{ maxWidth: 760 }}>
           <h1 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 8 }}>
@@ -21,10 +21,7 @@ export default function PrivacyPage() {
             Чинна з 1 червня 2026 р. · Версія 1.0
           </p>
 
-          {/* Ukrainian */}
-          <section style={{ marginBottom: 64 }}>
-            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20 }}>🇺🇦 Українська версія</h2>
-
+          <section>
             <h3>1. Хто ми</h3>
             <p>
               Ця Політика конфіденційності стосується сайту <strong>hirnix.studio</strong>, що
@@ -96,79 +93,9 @@ export default function PrivacyPage() {
               доступна на цій сторінці.
             </p>
           </section>
-
-          {/* Czech */}
-          <hr style={{ border: 'none', borderTop: '1px solid var(--border-light)', marginBottom: 48 }} />
-          <section>
-            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20 }}>🇨🇿 Česká verze</h2>
-
-            <h3>1. Kdo jsme</h3>
-            <p>
-              Tyto zásady ochrany osobních údajů se vztahují na web <strong>hirnix.studio</strong>,
-              provozovaný hirnix studio. Kontaktní e-mail: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
-            </p>
-
-            <h3>2. Jaké údaje zpracováváme</h3>
-            <ul>
-              <li><strong>Kontaktní údaje</strong> — jméno, e-mail, telefonní číslo (pokud vyplníte formulář).</li>
-              <li><strong>Technické údaje</strong> — IP adresa, typ prohlížeče, operační systém, čas návštěvy (prostřednictvím analytiky).</li>
-              <li><strong>Komunikační údaje</strong> — zprávy zaslané přes Telegram, WhatsApp nebo e-mail.</li>
-            </ul>
-
-            <h3>3. Účel zpracování</h3>
-            <ul>
-              <li>Odpověď na váš dotaz nebo poptávku.</li>
-              <li>Příprava nabídky a komunikace k projektu.</li>
-              <li>Analýza návštěvnosti webu za účelem jeho zlepšení.</li>
-            </ul>
-
-            <h3>4. Právní základ (GDPR)</h3>
-            <ul>
-              <li>Plnění smlouvy nebo kroky před uzavřením smlouvy (čl. 6 odst. 1 písm. b) GDPR).</li>
-              <li>Oprávněný zájem (analytika, čl. 6 odst. 1 písm. f) GDPR).</li>
-              <li>Váš souhlas (cookies, čl. 6 odst. 1 písm. a) GDPR).</li>
-            </ul>
-
-            <h3>5. Předávání údajů třetím stranám</h3>
-            <p>
-              Vaše údaje neprodáváme. Mohou být sdíleny pouze se službami nezbytnými pro
-              provoz webu (hosting, Google Analytics). Všechny třetí strany jednají v souladu s GDPR.
-            </p>
-
-            <h3>6. Doba uchovávání</h3>
-            <p>
-              Kontaktní údaje jsou uchovávány po dobu nezbytnou pro poskytnutí služby nebo
-              do vašeho požadavku na výmaz. Technické údaje (analytika) — do 26 měsíců.
-            </p>
-
-            <h3>7. Vaše práva</h3>
-            <p>Podle GDPR máte právo na:</p>
-            <ul>
-              <li>Přístup ke svým osobním údajům.</li>
-              <li>Opravu nebo výmaz údajů.</li>
-              <li>Omezení nebo námitku proti zpracování.</li>
-              <li>Přenositelnost údajů.</li>
-              <li>Odvolání souhlasu kdykoli.</li>
-              <li>Podání stížnosti u Úřadu pro ochranu osobních údajů (ÚOOÚ).</li>
-            </ul>
-            <p>
-              Kontakt: <a href="mailto:info@hirnix.studio">info@hirnix.studio</a>.
-            </p>
-
-            <h3>8. Cookies</h3>
-            <p>
-              Více informací o cookies naleznete v naší{' '}
-              <a href="/cookies">Zásadách cookies</a>.
-            </p>
-
-            <h3>9. Změny zásad</h3>
-            <p>
-              Tyto zásady můžeme aktualizovat. Aktuální verze je vždy dostupná na této stránce.
-            </p>
-          </section>
         </div>
       </main>
-      <Footer t={uk.footer} />
+      <Footer t={saasUk.footer} />
     </>
   );
 }

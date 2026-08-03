@@ -5,14 +5,17 @@ import { usePathname, useRouter } from 'next/navigation';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import type { HeaderT } from '@/config/i18n/types';
 
-interface Props { t: HeaderT }
+interface Props { t: HeaderT; basePath?: string; langs?: Array<'uk' | 'cz' | 'en'>; anchorHome?: string }
 
-export function Header({ t }: Props) {
+export function Header({ t, basePath = '', langs = ['uk', 'cz', 'en'], anchorHome }: Props) {
+  const resolveHref = (href: string) => (anchorHome && href.startsWith('#') ? `${anchorHome}${href}` : href);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const isCZ = pathname.startsWith('/cz');
+  const isCZ = pathname === `${basePath}/cz` || pathname.startsWith(`${basePath}/cz/`);
+  const isEN = pathname === `${basePath}/en` || pathname.startsWith(`${basePath}/en/`);
+  const currentLang = isEN ? 'en' : isCZ ? 'cz' : 'uk';
 
   useEffect(() => {
     const onScroll = () => {
@@ -28,15 +31,15 @@ export function Header({ t }: Props) {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const toggleLang = () => {
+  const switchLang = (lang: 'uk' | 'cz' | 'en') => {
     setMenuOpen(false);
-    router.push(isCZ ? '/' : '/cz');
+    router.push(lang === 'uk' ? (basePath || '/') : `${basePath}/${lang}`);
   };
 
   const close = () => setMenuOpen(false);
 
-  const isMainPage = pathname === '/' || pathname === '/cz';
-  const logoHref = isMainPage ? (isCZ ? '/cz' : '/') : (isCZ ? '/cz' : '/');
+  const isMainPage = pathname === (basePath || '/') || pathname === `${basePath}/cz` || pathname === `${basePath}/en`;
+  const logoHref = isEN ? `${basePath}/en` : isCZ ? `${basePath}/cz` : (basePath || '/');
 
   return (
     <header className={`hx-header${scrolled ? ' scrolled' : ''}`}>
@@ -44,15 +47,23 @@ export function Header({ t }: Props) {
         <Logo href={logoHref} />
         <nav className="hx-nav">
           {t.nav.map((item) => (
-            <a key={item.href} href={item.href}>{item.label}</a>
+            <a key={item.href} href={resolveHref(item.href)}>{item.label}</a>
           ))}
         </nav>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button onClick={toggleLang} className="lang-pill" title="Switch language">
-            <span style={{ fontSize: 11, opacity: 0.6 }}>{isCZ ? 'UA' : 'CZ'}</span>
-            <span className="lang-current">{isCZ ? 'CZ' : 'UA'}</span>
-          </button>
-          <a href="#cta" className="btn btn-dark btn-sm hx-cta-btn">
+          <div className="lang-pill">
+            {langs.map((lang) => (
+              <button
+                key={lang}
+                onClick={() => switchLang(lang)}
+                className={currentLang === lang ? 'lang-current' : ''}
+                title={lang.toUpperCase()}
+              >
+                {lang === 'uk' ? 'UA' : lang.toUpperCase()}
+              </button>
+            ))}
+          </div>
+          <a href={resolveHref('#cta')} className="btn btn-dark btn-sm hx-cta-btn">
             {t.cta}
             <ArrowUpRight size={14} strokeWidth={2.2} />
           </a>
@@ -72,13 +83,13 @@ export function Header({ t }: Props) {
           <div className="container">
             <nav className="hx-mob-nav">
               {t.nav.map((item) => (
-                <a key={item.href} href={item.href} className="hx-mob-link" onClick={close}>
+                <a key={item.href} href={resolveHref(item.href)} className="hx-mob-link" onClick={close}>
                   {item.label}
                   <ArrowUpRight size={16} strokeWidth={2} style={{ color: 'var(--text-muted)' }} />
                 </a>
               ))}
             </nav>
-            <a href="#cta" className="btn btn-dark btn-md" style={{ width: '100%', justifyContent: 'center', marginTop: 16 }} onClick={close}>
+            <a href={resolveHref('#cta')} className="btn btn-dark btn-md" style={{ width: '100%', justifyContent: 'center', marginTop: 16 }} onClick={close}>
               {t.cta}
               <ArrowUpRight size={15} strokeWidth={2.2} />
             </a>

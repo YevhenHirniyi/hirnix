@@ -1,17 +1,20 @@
 interface FAQItem { q: string; a: string }
 
 interface JsonLdProps {
-  lang: 'uk' | 'cz';
+  lang: 'uk' | 'cz' | 'en';
   faqItems: FAQItem[];
+  variant?: 'saas' | 'studio';
+  basePath?: string;
 }
 
 const SITE_URL = 'https://hirnix.studio';
 
 // TODO: замінити на реальні дані після реєстрації бізнесу
 const BUSINESS = {
-  name: 'hirnix studio',
+  name: 'hirnix',
   email: 'info@hirnix.studio',
-  telephone: '+420607477611',
+  telephoneSaas: '+380995542545',
+  telephoneStudio: '+420607477611',
   url: SITE_URL,
   // TODO: додати точну адресу (вулиця, номер будинку) після реєстрації
   addressLocality: 'Praha',
@@ -23,39 +26,75 @@ const BUSINESS = {
   googleBusinessUrl: null as string | null,
 };
 
-export function JsonLd({ lang, faqItems }: JsonLdProps) {
-  const pageUrl = lang === 'cz' ? `${SITE_URL}/cz` : SITE_URL;
+const COPY = {
+  saas: {
+    name: {
+      uk: 'hirnix — CRM для сфери послуг',
+      en: 'hirnix — Booking CRM for Service Businesses',
+      cz: 'hirnix — CRM pro sféru služeb',
+    },
+    description: {
+      uk: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.',
+      en: '24/7 online booking and an admin dashboard for hair salons and beauty studios.',
+      cz: 'Online rezervace 24/7 a administrační panel pro kadeřnictví a salony krásy.',
+    },
+  },
+  studio: {
+    name: {
+      uk: 'hirnix studio — Сайти та Google Business для українців у Чехії',
+      en: 'hirnix studio — Websites & Google Business for Local Service Businesses',
+      cz: 'hirnix studio — Weby a Google Business pro Ukrajince v Česku',
+    },
+    description: {
+      uk: 'Сайти, Google Business Profile та локальне SEO для українських підприємців у Чехії.',
+      en: 'Websites, Google Business Profile, and local SEO for service businesses worldwide.',
+      cz: 'Weby, Google Business Profile a lokální SEO pro ukrajinské podnikatele v Česku.',
+    },
+  },
+};
+
+export function JsonLd({ lang, faqItems, variant = 'studio', basePath = '' }: JsonLdProps) {
+  const langPath = lang === 'cz' ? '/cz' : lang === 'en' ? '/en' : '';
+  const pageUrl = `${SITE_URL}${basePath}${langPath}`;
+  const inLanguage = lang === 'cz' ? 'cs' : lang === 'en' ? 'en' : 'uk';
+  const name = COPY[variant].name[lang];
+  const description = COPY[variant].description[lang];
 
   const orgSchema = {
     '@context': 'https://schema.org',
-    '@type': ['Organization', 'LocalBusiness'],
+    '@type': variant === 'saas' ? ['Organization', 'SoftwareApplication'] : ['Organization', 'LocalBusiness'],
     '@id': `${SITE_URL}/#organization`,
     name: BUSINESS.name,
     url: SITE_URL,
     logo: `${SITE_URL}/icon.png`,
     email: BUSINESS.email,
-    telephone: BUSINESS.telephone,
-    description:
-      lang === 'cz'
-        ? 'Weby, Google Business Profile a lokální SEO pro ukrajinské podnikatele v Česku.'
-        : 'Сайти, Google Business Profile та локальне SEO для українських підприємців у Чехії.',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: BUSINESS.addressLocality,
-      addressCountry: BUSINESS.addressCountry,
-    },
-    areaServed: [
-      { '@type': 'City', name: 'Praha' },
-      { '@type': 'Country', name: 'Česká republika' },
-    ],
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '19:00',
-      },
-    ],
+    telephone: variant === 'saas' ? BUSINESS.telephoneSaas : BUSINESS.telephoneStudio,
+    description,
+    ...(variant === 'studio'
+      ? {
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: BUSINESS.addressLocality,
+            addressCountry: BUSINESS.addressCountry,
+          },
+          areaServed: lang === 'en'
+            ? [{ '@type': 'Place', name: 'Worldwide' }]
+            : [
+                { '@type': 'City', name: 'Praha' },
+                { '@type': 'Country', name: 'Česká republika' },
+              ],
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+              opens: '09:00',
+              closes: '19:00',
+            },
+          ],
+        }
+      : {
+          applicationCategory: 'BusinessApplication',
+        }),
     sameAs: [
       'https://t.me/hirnix_studio',
       'https://www.instagram.com/hirnix_studio',
@@ -83,12 +122,9 @@ export function JsonLd({ lang, faqItems }: JsonLdProps) {
     '@type': 'WebPage',
     '@id': `${pageUrl}/#webpage`,
     url: pageUrl,
-    name:
-      lang === 'cz'
-        ? 'hirnix — Weby a Google Business pro Ukrajince v Česku'
-        : 'hirnix — Сайти та Google Business для українців у Чехії',
+    name,
     isPartOf: { '@id': `${SITE_URL}/#organization` },
-    inLanguage: lang === 'cz' ? 'cs' : 'uk',
+    inLanguage,
   };
 
   return (

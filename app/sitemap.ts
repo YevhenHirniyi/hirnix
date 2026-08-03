@@ -12,10 +12,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${base}/cz`,
+      url: `${base}/en`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${base}/websites`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${base}/websites/cz`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/websites/en`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
     },
     {
       url: `${base}/privacy`,
@@ -25,12 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${base}/cookies`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.2,
-    },
-    {
-      url: `${base}/impressum`,
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.2,

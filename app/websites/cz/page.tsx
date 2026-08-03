@@ -17,38 +17,39 @@ import { JsonLd } from '@/components/JsonLd';
 import { LangSetter } from '@/components/LangSetter';
 
 export const metadata: Metadata = {
-  title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
+  title: 'hirnix studio — Weby a Google Business pro Ukrajince v Česku',
   description: 'hirnix pomáhá ukrajinským podnikatelům v Česku vypadat profesionálně online. Weby, Google Business Profile, lokální SEO. První konzultace zdarma.',
   alternates: {
-    canonical: 'https://hirnix.studio/cz',
+    canonical: 'https://hirnix.studio/websites/cz',
     languages: {
-      'cs': 'https://hirnix.studio/cz',
-      'uk': 'https://hirnix.studio',
-      'x-default': 'https://hirnix.studio',
+      'cs': 'https://hirnix.studio/websites/cz',
+      'uk': 'https://hirnix.studio/websites',
+      'en': 'https://hirnix.studio/websites/en',
+      'x-default': 'https://hirnix.studio/websites',
     },
   },
   openGraph: {
-    title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
+    title: 'hirnix studio — Weby a Google Business pro Ukrajince v Česku',
     description: 'Pomáháme ukrajinským podnikatelům v Česku být viditelní online: weby, Google Business Profile, lokální SEO.',
-    url: 'https://hirnix.studio/cz',
+    url: 'https://hirnix.studio/websites/cz',
     locale: 'cs_CZ',
-    alternateLocale: ['uk_UA'],
+    alternateLocale: ['uk_UA', 'en_US'],
   },
   twitter: {
-    title: 'hirnix — Weby a Google Business pro Ukrajince v Česku',
+    title: 'hirnix studio — Weby a Google Business pro Ukrajince v Česku',
     description: 'Pomáháme ukrajinským podnikatelům v Česku být viditelní online.',
   },
 };
 
 export const dynamic = 'force-dynamic'
 
-export default async function CZHome() {
+export default async function WebsitesCZHome() {
   const t = await getSiteContent('cz');
   return (
     <>
       <LangSetter lang="cs" />
-      <JsonLd lang="cz" faqItems={t.faq.items} />
-      <Header t={t.header} />
+      <JsonLd lang="cz" faqItems={t.faq.items} variant="studio" basePath="/websites" />
+      <Header t={t.header} basePath="/websites" />
 
       <Marquee items={t.marqueeTop} />
 
@@ -67,7 +68,7 @@ export default async function CZHome() {
       <FAQ t={t.faq} />
       <FinalCTA t={t.finalCta} />
 
-      <Footer t={t.footer} />
+      <Footer t={t.footer} basePath="/websites" />
     </>
   );
 }

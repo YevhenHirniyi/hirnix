@@ -3,11 +3,11 @@ import { LucideIcon } from 'lucide-react';
 import { EdgeMesh } from './MeshGradient';
 import type { PainT } from '@/config/i18n/types';
 
-const ICONS: LucideIcon[] = [Image, SearchX, Languages, AlarmClock];
+const DEFAULT_ICONS: LucideIcon[] = [Image, SearchX, Languages, AlarmClock];
 
-interface Props { t: PainT }
+interface Props { t: PainT; icons?: LucideIcon[] }
 
-export function Pain({ t }: Props) {
+export function Pain({ t, icons = DEFAULT_ICONS }: Props) {
   return (
     <section className="section edge-mesh-host" id="pain">
       <EdgeMesh
@@ -29,7 +29,7 @@ export function Pain({ t }: Props) {
 
         <div className="pain-grid">
           {t.items.map((it, i) => {
-            const Icon = ICONS[i];
+            const Icon = icons[i];
             return (
               <div key={i} className="pain-card" style={{ transitionDelay: `${i * 60}ms` }}>
                 <div className="icon-tile">

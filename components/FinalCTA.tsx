@@ -2,13 +2,15 @@ import { Send, Mail, MapPin, Clock } from 'lucide-react';
 import contacts from '@/config/contacts';
 import type { FinalCTAT } from '@/config/i18n/types';
 
-interface Props { t: FinalCTAT }
+interface Props { t: FinalCTAT; rightSlot?: React.ReactNode }
 
-export function FinalCTA({ t }: Props) {
+export function FinalCTA({ t, rightSlot }: Props) {
   const contactRows = [
     { icon: <Mail size={16} strokeWidth={1.8} />, label: t.labels.email, val: contacts.emailDisplay },
     { icon: <Send size={16} strokeWidth={1.8} />, label: t.labels.telegram, val: '@hirnix_studio' },
-    { icon: <MapPin size={16} strokeWidth={1.8} />, label: t.labels.location, val: t.values.location },
+    ...(t.values.location
+      ? [{ icon: <MapPin size={16} strokeWidth={1.8} />, label: t.labels.location!, val: t.values.location }]
+      : []),
     { icon: <Clock size={16} strokeWidth={1.8} />, label: t.labels.schedule, val: t.values.schedule },
   ];
 
@@ -45,7 +47,7 @@ export function FinalCTA({ t }: Props) {
             </div>
 
             <div className="contact-box">
-              {contactRows.map(({ icon, label, val }) => (
+              {rightSlot ?? contactRows.map(({ icon, label, val }) => (
                 <div key={label} className="contact-row">
                   <div className="ico">{icon}</div>
                   <div>

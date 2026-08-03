@@ -15,11 +15,11 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://hirnix.studio"),
   title: {
-    default: "hirnix — Сайти та Google Business для українців у Чехії",
+    default: "hirnix — CRM для сфери послуг",
     template: "%s | hirnix",
   },
   description:
-    "hirnix допомагає українським підприємцям у Чехії виглядати професійно онлайн. Сайти, Google Business Profile, локальне SEO. Перша консультація безкоштовна.",
+    "hirnix — онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.",
   openGraph: {
     siteName: "hirnix",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "hirnix studio — сайти та Google Business для українців у Чехії",
+        alt: "hirnix — CRM для сфери послуг",
       },
     ],
   },

@@ -1,11 +1,11 @@
 import { ArrowUpRight } from 'lucide-react';
 import type { ProcessT } from '@/config/i18n/types';
 
-interface Props { t: ProcessT }
+interface Props { t: ProcessT; id?: string }
 
-export function Process({ t }: Props) {
+export function Process({ t, id = 'process' }: Props) {
   return (
-    <section className="section section-soft" id="process">
+    <section className="section section-soft" id={id}>
       <div className="container">
         <div className="section-head">
           <div>
