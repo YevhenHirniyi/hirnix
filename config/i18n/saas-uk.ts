@@ -6,7 +6,6 @@ const saasUk: SaasSiteT = {
       { label: 'Можливості', href: '#services' },
       { label: 'Як працює', href: '#process' },
       { label: 'Демо', href: '#demo' },
-      { label: 'Кому підходить', href: '#examples' },
       { label: 'Контакт', href: '#cta' },
     ],
     cta: 'Спробувати демо',
@@ -249,7 +248,6 @@ const saasUk: SaasSiteT = {
     studioLinks: [
       { label: 'Як це працює', href: '#process' },
       { label: 'Демо', href: '#demo' },
-      { label: 'Кому підходить', href: '#examples' },
       { label: 'Чому hirnix', href: '#why' },
       { label: 'Старт', href: '#start' },
     ],

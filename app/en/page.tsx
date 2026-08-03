@@ -3,7 +3,6 @@ import { PhoneCall, NotebookPen, CalendarClock, UserX } from 'lucide-react';
 import saasEn from '@/config/i18n/saas-en';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { Marquee } from '@/components/Hero';
 import { SaasHero } from '@/components/SaasHero';
 import { Pain } from '@/components/Pain';
 import { Solution } from '@/components/Solution';
@@ -11,7 +10,6 @@ import { Process } from '@/components/Process';
 import { Demo } from '@/components/Demo';
 import { Services } from '@/components/Services';
 import { Stats } from '@/components/Stats';
-import { Examples } from '@/components/Examples';
 import { BeforeAfter } from '@/components/BeforeAfter';
 import { DemoLeadForm } from '@/components/DemoLeadForm';
 import { FinalCTA } from '@/components/FinalCTA';
@@ -54,8 +52,6 @@ export default function ENHome() {
       <JsonLd lang="en" faqItems={[]} variant="saas" />
       <Header t={t.header} langs={['uk', 'en']} />
 
-      <Marquee items={t.marqueeTop} />
-
       <SaasHero t={t.hero} />
 
       <Pain t={t.pain} icons={painIcons} />
@@ -64,7 +60,6 @@ export default function ENHome() {
       <Demo t={t.demo} />
       <Services t={t.services} />
       <Stats t={t.stats} />
-      <Examples t={t.examples} />
       <BeforeAfter t={t.beforeAfter} />
       <Process t={t.startProcess} id="start" />
       <FinalCTA t={t.finalCta} rightSlot={<DemoLeadForm t={t.demoForm} source="saas-en" />} />

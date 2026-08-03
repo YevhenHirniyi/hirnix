@@ -6,7 +6,6 @@ const saasEn: SaasSiteT = {
       { label: 'Features', href: '#services' },
       { label: 'How It Works', href: '#process' },
       { label: 'Demo', href: '#demo' },
-      { label: 'Who It’s For', href: '#examples' },
       { label: 'Contact', href: '#cta' },
     ],
     cta: 'Try the Demo',
@@ -249,7 +248,6 @@ const saasEn: SaasSiteT = {
     studioLinks: [
       { label: 'How It Works', href: '#process' },
       { label: 'Demo', href: '#demo' },
-      { label: "Who It's For", href: '#examples' },
       { label: 'Why hirnix', href: '#why' },
       { label: 'Getting Started', href: '#start' },
     ],
