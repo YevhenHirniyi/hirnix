@@ -17,7 +17,7 @@ import { JsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'hirnix — CRM для сфери послуг',
-  description: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси. Швидкий запис для клієнта. Просте керування для бізнесу.',
+  description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг. Швидкий запис для клієнта. Просте керування для бізнесу.',
   alternates: {
     canonical: 'https://hirnix.studio',
     languages: {
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'hirnix — CRM для сфери послуг',
-    description: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.',
+    description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
     url: 'https://hirnix.studio',
     locale: 'uk_UA',
     alternateLocale: ['en_US'],
   },
   twitter: {
     title: 'hirnix — CRM для сфери послуг',
-    description: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.',
+    description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
   },
 };
 

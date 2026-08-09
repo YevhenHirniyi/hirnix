@@ -54,7 +54,7 @@ const en: SiteT = {
     eyebrow: 'Who We Help',
     h2: { pre: 'Local businesses', mid: 'that want to be', accent: 'found.' },
     lead: 'We work with service providers, solo operators, and small teams who need a clear online presence — without agencies that disappear after the deposit.',
-    niches: ['Beauty salons', 'Nail studios', 'Estheticians', 'Massage therapists', 'Restaurants & cafes', 'Construction crews', 'Home renovation', 'Cleaning services', 'Photographers', 'Legal services', 'Delivery & logistics', 'Tutors & coaches', 'Auto repair shops', 'Local services'],
+    niches: ['Nail studios', 'Estheticians', 'Massage therapists', 'Restaurants & cafes', 'Construction crews', 'Home renovation', 'Cleaning services', 'Photographers', 'Legal services', 'Delivery & logistics', 'Tutors & coaches', 'Auto repair shops', 'Local services'],
   },
 
   pain: {
@@ -142,7 +142,7 @@ const en: SiteT = {
     problemLabel: 'Problem',
     solutionLabel: 'What we did',
     cases: [
-      { tag: 'Beauty studio', who: 'Nail salon without a website', problem: 'Has Instagram, but no dedicated page with services, pricing, location, and booking. New clients have nowhere to land.', solution: 'Landing page with portfolio photos, booking buttons, and a Google Business listing with reviews.' },
+      { tag: 'Esthetician', who: 'Nail studio without a website', problem: 'Has Instagram, but no dedicated page with services, pricing, location, and booking. New clients have nowhere to land.', solution: 'Landing page with portfolio photos, booking buttons, and a Google Business listing with reviews.' },
       { tag: 'Contractor', who: 'Construction crew without a portfolio', problem: 'Great work and plenty of photos — but everything is scattered across chats with no way to present it to new clients.', solution: 'Built a portfolio, wrote clear service descriptions, added a lead form and Google Business Profile.' },
       { tag: 'Local service', who: 'Business invisible on Google', problem: 'Runs entirely on referrals, but new customers searching nearby cannot find them at all.', solution: 'Website, local SEO, Google Business listing, analytics, and clear contact information.' },
     ],
@@ -158,7 +158,7 @@ const en: SiteT = {
     namePlaceholder: 'Jane Smith',
     bizLabel: 'Business type',
     bizPlaceholder: 'Select your niche…',
-    bizOptions: ['Beauty salon / nail studio', 'Restaurant / cafe', 'Construction / renovation', 'Cleaning service', 'Photography / video', 'Legal services', 'Delivery / logistics', 'Tutoring / coaching', 'Auto repair shop', 'Other local service'],
+    bizOptions: ['Nail studio', 'Restaurant / cafe', 'Construction / renovation', 'Cleaning service', 'Photography / video', 'Legal services', 'Delivery / logistics', 'Tutoring / coaching', 'Auto repair shop', 'Other local service'],
     emailLabel: 'Email',
     phoneLabel: 'Phone number',
     phonePlaceholder: '+1 (555) ...',

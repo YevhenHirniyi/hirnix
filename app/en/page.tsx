@@ -18,7 +18,7 @@ import { LangSetter } from '@/components/LangSetter';
 
 export const metadata: Metadata = {
   title: 'hirnix — Booking CRM for Service Businesses',
-  description: '24/7 online booking and an admin dashboard for hair salons and beauty studios. Fast booking for clients. Simple management for the business.',
+  description: '24/7 online booking and an admin dashboard for service businesses. Fast booking for clients. Simple management for the business.',
   alternates: {
     canonical: 'https://hirnix.studio/en',
     languages: {
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'hirnix — Booking CRM for Service Businesses',
-    description: '24/7 online booking and an admin dashboard for hair salons and beauty studios.',
+    description: '24/7 online booking and an admin dashboard for service businesses.',
     url: 'https://hirnix.studio/en',
     locale: 'en_US',
     alternateLocale: ['uk_UA'],
   },
   twitter: {
     title: 'hirnix — Booking CRM for Service Businesses',
-    description: '24/7 online booking and an admin dashboard for hair salons and beauty studios.',
+    description: '24/7 online booking and an admin dashboard for service businesses.',
   },
 };
 

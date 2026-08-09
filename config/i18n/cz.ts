@@ -54,7 +54,7 @@ const cz: SiteT = {
     eyebrow: 'Pro koho',
     h2: { pre: 'Místním firmám,', mid: 'které chtějí být', accent: 'k nalezení.' },
     lead: 'Pracujeme s podnikateli, živnostníky a malými firmami, které potřebují srozumitelnou online přítomnost — bez agentur, které zmizí po záloze.',
-    niches: ['Salóny krásy', 'Nehtová studia', 'Kosmetičky', 'Maséři', 'Restaurace a kavárny', 'Stavební firmy', 'Rekonstrukce bytů', 'Úklidové služby', 'Fotografové', 'Právní služby', 'Doprava a logistika', 'Lektoři a koučové', 'Autoservisy', 'Místní služby'],
+    niches: ['Nehtová studia', 'Kosmetičky', 'Maséři', 'Restaurace a kavárny', 'Stavební firmy', 'Rekonstrukce bytů', 'Úklidové služby', 'Fotografové', 'Právní služby', 'Doprava a logistika', 'Lektoři a koučové', 'Autoservisy', 'Místní služby'],
   },
 
   pain: {
@@ -142,7 +142,7 @@ const cz: SiteT = {
     problemLabel: 'Problém',
     solutionLabel: 'Co jsme udělali',
     cases: [
-      { tag: 'Salón krásy', who: 'Nehtové studio bez webu', problem: 'Má Instagram, ale chybí samostatná stránka se službami, cenami, adresou a možností objednání. Noví zákazníci nemají kam přijít.', solution: 'Landing page s fotkami prací, tlačítky k objednání a Google Business profilem s recenzemi.' },
+      { tag: 'Kosmetička', who: 'Nehtové studio bez webu', problem: 'Má Instagram, ale chybí samostatná stránka se službami, cenami, adresou a možností objednání. Noví zákazníci nemají kam přijít.', solution: 'Landing page s fotkami prací, tlačítky k objednání a Google Business profilem s recenzemi.' },
       { tag: 'Řemeslník', who: 'Stavební firma bez portfolia', problem: 'Skvělá práce a spousta fotek — ale vše je rozházené v messengerech a nelze to ukázat potenciálnímu zákazníkovi.', solution: 'Sestavili portfolio, popsali služby, přidali kontaktní formulář a Google Business Profile.' },
       { tag: 'Místní servis', who: 'Byznys neviditelný na Google', problem: 'Funguje přes doporučení, ale noví zákazníci hledající v okolí ho vůbec nenajdou.', solution: 'Web, lokální SEO, Google karta, analytika a přehledné kontaktní informace.' },
     ],
@@ -158,7 +158,7 @@ const cz: SiteT = {
     namePlaceholder: 'Jana Nováková',
     bizLabel: 'Typ byznysu',
     bizPlaceholder: 'Vyberte obor…',
-    bizOptions: ['Salón krásy / nehtové studio', 'Restaurace / kavárna', 'Stavba / rekonstrukce', 'Úklidové služby', 'Foto / video', 'Právní služby', 'Doprava / logistika', 'Lektor / kouč', 'Autoservis', 'Jiná místní služba'],
+    bizOptions: ['Nehtové studio', 'Restaurace / kavárna', 'Stavba / rekonstrukce', 'Úklidové služby', 'Foto / video', 'Právní služby', 'Doprava / logistika', 'Lektor / kouč', 'Autoservis', 'Jiná místní služba'],
     emailLabel: 'E-mail',
     phoneLabel: 'Telefonní číslo',
     phonePlaceholder: '+420 …',

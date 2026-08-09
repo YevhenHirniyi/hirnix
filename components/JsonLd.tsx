@@ -34,9 +34,9 @@ const COPY = {
       cz: 'hirnix — CRM pro sféru služeb',
     },
     description: {
-      uk: 'Онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.',
-      en: '24/7 online booking and an admin dashboard for hair salons and beauty studios.',
-      cz: 'Online rezervace 24/7 a administrační panel pro kadeřnictví a salony krásy.',
+      uk: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
+      en: '24/7 online booking and an admin dashboard for service businesses.',
+      cz: 'Online rezervace 24/7 a administrační panel pro sféru služeb.',
     },
   },
   studio: {

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | hirnix",
   },
   description:
-    "hirnix — онлайн-запис 24/7 і панель адміністрування для перукарень і салонів краси.",
+    "hirnix — онлайн-запис 24/7 і панель адміністрування для сфери послуг.",
   openGraph: {
     siteName: "hirnix",
     type: "website",

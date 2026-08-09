@@ -11,13 +11,13 @@ const saasEn: SaasSiteT = {
     cta: 'Try the Demo',
   },
 
-  marqueeTop: ['Hair Salons', '*ital*Beauty Studios', '*ital*24/7 Online Booking'],
+  marqueeTop: ['Service Businesses', '*ital*Local Businesses', '*ital*24/7 Online Booking'],
 
   hero: {
     meta: {
       location: 'hirnix · CRM · 2026',
       audience: '↘ For service businesses',
-      services: 'Hair Salons · Beauty Studios',
+      services: 'Client Booking · Business Management',
     },
     h1: {
       pre: 'Online booking and ',
@@ -27,12 +27,12 @@ const saasEn: SaasSiteT = {
       after: '',
       accent: 'No calls, no mix-ups.',
     },
-    lead: 'hirnix is a booking CRM for hair salons and beauty studios. Clients book themselves in 30 seconds, while you see every appointment, client, and dollar of revenue on one screen.',
+    lead: 'hirnix is a booking CRM for service businesses. Clients book themselves in 30 seconds, while you see every appointment, client, and dollar of revenue on one screen.',
     cta1: 'Try the Demo',
     fineprint: ['24/7 online booking', 'One screen for the whole team', 'No install, no training'],
     mockup: {
       notifTitle: 'New booking',
-      notifMsg: 'Olga — haircut today at 2:00 PM',
+      notifMsg: 'Olga — appointment today at 2:00 PM',
       notifTime: 'just now',
       urlLabel: 'app.hirnix.studio',
       statsTitle: 'Today',
@@ -99,7 +99,7 @@ const saasEn: SaasSiteT = {
     },
     business: {
       tag: 'Admin dashboard',
-      title: 'Salon dashboard',
+      title: 'Business dashboard',
       caption: 'Bookings, revenue, and recent clients — instantly see what’s happening today.',
       alt: 'hirnix admin dashboard showing today’s bookings',
     },
@@ -108,7 +108,7 @@ const saasEn: SaasSiteT = {
   services: {
     eyebrow: 'Features',
     h2: { pre: 'Everything for', mid: '', accent: 'day-to-day work.' },
-    lead: 'Dashboard, bookings, clients, staff, services, and reports — the whole salon in one tool.',
+    lead: 'Dashboard, bookings, clients, staff, services, and reports — the whole business in one tool.',
     services: [
       {
         num: '01', title: 'Dashboard',
@@ -164,18 +164,18 @@ const saasEn: SaasSiteT = {
   examples: {
     eyebrow: "Who It's For",
     h2: 'Built for the service industry.',
-    lead: 'One tool for any salon where a client books a time slot with a specialist.',
+    lead: 'One tool for any business where a client books a time slot with a specialist.',
     problemLabel: 'The business',
     solutionLabel: 'What hirnix gives them',
     cases: [
       {
-        tag: 'Hair salon', who: 'Hair Salons',
-        problem: 'Cuts, styling, and coloring, each with a different duration.',
+        tag: 'Auto repair shop', who: 'Auto Repair Shops',
+        problem: 'Oil changes, tire service, and repairs, each with a different duration.',
         solution: 'Each service’s duration is factored in automatically — no schedule overlaps.',
       },
       {
-        tag: 'Beauty studio', who: 'Beauty Studios',
-        problem: 'Manicures, skincare, and treatments — multiple staff and services at once.',
+        tag: 'Photo studio', who: 'Photo Studios',
+        problem: 'Photo sessions, retouching, and shoots — multiple photographers and services at once.',
         solution: 'One shared calendar for every staff member and service, with full client history.',
       },
     ],
@@ -201,7 +201,7 @@ const saasEn: SaasSiteT = {
     h2: { pre: 'Live in', mid: '', accent: '4 steps.' },
     lead: 'From sign-up to your first online booking — no technical hassle.',
     steps: [
-      { num: '01', title: 'Sign up', body: 'Create your salon account in a couple of minutes.', when: 'Step 1 of 4' },
+      { num: '01', title: 'Sign up', body: 'Create your business account in a couple of minutes.', when: 'Step 1 of 4' },
       { num: '02', title: 'Services & staff', body: 'Add your service list, prices, and team.', when: 'Step 2 of 4' },
       { num: '03', title: 'Booking link', body: 'Share it on Instagram, Google, or your website.', when: 'Step 3 of 4' },
       { num: '04', title: 'Take clients', body: 'Bookings appear automatically in the dashboard.', when: 'Step 4 of 4' },
@@ -210,12 +210,12 @@ const saasEn: SaasSiteT = {
 
   demoForm: {
     eyebrow: 'Request a Demo',
-    heading: 'Tell us about your salon.',
+    heading: 'Tell us about your business.',
     nameLabel: 'Name',
     namePlaceholder: 'Your name',
     bizLabel: 'Business type',
     bizPlaceholder: 'Select your type…',
-    bizOptions: ['Hair salon', 'Beauty studio', 'Other'],
+    bizOptions: ['Auto repair shop', 'Photo studio', 'Other'],
     emailLabel: 'Email',
     phoneLabel: 'Phone',
     phonePlaceholder: '+1 …',
@@ -230,18 +230,18 @@ const saasEn: SaasSiteT = {
 
   finalCta: {
     eyebrow: 'Try hirnix',
-    h2: { pre: 'Speed up your salon', italic: 'together ', accent: 'with hirnix.' },
+    h2: { pre: 'Speed up your business', italic: 'together ', accent: 'with hirnix.' },
     lead: 'Less time on booking, more time with clients. Tell us about your business — we’ll show you how hirnix would work for you.',
     cta1: 'Message us on Telegram',
     cta2: 'Send an email',
     note1: 'We reply within a few business hours',
-    note2: 'We work with hair salons and beauty studios',
+    note2: 'We work with service businesses',
     labels: { email: 'Email', telegram: 'Telegram', schedule: 'Hours' },
     values: { schedule: 'Mon–Fri · 09:00–19:00 CET' },
   },
 
   footer: {
-    brand: '24/7 online booking and an admin dashboard for hair salons and beauty studios.',
+    brand: '24/7 online booking and an admin dashboard for service businesses.',
     servicesHeading: 'Features',
     servicesList: ['Dashboard', 'Bookings', 'Clients', 'Staff', 'Services', 'Reports'],
     studioHeading: 'hirnix',
