@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { pageMetadata } from '@/config/seo';
 import saasUk from '@/config/i18n/saas-uk';
 
-export const metadata: Metadata = {
-  title: 'Cookies | hirnix',
-  description: 'Політика cookies hirnix — як ми використовуємо файли cookie.',
-};
+export const metadata: Metadata = pageMetadata({
+  path: '/cookies',
+  locale: 'uk',
+  title: 'Cookies',
+  description:
+    'Як hirnix використовує файли cookie: необхідні та аналітичні cookies, їх призначення і керування налаштуваннями у браузері.',
+});
 
 export default function CookiesPage() {
   return (

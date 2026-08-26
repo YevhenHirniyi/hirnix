@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PhoneCall, NotebookPen, CalendarClock, UserX } from 'lucide-react';
+import { pageMetadata } from '@/config/seo';
 import saasEn from '@/config/i18n/saas-en';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -16,29 +17,14 @@ import { FinalCTA } from '@/components/FinalCTA';
 import { JsonLd } from '@/components/JsonLd';
 import { LangSetter } from '@/components/LangSetter';
 
-export const metadata: Metadata = {
-  title: 'hirnix — Booking CRM for Service Businesses',
-  description: '24/7 online booking and an admin dashboard for service businesses. Fast booking for clients. Simple management for the business.',
-  alternates: {
-    canonical: 'https://hirnix.studio/en',
-    languages: {
-      'en': 'https://hirnix.studio/en',
-      'uk': 'https://hirnix.studio',
-      'x-default': 'https://hirnix.studio',
-    },
-  },
-  openGraph: {
-    title: 'hirnix — Booking CRM for Service Businesses',
-    description: '24/7 online booking and an admin dashboard for service businesses.',
-    url: 'https://hirnix.studio/en',
-    locale: 'en_US',
-    alternateLocale: ['uk_UA'],
-  },
-  twitter: {
-    title: 'hirnix — Booking CRM for Service Businesses',
-    description: '24/7 online booking and an admin dashboard for service businesses.',
-  },
-};
+export const metadata: Metadata = pageMetadata({
+  path: '/en',
+  locale: 'en',
+  title: 'hirnix — Booking CRM for Beauty Salons & Stylists',
+  description:
+    'hirnix is a booking CRM for beauty salons and independent stylists: 24/7 online booking, client records, and revenue tracking in one dashboard.',
+  variants: [{ locale: 'uk', path: '' }],
+});
 
 export const dynamic = 'force-static';
 

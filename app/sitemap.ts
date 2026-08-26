@@ -1,30 +1,40 @@
 import type { MetadataRoute } from 'next';
+import { absoluteUrl } from '@/config/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://hirnix.studio';
   const now = new Date();
+
+  const homeAlternates = {
+    languages: {
+      uk: absoluteUrl(''),
+      en: absoluteUrl('/en'),
+      'x-default': absoluteUrl(''),
+    },
+  };
 
   return [
     {
-      url: base,
+      url: absoluteUrl(''),
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 1,
+      alternates: homeAlternates,
     },
     {
-      url: `${base}/en`,
+      url: absoluteUrl('/en'),
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
+      alternates: homeAlternates,
     },
     {
-      url: `${base}/privacy`,
+      url: absoluteUrl('/privacy'),
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: `${base}/cookies`,
+      url: absoluteUrl('/cookies'),
       lastModified: now,
       changeFrequency: 'yearly',
       priority: 0.2,

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { SITE, absoluteUrl } from '@/config/seo';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/admin/',
     },
-    sitemap: 'https://hirnix.studio/sitemap.xml',
+    sitemap: absoluteUrl('/sitemap.xml'),
+    host: SITE.url,
   };
 }

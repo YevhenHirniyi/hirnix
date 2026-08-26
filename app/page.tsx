@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PhoneCall, NotebookPen, CalendarClock, UserX } from 'lucide-react';
+import { pageMetadata } from '@/config/seo';
 import saasUk from '@/config/i18n/saas-uk';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -15,29 +16,14 @@ import { DemoLeadForm } from '@/components/DemoLeadForm';
 import { FinalCTA } from '@/components/FinalCTA';
 import { JsonLd } from '@/components/JsonLd';
 
-export const metadata: Metadata = {
-  title: 'hirnix — CRM для сфери послуг',
-  description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг. Швидкий запис для клієнта. Просте керування для бізнесу.',
-  alternates: {
-    canonical: 'https://hirnix.studio',
-    languages: {
-      'uk': 'https://hirnix.studio',
-      'en': 'https://hirnix.studio/en',
-      'x-default': 'https://hirnix.studio',
-    },
-  },
-  openGraph: {
-    title: 'hirnix — CRM для сфери послуг',
-    description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
-    url: 'https://hirnix.studio',
-    locale: 'uk_UA',
-    alternateLocale: ['en_US'],
-  },
-  twitter: {
-    title: 'hirnix — CRM для сфери послуг',
-    description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
-  },
-};
+export const metadata: Metadata = pageMetadata({
+  path: '',
+  locale: 'uk',
+  title: 'hirnix — програма для запису клієнтів салону краси',
+  description:
+    'hirnix — CRM для салону краси: онлайн-запис для клієнтів 24/7, електронний журнал запису, картки клієнтів і виручка в одному місці.',
+  variants: [{ locale: 'en', path: '/en' }],
+});
 
 export const dynamic = 'force-static';
 

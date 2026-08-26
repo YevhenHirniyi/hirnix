@@ -1,3 +1,5 @@
+import { SITE } from '@/config/seo';
+
 interface FAQItem { q: string; a: string }
 
 interface JsonLdProps {
@@ -7,7 +9,7 @@ interface JsonLdProps {
   basePath?: string;
 }
 
-const SITE_URL = 'https://hirnix.studio';
+const SITE_URL = SITE.url;
 
 // TODO: замінити на реальні дані після реєстрації бізнесу
 const BUSINESS = {
@@ -29,14 +31,14 @@ const BUSINESS = {
 const COPY = {
   saas: {
     name: {
-      uk: 'hirnix — CRM для сфери послуг',
-      en: 'hirnix — Booking CRM for Service Businesses',
-      cz: 'hirnix — CRM pro sféru služeb',
+      uk: 'hirnix — онлайн-запис і CRM для салонів краси і майстрів',
+      en: 'hirnix — Booking CRM for Beauty Salons & Independent Stylists',
+      cz: 'hirnix — CRM pro salóny krásy a kadeřnice',
     },
     description: {
-      uk: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
-      en: '24/7 online booking and an admin dashboard for service businesses.',
-      cz: 'Online rezervace 24/7 a administrační panel pro sféru služeb.',
+      uk: 'Онлайн-запис 24/7 для салонів краси і приватних майстрів.',
+      en: '24/7 online booking and an admin dashboard for beauty salons and independent stylists.',
+      cz: 'Online rezervace 24/7 pro salóny krásy a nezávislé kadeřnice.',
     },
   },
   studio: {
@@ -66,7 +68,7 @@ export function JsonLd({ lang, faqItems, variant = 'studio', basePath = '' }: Js
     '@id': `${SITE_URL}/#organization`,
     name: BUSINESS.name,
     url: SITE_URL,
-    logo: `${SITE_URL}/icon.png`,
+    logo: `${SITE_URL}/icon-512.png`,
     email: BUSINESS.email,
     telephone: variant === 'saas' ? BUSINESS.telephoneSaas : BUSINESS.telephoneStudio,
     description,
@@ -94,6 +96,7 @@ export function JsonLd({ lang, faqItems, variant = 'studio', basePath = '' }: Js
         }
       : {
           applicationCategory: 'BusinessApplication',
+          // TODO: додати offers { '@type': 'Offer', price, priceCurrency } після публікації тарифів
         }),
     sameAs: [
       'https://t.me/hirnix_studio',
@@ -117,13 +120,24 @@ export function JsonLd({ lang, faqItems, variant = 'studio', basePath = '' }: Js
       }
     : null;
 
+  const webSiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: BUSINESS.name,
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    inLanguage: ['uk', 'en'],
+  };
+
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     '@id': `${pageUrl}/#webpage`,
     url: pageUrl,
     name,
-    isPartOf: { '@id': `${SITE_URL}/#organization` },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: { '@id': `${SITE_URL}/#organization` },
     inLanguage,
   };
 
@@ -132,6 +146,10 @@ export function JsonLd({ lang, faqItems, variant = 'studio', basePath = '' }: Js
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
       />
       {faqSchema && (
         <script

@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { pageMetadata } from '@/config/seo';
 import saasUk from '@/config/i18n/saas-uk';
 
-export const metadata: Metadata = {
-  title: 'Політика конфіденційності | hirnix',
-  description: 'Політика конфіденційності hirnix.',
-};
+export const metadata: Metadata = pageMetadata({
+  path: '/privacy',
+  locale: 'uk',
+  title: 'Політика конфіденційності',
+  description:
+    'Політика конфіденційності hirnix: які персональні дані ми збираємо, як їх використовуємо і як з нами звʼязатися.',
+});
 
 export default function PrivacyPage() {
   return (
