@@ -75,6 +75,17 @@ export function DemoLeadForm({ t, source }: Props) {
         </div>
 
         <div className="form-row">
+          <label>{t.phoneLabel}</label>
+          <PhoneInput
+            defaultCountry="UA"
+            value={phone}
+            onChange={setPhone}
+            placeholder={t.phonePlaceholder}
+            international
+          />
+        </div>
+
+        <div className="form-row">
           <label htmlFor="lf-email">{t.emailLabel}</label>
           <input
             id="lf-email"
@@ -84,17 +95,6 @@ export function DemoLeadForm({ t, source }: Props) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="hello@example.com"
             autoComplete="email"
-          />
-        </div>
-
-        <div className="form-row">
-          <label>{t.phoneLabel}</label>
-          <PhoneInput
-            defaultCountry="UA"
-            value={phone}
-            onChange={setPhone}
-            placeholder={t.phonePlaceholder}
-            international
           />
         </div>
 

@@ -335,8 +335,8 @@ section { position: relative; }
 .mk-gallery > div:nth-child(1) { background: linear-gradient(135deg, #E5F5EE, #F1FAF5); }
 .mk-gallery > div:nth-child(2) { background: linear-gradient(135deg, #F4F3EF, #DEDED8); }
 .mk-gallery > div:nth-child(3) { background: linear-gradient(135deg, #FAFAF7, #E5F5EE); }
-.mk-gbp { position: absolute; right: -6px; bottom: 10px; width: 168px; z-index: 2; transform: rotate(2deg); }
-@media (min-width: 980px) { .mk-gbp { right: -18px; bottom: 14px; } }
+.mk-gbp { position: absolute; right: -6px; bottom: -34px; width: 168px; z-index: 2; transform: rotate(2deg); }
+@media (min-width: 980px) { .mk-gbp { right: -18px; bottom: -38px; } }
 .mk-gbp-header { display: flex; gap: 8px; margin-bottom: 6px; }
 .mk-gbp-avatar { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--brand-primary), var(--brand-dark)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 11px; flex-shrink: 0; }
 .mk-gbp-title { font-size: 11px; font-weight: 700; line-height: 1.2; }
@@ -444,7 +444,7 @@ section { position: relative; }
 .demo-frame { background: var(--surface); border: 1px solid var(--border-light); border-radius: 20px; box-shadow: var(--shadow-md); overflow: hidden; }
 .demo-frame-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border-light); background: var(--surface-soft); }
 .demo-frame-bar .dot { width: 10px; height: 10px; border-radius: 50%; background: #C9CBC4; }
-.demo-frame img { display: block; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; object-position: top center; }
+.demo-frame img { display: block; width: 100%; height: auto; }
 .demo-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand-primary); font-weight: 600; }
 .demo-card h3 { font-family: var(--font-sans); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin: 4px 0 0; color: var(--text-primary); }
 .demo-card p { font-size: 14px; line-height: 1.55; color: var(--text-secondary); margin: 0; }

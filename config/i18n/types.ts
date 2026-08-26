@@ -230,12 +230,9 @@ export interface DemoFormT {
   heading: string;
   nameLabel: string;
   namePlaceholder: string;
-  bizLabel: string;
-  bizPlaceholder: string;
-  bizOptions: string[];
-  emailLabel: string;
   phoneLabel: string;
   phonePlaceholder: string;
+  emailLabel: string;
   submitLabel: string;
   sentTitlePrefix: string;
   sentTitleFallback: string;
