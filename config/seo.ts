@@ -26,16 +26,19 @@ export function absoluteUrl(path = ''): string {
   return `${SITE.url}${path}`;
 }
 
+/** Default OG image tagline per locale — shown under the logo on the branded share image. */
+const OG_TAGLINE: Record<Locale, string> = {
+  uk: '24/7 запис і адміністрування вашого салону',
+  en: '24/7 booking and management for your salon',
+};
+
 interface OgImageParams {
-  title: string;
-  subtitle?: string;
+  tagline?: string;
   locale?: Locale;
 }
 
-export function ogImagePath({ title, subtitle, locale }: OgImageParams): string {
-  const search = new URLSearchParams({ title });
-  if (subtitle) search.set('subtitle', subtitle);
-  if (locale) search.set('locale', locale);
+export function ogImagePath({ tagline, locale = SITE.defaultLocale }: OgImageParams = {}): string {
+  const search = new URLSearchParams({ tagline: tagline ?? OG_TAGLINE[locale], locale });
   return `/og?${search.toString()}`;
 }
 
@@ -55,9 +58,8 @@ export interface PageSeoConfig {
   description: string;
   /** Other-locale versions of this same page, for hreflang alternates. Omit for single-locale pages. */
   variants?: LocaleVariant[];
-  /** Overrides the OG image title/subtitle (defaults to page title/description). */
-  ogImageTitle?: string;
-  ogImageSubtitle?: string;
+  /** Overrides the default per-locale OG image tagline. */
+  ogImageTagline?: string;
   noIndex?: boolean;
 }
 
@@ -83,11 +85,7 @@ export function pageMetadata(cfg: PageSeoConfig): Metadata {
   // (skipped when the title already carries the site name, e.g. the home page).
   const socialTitle = cfg.title.includes(SITE.name) ? cfg.title : `${cfg.title} | ${SITE.name}`;
 
-  const ogImage = ogImagePath({
-    title: cfg.ogImageTitle ?? socialTitle,
-    subtitle: cfg.ogImageSubtitle,
-    locale: cfg.locale,
-  });
+  const ogImage = ogImagePath({ tagline: cfg.ogImageTagline, locale: cfg.locale });
 
   return {
     title: cfg.title,

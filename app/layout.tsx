@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: ogImagePath({ title: "hirnix — CRM для сфери послуг" }),
+        url: ogImagePath(),
         width: 1200,
         height: 630,
         alt: "hirnix — CRM для сфери послуг",
