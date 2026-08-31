@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE, ogImagePath } from "@/config/seo";
@@ -55,6 +56,20 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        <Script id="plerdy" strategy="afterInteractive">
+          {`(function(w,d){
+  if(w.__plerdyCode)return;
+  w.__plerdyCode=1;
+  w._protocol=w.location.protocol=="https:"?"https://":"http://";
+  w._site_hash_code="88bde5cc61a4360ca02023839010e6a8";
+  w._suid=80669;
+  var s=d.createElement("script");
+  s.async=true;
+  s.referrerPolicy="strict-origin-when-cross-origin";
+  s.src="https://a.plerdy.com/public/js/click/main.js?v="+Math.random();
+  d.head.appendChild(s);
+})(window,document);`}
+        </Script>
       </body>
     </html>
   );

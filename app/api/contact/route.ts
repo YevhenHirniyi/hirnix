@@ -35,7 +35,34 @@ export async function POST(request: Request) {
     return Response.json({ error: 'DB error' }, { status: 500 });
   }
 
-  // 2. Send Telegram notification
+  // 2. Send to Google Sheet (best-effort — a failure here must not lose the lead)
+  const sheetsUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  const sheetsSecret = process.env.GOOGLE_SHEETS_SECRET;
+
+  if (sheetsUrl && sheetsSecret) {
+    try {
+      await fetch(sheetsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: sheetsSecret,
+          createdAt: new Date().toISOString(),
+          name,
+          biz: biz || '',
+          email,
+          phone: phone || '',
+          pages: pages || '',
+          langs: langs || '',
+          scope: scope || '',
+          source: source || '',
+        }),
+      });
+    } catch (err) {
+      console.error('Google Sheets webhook error:', err);
+    }
+  }
+
+  // 3. Send Telegram notification
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
