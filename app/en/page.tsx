@@ -14,6 +14,7 @@ import { Stats } from '@/components/Stats';
 import { BeforeAfter } from '@/components/BeforeAfter';
 import { DemoLeadForm } from '@/components/DemoLeadForm';
 import { FinalCTA } from '@/components/FinalCTA';
+import { FAQ } from '@/components/FAQ';
 import { JsonLd } from '@/components/JsonLd';
 import { LangSetter } from '@/components/LangSetter';
 
@@ -35,7 +36,7 @@ export default function ENHome() {
   return (
     <>
       <LangSetter lang="en" />
-      <JsonLd lang="en" faqItems={[]} variant="saas" />
+      <JsonLd lang="en" faqItems={t.faq.items} variant="saas" />
       <Header t={t.header} langs={['uk', 'en']} />
 
       <SaasHero t={t.hero} />
@@ -48,6 +49,7 @@ export default function ENHome() {
       <Stats t={t.stats} />
       <BeforeAfter t={t.beforeAfter} />
       <Process t={t.startProcess} id="start" />
+      <FAQ t={t.faq} tone="plain" />
       <FinalCTA t={t.finalCta} rightSlot={<DemoLeadForm t={t.demoForm} source="saas-en" />} />
 
       <Footer t={t.footer} waHref="https://wa.me/380995542545" />

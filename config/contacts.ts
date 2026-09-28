@@ -3,8 +3,7 @@ const contacts = {
   whatsapp: 'https://wa.me/420607477611',
   email: 'mailto:info@hirnix.studio',
   emailDisplay: 'info@hirnix.studio',
-  instagram: 'https://www.instagram.com/hirnix_studio',
-  facebook: 'https://www.facebook.com/hirnix',
+  instagram: 'https://www.instagram.com/hirnix.studio/',
   googleMaps: '',
 };
 

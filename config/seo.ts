@@ -10,7 +10,9 @@ import type { Metadata } from 'next';
 
 export const SITE = {
   name: 'hirnix',
-  url: 'https://hirnix.studio',
+  // Must match the host Vercel serves (apex 308-redirects to www), or every
+  // canonical/hreflang/sitemap URL points at a redirect.
+  url: 'https://www.hirnix.studio',
   defaultLocale: 'uk' as const,
   locales: ['uk', 'en'] as const,
 };

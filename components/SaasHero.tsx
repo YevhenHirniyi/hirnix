@@ -22,8 +22,8 @@ export function SaasHero({ t }: Props) {
         </div>
 
         <h1 className="hero-title">
-          {h.pre}<span className="ital">{h.italic}</span>{h.mid}<br />
-          <span className="hl">{h.highlight}</span><br />
+          {h.pre}{h.italic && <span className="ital">{h.italic}</span>}{h.mid}{' '}<br />
+          <span className="hl">{h.highlight}</span>{' '}<br />
           {h.after} <span className="accent">{h.accent}</span>
         </h1>
 
@@ -77,6 +77,9 @@ function SaasHeroMockup({ m }: { m: SaasHeroMockupT }) {
         <img
           src="/product/confirmation.png"
           alt="hirnix — підтвердження онлайн-запису"
+          width={754}
+          height={448}
+          fetchPriority="high"
           style={{ display: 'block', width: '100%', height: 'auto' }}
         />
       </div>

@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import type { FAQT } from '@/config/i18n/types';
 
-interface Props { t: FAQT }
+interface Props { t: FAQT; tone?: 'soft' | 'plain' }
 
-export function FAQ({ t }: Props) {
+export function FAQ({ t, tone = 'soft' }: Props) {
   const [open, setOpen] = useState(-1);
 
   return (
-    <section className="section section-soft" id="faq">
+    <section className={`section ${tone === 'soft' ? 'section-soft' : 'edge-mesh-host'}`} id="faq">
       <div className="container">
         <div className="section-head">
           <div>
@@ -30,13 +30,15 @@ export function FAQ({ t }: Props) {
                 className="faq-q"
                 onClick={() => setOpen(open === i ? -1 : i)}
                 aria-expanded={open === i}
+                aria-controls={`faq-a-${i}`}
               >
                 <span className="faq-q-text">{it.q}</span>
                 <span className="faq-q-icon">
                   <Plus size={16} strokeWidth={2.2} />
                 </span>
               </button>
-              {open === i && <p className="faq-a">{it.a}</p>}
+              {/* Always rendered (just hidden) so answers are in the HTML for search engines. */}
+              <p className="faq-a" id={`faq-a-${i}`} hidden={open !== i}>{it.a}</p>
             </div>
           ))}
         </div>

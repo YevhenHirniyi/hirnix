@@ -17,15 +17,15 @@ export function Demo({ t }: Props) {
         </div>
 
         <div className="demo-grid">
-          <DemoCard side={t.client} src="/product/booking-flow.png" />
-          <DemoCard side={t.business} src="/product/dashboard.png" />
+          <DemoCard side={t.client} src="/product/booking-flow.png" width={900} height={555} />
+          <DemoCard side={t.business} src="/product/dashboard.png" width={1575} height={970} />
         </div>
       </div>
     </section>
   );
 }
 
-function DemoCard({ side, src }: { side: DemoSideT; src: string }) {
+function DemoCard({ side, src, width, height }: { side: DemoSideT; src: string; width: number; height: number }) {
   return (
     <div className="demo-card">
       <div className="demo-frame">
@@ -34,7 +34,7 @@ function DemoCard({ side, src }: { side: DemoSideT; src: string }) {
           <span className="dot" style={{ background: '#E8C77B' }} />
           <span className="dot" style={{ background: '#9AC7A0' }} />
         </div>
-        <img src={src} alt={side.alt} />
+        <img src={src} alt={side.alt} width={width} height={height} loading="lazy" decoding="async" />
       </div>
       <div>
         <span className="demo-tag">{side.tag}</span>

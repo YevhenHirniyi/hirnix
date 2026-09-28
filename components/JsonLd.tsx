@@ -1,4 +1,5 @@
 import { SITE } from '@/config/seo';
+import contacts from '@/config/contacts';
 
 interface FAQItem { q: string; a: string }
 
@@ -98,11 +99,7 @@ export function JsonLd({ lang, faqItems, variant = 'studio', basePath = '' }: Js
           applicationCategory: 'BusinessApplication',
           // TODO: додати offers { '@type': 'Offer', price, priceCurrency } після публікації тарифів
         }),
-    sameAs: [
-      'https://t.me/hirnix_studio',
-      'https://www.instagram.com/hirnix_studio',
-      'https://www.facebook.com/hirnix',
-    ],
+    sameAs: [contacts.instagram, contacts.telegram],
   };
 
   const faqSchema = faqItems.length > 0

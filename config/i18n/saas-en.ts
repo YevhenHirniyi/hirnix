@@ -208,6 +208,21 @@ const saasEn: SaasSiteT = {
     ],
   },
 
+  faq: {
+    eyebrow: 'FAQ',
+    h2: { pre: 'Questions about', mid: 'online booking & the CRM' },
+    lead: "How hirnix works, what it costs, and how to get started. Didn't find your answer? Message us on Telegram.",
+    items: [
+      { q: 'What is hirnix and who is it for?', a: 'hirnix is a booking CRM with 24/7 online booking. It is built for beauty salons and independent stylists, and works for any business where clients book time with a specialist — auto services, photo studios, and more.' },
+      { q: 'How much does hirnix cost?', a: 'hirnix is currently in beta. Request demo access and we will walk you through the terms and set up your business.' },
+      { q: 'How do clients book online?', a: 'You share your booking link on Instagram, Google, or your website. The client picks a service, a specialist, and a free time slot, enters their name and phone — and the booking is confirmed. It takes about 30 seconds, with no calls or DMs.' },
+      { q: 'How long does it take to get started?', a: 'Creating your business account takes a couple of minutes. Then you add your services, prices, and team, share your booking link, and new bookings appear in your dashboard automatically. No install, no training.' },
+      { q: 'Can two clients book the same time slot?', a: 'No. A booked slot disappears from the available times immediately, and each service’s duration is accounted for automatically — so there are no double bookings or schedule overlaps.' },
+      { q: 'What do I see in the admin dashboard?', a: 'Today’s bookings and revenue, a calendar per specialist, client cards with visit history, staff schedules, your service catalog, and reports: revenue by period, top services, and specialist workload.' },
+      { q: 'How do I get demo access?', a: 'Fill in the form below or message us on Telegram. We reply within a few hours, Mon–Fri 09:00–19:00 CET.' },
+    ],
+  },
+
   demoForm: {
     eyebrow: 'Request a Demo',
     heading: 'Tell us about your business.',
@@ -247,6 +262,7 @@ const saasEn: SaasSiteT = {
       { label: 'Demo', href: '#demo' },
       { label: 'Why hirnix', href: '#why' },
       { label: 'Getting Started', href: '#start' },
+      { label: 'FAQ', href: '#faq' },
     ],
     contactsHeading: 'Contact',
     telegramLabel: 'Telegram · @hirnix_studio',

@@ -255,6 +255,7 @@ export interface SaasSiteT {
   examples: ExamplesT;
   beforeAfter: BeforeAfterT;
   startProcess: ProcessT;
+  faq: FAQT;
   demoForm: DemoFormT;
   finalCta: FinalCTAT;
   footer: FooterT;

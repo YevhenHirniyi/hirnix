@@ -14,14 +14,15 @@ import { Stats } from '@/components/Stats';
 import { BeforeAfter } from '@/components/BeforeAfter';
 import { DemoLeadForm } from '@/components/DemoLeadForm';
 import { FinalCTA } from '@/components/FinalCTA';
+import { FAQ } from '@/components/FAQ';
 import { JsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = pageMetadata({
   path: '',
   locale: 'uk',
-  title: 'hirnix — програма для запису клієнтів салону краси',
+  title: 'hirnix — CRM і онлайн-запис для салону краси',
   description:
-    'hirnix — CRM для салону краси: онлайн-запис для клієнтів 24/7, електронний журнал запису, картки клієнтів і виручка в одному місці.',
+    'hirnix — CRM для салону краси: онлайн-запис клієнтів 24/7, журнал записів, картки клієнтів і виручка в одному місці. Безкоштовно на час бети.',
   variants: [{ locale: 'en', path: '/en' }],
 });
 
@@ -33,7 +34,7 @@ export default function Home() {
   const t = saasUk;
   return (
     <>
-      <JsonLd lang="uk" faqItems={[]} variant="saas" />
+      <JsonLd lang="uk" faqItems={t.faq.items} variant="saas" />
       <Header t={t.header} langs={['uk', 'en']} />
 
       <SaasHero t={t.hero} />
@@ -46,6 +47,7 @@ export default function Home() {
       <Stats t={t.stats} />
       <BeforeAfter t={t.beforeAfter} />
       <Process t={t.startProcess} id="start" />
+      <FAQ t={t.faq} tone="plain" />
       <FinalCTA t={t.finalCta} rightSlot={<DemoLeadForm t={t.demoForm} source="saas-uk" />} />
 
       <Footer t={t.footer} waHref="https://wa.me/380995542545" />
