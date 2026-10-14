@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader ctaHref={ROUTES.contact.path} />
       <main id="main" className="sx">
         <div className="container sx-narrow">
           <p className="eyebrow"><span className="dot" />404</p>

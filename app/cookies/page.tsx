@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
+import { ROUTES } from '@/config/site/routes';
+import { SiteHeader } from '@/components/site/SiteHeader';
+import { SiteFooter } from '@/components/site/SiteFooter';
 import { pageMetadata } from '@/config/seo';
-import saasUk from '@/config/i18n/saas-uk';
 
 export const metadata: Metadata = pageMetadata({
   path: '/cookies',
@@ -15,8 +15,8 @@ export const metadata: Metadata = pageMetadata({
 export default function CookiesPage() {
   return (
     <>
-      <Header t={saasUk.header} langs={['uk', 'en']} anchorHome="/" />
-      <main style={{ paddingTop: 120, paddingBottom: 80 }}>
+      <SiteHeader ctaHref={ROUTES.contact.path} />
+      <main id="main" style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="container" style={{ maxWidth: 760 }}>
           <h1 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 8 }}>
             Cookies
@@ -91,7 +91,7 @@ export default function CookiesPage() {
           </section>
         </div>
       </main>
-      <Footer t={saasUk.footer} />
+      <SiteFooter />
     </>
   );
 }

@@ -18,9 +18,11 @@ const PLAIN = [ROUTES.demo, ROUTES.conditions];
 interface Props {
   /** Equivalent page in English, when one exists; the language switch is shown only then. */
   enHref?: string;
+  /** Pages without their own contact form send the CTA to the contacts page. */
+  ctaHref?: string;
 }
 
-export function SiteHeader({ enHref }: Props) {
+export function SiteHeader({ enHref, ctaHref = '#contact' }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -106,7 +108,7 @@ export function SiteHeader({ enHref }: Props) {
             </div>
           )}
           <a href={LOGIN_URL} className="sh-login">{t.login}</a>
-          <a href="#contact" className="btn btn-primary btn-sm sh-cta" data-cta="header">
+          <a href={ctaHref} className="btn btn-primary btn-sm sh-cta" data-cta="header">
             {t.cta}
           </a>
           <button
@@ -148,7 +150,7 @@ export function SiteHeader({ enHref }: Props) {
               <ArrowUpRight size={16} aria-hidden />
             </a>
           </div>
-          <a href="#contact" className="btn btn-primary btn-md sh-mob-cta" data-cta="header-mobile" onClick={closeAll}>
+          <a href={ctaHref} className="btn btn-primary btn-md sh-mob-cta" data-cta="header-mobile" onClick={closeAll}>
             {t.cta}
           </a>
           {enHref && (

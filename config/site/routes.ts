@@ -45,11 +45,11 @@ export const ROUTES = {
   },
   independent: {
     id: 'P07', path: '/solutions/independent-professionals', label: 'Для приватних майстрів',
-    hint: 'Працюєте самостійно, без адміністратора', live: false,
+    hint: 'Працюєте самостійно, без адміністратора', live: true,
   },
   studios: {
     id: 'P08', path: '/solutions/beauty-studios', label: 'Для б’юті-студій',
-    hint: 'Організація роботи кількох майстрів', live: false,
+    hint: 'Організація роботи кількох майстрів', live: true,
   },
   demo: { id: 'P09', path: '/demo', label: 'Демо', live: true },
   conditions: { id: 'P10', path: '/conditions', label: 'Умови', live: true },
