@@ -51,7 +51,7 @@ export const ROUTES = {
     id: 'P08', path: '/solutions/beauty-studios', label: 'Для б’юті-студій',
     hint: 'Організація роботи кількох майстрів', live: false,
   },
-  demo: { id: 'P09', path: '/demo', label: 'Демо', live: false },
+  demo: { id: 'P09', path: '/demo', label: 'Демо', live: true },
   conditions: { id: 'P10', path: '/conditions', label: 'Умови', live: true },
   contact: { id: 'P11', path: '/contact', label: 'Контакти', live: false },
   privacy: { id: 'L01', path: '/privacy', label: 'Політика конфіденційності', live: true },
