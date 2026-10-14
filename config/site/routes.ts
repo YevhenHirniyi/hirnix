@@ -53,7 +53,7 @@ export const ROUTES = {
   },
   demo: { id: 'P09', path: '/demo', label: 'Демо', live: true },
   conditions: { id: 'P10', path: '/conditions', label: 'Умови', live: true },
-  contact: { id: 'P11', path: '/contact', label: 'Контакти', live: false },
+  contact: { id: 'P11', path: '/contact', label: 'Контакти', live: true },
   privacy: { id: 'L01', path: '/privacy', label: 'Політика конфіденційності', live: true },
   cookies: { id: 'L02', path: '/cookies', label: 'Cookies', live: true },
 } satisfies Record<string, SiteRoute>;
