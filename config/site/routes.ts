@@ -25,7 +25,7 @@ export const ROUTES = {
   home: { id: 'P01', path: '/', label: 'Головна', live: true },
   scheduling: {
     id: 'P02', path: '/features/scheduling', label: 'Записи та розклад',
-    hint: 'Робочий день, візити й майстри в календарі', live: false,
+    hint: 'Робочий день, візити й майстри в календарі', live: true,
   },
   clients: {
     id: 'P03', path: '/features/clients', label: 'Клієнтська база',
