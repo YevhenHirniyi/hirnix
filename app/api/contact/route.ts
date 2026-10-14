@@ -2,12 +2,79 @@ import { supabase } from '@/lib/supabase';
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  const { name, biz, email, phone, pages, langs, scope, source } = body;
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 
-  if (!name || !email) {
-    return Response.json({ error: 'Missing required fields' }, { status: 400 });
+/** Trims a value to a bounded string, or null when it is empty or not a string. */
+function str(value: unknown, max = 500): string | null {
+  if (typeof value !== 'string') return null;
+  const s = value.trim().slice(0, max);
+  return s || null;
+}
+
+const isPhone = (v: string) => /^\+?\d{9,15}$/.test(v.replace(/[\s()\-.]/g, ''));
+const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+
+interface Lead {
+  name: string;
+  email: string | null;
+  phone: string | null;
+  business: string | null;
+  businessLink: string | null;
+  workFormat: string | null;
+  comment: string | null;
+  intent: string | null;
+  source: string | null;
+  context: Record<string, string>;
+  requestId: string | null;
+}
+
+/**
+ * Accepts the multi-page site's form ({ name, phone, email, …, context }) and
+ * the legacy landing-page form ({ name, email, phone, source }) that /en still
+ * posts. At least one valid contact — phone or email — is required.
+ */
+function parseLead(body: Record<string, unknown>): Lead | { error: string } {
+  const name = str(body.name, 120);
+  if (!name) return { error: 'Missing name' };
+
+  const email = str(body.email, 200);
+  const phone = str(body.phone, 40);
+  if (!email && !phone) return { error: 'Missing contact' };
+  if ((email && !isEmail(email)) || (phone && !isPhone(phone))) return { error: 'Invalid contact' };
+
+  const rawContext = (body.context && typeof body.context === 'object' ? body.context : {}) as Record<string, unknown>;
+  const context: Record<string, string> = {};
+  for (const key of ['page', 'cta', 'locale', ...UTM_KEYS]) {
+    const v = str(rawContext[key], 200);
+    if (v) context[key] = v;
+  }
+
+  return {
+    name,
+    email,
+    phone,
+    business: str(body.business ?? body.biz, 200),
+    businessLink: str(body.link, 300),
+    workFormat: str(body.format, 40),
+    comment: str(body.comment, 2000),
+    intent: str(body.intent, 40),
+    source: context.page ?? str(body.source, 60),
+    context,
+    requestId: str(body.requestId, 64),
+  };
+}
+
+export async function POST(request: Request) {
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const lead = parseLead(body);
+  if ('error' in lead) {
+    return Response.json({ error: lead.error }, { status: 400 });
   }
 
   // A lead is delivered through three independent channels (Supabase, Google
@@ -19,26 +86,37 @@ export async function POST(request: Request) {
   let sentToTelegram = false;
 
   // 1. Save to Supabase
-  const leadRow = {
-    name,
-    biz_type: biz,
-    email,
-    phone: phone || null,
-    pages,
-    langs,
-    scope,
-    source: source || null,
+  const legacyRow = {
+    name: lead.name,
+    biz_type: lead.business,
+    email: lead.email,
+    phone: lead.phone,
+    scope: lead.workFormat,
+    source: lead.source,
+  };
+  const fullRow = {
+    ...legacyRow,
+    work_format: lead.workFormat,
+    business_link: lead.businessLink,
+    comment: lead.comment,
+    intent: lead.intent,
+    context: Object.keys(lead.context).length ? lead.context : null,
+    request_id: lead.requestId,
   };
 
   try {
-    let { error: dbError } = await supabase.from('leads').insert(leadRow);
+    let { error: dbError } = await supabase.from('leads').insert(fullRow);
 
-    // The `source` column may not exist yet if the latest migration hasn't been
-    // applied — fall back to inserting without it rather than losing the lead.
-    if (dbError && dbError.message?.includes('source')) {
-      const { source: _source, ...withoutSource } = leadRow;
-      void _source;
-      ({ error: dbError } = await supabase.from('leads').insert(withoutSource));
+    // Same request_id already stored: a double-click or a retry after a lost
+    // response. The lead was delivered the first time — don't notify twice.
+    if (dbError?.code === '23505') {
+      return Response.json({ ok: true, duplicate: true });
+    }
+
+    // The contact-model migration may not be applied yet — fall back to the
+    // original columns rather than losing the lead.
+    if (dbError && /column|schema cache/i.test(dbError.message ?? '')) {
+      ({ error: dbError } = await supabase.from('leads').insert(legacyRow));
     }
 
     if (dbError) console.error('Supabase error:', dbError.message);
@@ -59,14 +137,17 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           secret: sheetsSecret,
           createdAt: new Date().toISOString(),
-          name,
-          biz: biz || '',
-          email,
-          phone: phone || '',
-          pages: pages || '',
-          langs: langs || '',
-          scope: scope || '',
-          source: source || '',
+          name: lead.name,
+          biz: lead.business ?? '',
+          email: lead.email ?? '',
+          phone: lead.phone ?? '',
+          format: lead.workFormat ?? '',
+          link: lead.businessLink ?? '',
+          comment: lead.comment ?? '',
+          intent: lead.intent ?? '',
+          source: lead.source ?? '',
+          cta: lead.context.cta ?? '',
+          requestId: lead.requestId ?? '',
         }),
       });
       if (res.ok) sentToSheets = true;
@@ -81,40 +162,32 @@ export async function POST(request: Request) {
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (token && chatId) {
-    const pageLabel: Record<string, string> = {
-      'одна-сторінка': 'Лендинг', 'кілька-сторінок': '3–5 сторінок', 'багатосторінковий': 'Багато сторінок',
-      'jednostrankovy': 'Landing page', 'nekolik-stranek': '3–5 stránek', 'vicestranovy': 'Více stránek',
-    };
-    const scopeLabel: Record<string, string> = {
-      site: 'Тільки сайт / Jen web',
-      full: '+ Google + SEO',
-      'full-ads': '+ реклама / reklama',
-    };
+    const formatLabel: Record<string, string> = { solo: 'Працює самостійно', team: 'Студія з командою', other: 'Інший формат' };
+    const intentLabel: Record<string, string> = { connect: 'Обговорити підключення', quote: 'Запит пропозиції' };
     const sourceLabel: Record<string, string> = {
       'saas-uk': 'Лендинг CRM · UA',
       'saas-en': 'Лендинг CRM · EN',
     };
+    const utm = UTM_KEYS.map((k) => lead.context[k]).filter(Boolean).join(' / ');
 
     // HTML parse mode with escaped values: with Markdown, a name or email
     // containing `_` or `*` made Telegram reject the whole message.
     const v = (s: unknown) => escapeHtml(String(s ?? '—'));
+    const line = (label: string, value: string | null | undefined) => (value ? [`${label} ${v(value)}`] : []);
     const text = [
-      '🆕 <b>Нова заявка з hirnix.studio</b>',
+      `🆕 <b>${v(intentLabel[lead.intent ?? ''] ?? 'Нова заявка')}</b> · hirnix.studio`,
       '',
-      `👤 <b>Ім'я:</b> ${v(name)}`,
-      `💼 <b>Бізнес:</b> ${v(biz || '—')}`,
-      `📧 <b>Email:</b> ${v(email)}`,
-      `📞 <b>Телефон:</b> ${v(phone || '—')}`,
-      ...(pages || langs || scope
-        ? [
-            '',
-            `📄 <b>Формат:</b> ${v(pageLabel[pages] ?? pages)}`,
-            `🌐 <b>Мови:</b> ${v(langs?.toUpperCase())}`,
-            `📦 <b>Обсяг:</b> ${v(scopeLabel[scope] ?? scope)}`,
-          ]
-        : []),
+      `👤 <b>Ім'я:</b> ${v(lead.name)}`,
+      `📞 <b>Телефон:</b> ${v(lead.phone ?? '—')}`,
+      `📧 <b>Email:</b> ${v(lead.email ?? '—')}`,
+      ...line('🧩 <b>Формат:</b>', lead.workFormat ? formatLabel[lead.workFormat] ?? lead.workFormat : null),
+      ...line('💼 <b>Бізнес:</b>', lead.business),
+      ...line('🔗 <b>Посилання:</b>', lead.businessLink),
+      ...line('📝 <b>Коментар:</b>', lead.comment),
       '',
-      `🏷 <b>Джерело:</b> ${v(sourceLabel[source] ?? source ?? 'Сайт студії')}`,
+      `🏷 <b>Сторінка:</b> ${v(sourceLabel[lead.source ?? ''] ?? lead.source ?? '—')}`,
+      ...line('🎯 <b>Кнопка:</b>', lead.context.cta),
+      ...line('📣 <b>UTM:</b>', utm),
       `🕐 ${new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Prague' })}`,
       ...(savedToDb ? [] : ['', '⚠️ <b>Не збережено в базу (Supabase недоступний)</b>']),
     ].join('\n');

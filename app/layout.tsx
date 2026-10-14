@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE, ogImagePath } from "@/config/seo";
 import "./globals.css";
+import "./site.css";
 import "react-phone-number-input/style.css";
 
 const manrope = Manrope({
@@ -17,11 +18,11 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "hirnix — CRM для сфери послуг",
-    template: "%s | hirnix",
+    default: "Hirnix — CRM для майстрів і б’юті-студій",
+    template: "%s — Hirnix",
   },
   description:
-    "hirnix — онлайн-запис 24/7 і панель адміністрування для сфери послуг.",
+    "Hirnix — CRM для майстрів і б’юті-студій: клієнти, записи, послуги, команда та звіти в одній системі.",
   openGraph: {
     siteName: SITE.name,
     type: "website",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
         url: ogImagePath(),
         width: 1200,
         height: 630,
-        alt: "hirnix — CRM для сфери послуг",
+        alt: "Hirnix — CRM для майстрів і б’юті-студій",
       },
     ],
   },

@@ -17,6 +17,9 @@ export const SITE = {
   locales: ['uk', 'en'] as const,
 };
 
+/** Display form of the brand in titles. */
+export const BRAND = 'Hirnix';
+
 export type Locale = (typeof SITE.locales)[number];
 
 const OG_LOCALE: Record<Locale, string> = {
@@ -30,7 +33,7 @@ export function absoluteUrl(path = ''): string {
 
 /** Default OG image tagline per locale — shown under the logo on the branded share image. */
 const OG_TAGLINE: Record<Locale, string> = {
-  uk: '24/7 запис і адміністрування вашого салону',
+  uk: 'CRM для майстрів і б’юті-студій',
   en: '24/7 booking and management for your salon',
 };
 
@@ -82,15 +85,16 @@ export function pageMetadata(cfg: PageSeoConfig): Metadata {
     .filter((v) => v.locale !== cfg.locale)
     .map((v) => OG_LOCALE[v.locale]);
 
-  // <title> is rendered through the root layout's "%s | hirnix" template, but
-  // openGraph/twitter titles are not templated, so apply the same suffix here
-  // (skipped when the title already carries the site name, e.g. the home page).
-  const socialTitle = cfg.title.includes(SITE.name) ? cfg.title : `${cfg.title} | ${SITE.name}`;
+  // <title> is rendered through the root layout's "%s — Hirnix" template, but
+  // openGraph/twitter titles are not templated, so apply the same suffix here.
+  // A title that already carries the brand (e.g. the home page) is used as-is.
+  const hasBrand = cfg.title.toLowerCase().includes(SITE.name);
+  const socialTitle = hasBrand ? cfg.title : `${cfg.title} — ${BRAND}`;
 
   const ogImage = ogImagePath({ tagline: cfg.ogImageTagline, locale: cfg.locale });
 
   return {
-    title: cfg.title,
+    title: hasBrand ? { absolute: cfg.title } : cfg.title,
     description: cfg.description,
     alternates: {
       canonical,
