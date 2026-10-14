@@ -33,15 +33,15 @@ export const ROUTES = {
   },
   team: {
     id: 'P04', path: '/features/team-and-services', label: 'Послуги та команда',
-    hint: 'Каталог послуг, виконавці й графіки', live: false,
+    hint: 'Каталог послуг, виконавці й графіки', live: true,
   },
   reports: {
     id: 'P05', path: '/features/reports', label: 'Звіти та результати',
-    hint: 'Показники записів, послуг і майстрів за період', live: false,
+    hint: 'Показники записів, послуг і майстрів за період', live: true,
   },
   booking: {
     id: 'P06', path: '/features/online-booking', label: 'Онлайн-запис',
-    hint: 'Сторінка, де клієнт сам обирає послугу й час', live: false,
+    hint: 'Сторінка, де клієнт сам обирає послугу й час', live: true,
   },
   independent: {
     id: 'P07', path: '/solutions/independent-professionals', label: 'Для приватних майстрів',
