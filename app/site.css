@@ -192,11 +192,13 @@
 }
 .rm-icon {
   width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
-  background: #7A1F2B; color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 0.04em;
+  background: #2AABEE; color: #fff;
 }
-.rm-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--text-muted); }
+.rm-icon svg { transform: translateX(-1px); }
+.rm-sender { margin: 2px 0 0; font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.rm-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .rm-app { font-weight: 600; color: var(--text-secondary); }
-.rm-title { margin: 2px 0 3px; font-size: 15px; font-weight: 700; color: var(--text-primary); }
+.rm-title { margin: 1px 0 3px; font-size: 14px; font-weight: 600; color: var(--text-primary); }
 .rm-body { margin: 0; font-size: 14px; line-height: 1.45; color: var(--text-primary); }
 .rm-addr { margin: 6px 0 0; font-size: 12px; color: var(--text-muted); }
 .rm-label { margin: 8px 4px 0; font-size: 12px; color: var(--text-muted); text-align: right; }
