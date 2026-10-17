@@ -19,7 +19,7 @@ export const independent: SegmentCopy = {
     lead: 'Коли ви самі обслуговуєте клієнтів, відповідаєте на повідомлення й плануєте день, Hirnix збирає записи, клієнтів і послуги в одному місці.',
     primary: 'Обговорити підключення',
     secondary: 'Подивитися платформу',
-    asset: 'calendarDay',
+    asset: 'calendarWeek',
   },
 
   story: {
