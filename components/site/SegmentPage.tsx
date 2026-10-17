@@ -7,7 +7,8 @@ import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 import { ContactSection } from './ContactSection';
 import { PageJsonLd } from './PageJsonLd';
-import { Breadcrumbs, FaqList, ScreenFrame, SectionHead, href } from './blocks';
+import type { AssetId } from '@/config/site/assets';
+import { Breadcrumbs, FaqList, ScreenFrame, SectionHead, createAssetPicker, href } from './blocks';
 
 /**
  * Copy for a segment page (P07–P08): one way of working told as a story,
@@ -15,12 +16,12 @@ import { Breadcrumbs, FaqList, ScreenFrame, SectionHead, href } from './blocks';
  */
 export interface SegmentCopy {
   meta: { title: string; description: string };
-  hero: { breadcrumb: string; h1: string; lead: string; primary: string; secondary: string; asset: string };
+  hero: { breadcrumb: string; h1: string; lead: string; primary: string; secondary: string; asset: AssetId };
   story: { eyebrow: string; h2: string; body: string };
   blocks: {
     eyebrow: string;
     h2: string;
-    items: { title: string; body: string; asset: string; route: string; link: string }[];
+    items: { title: string; body: string; asset?: AssetId; route: string; link: string }[];
   };
   launch: { eyebrow: string; h2: string; steps: { title: string; body: string }[] };
   faq: { eyebrow: string; h2: string; items: { q: string; a: string }[] };
@@ -40,6 +41,10 @@ export function segmentMetadata(route: RouteKey, t: SegmentCopy): Metadata {
 export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy }) {
   const route = ROUTES[key];
   const total = String(t.blocks.items.length).padStart(2, '0');
+  // Each screenshot at most once per page, in reading order.
+  const pick = createAssetPicker();
+  const heroAsset = pick(t.hero.asset);
+  const blockAssets = t.blocks.items.map((b) => pick(b.asset));
 
   return (
     <>
@@ -71,7 +76,7 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
               </div>
             </div>
             <div className="sx-inner-visual">
-              <ScreenFrame asset={t.hero.asset} ratio="16 / 8" />
+              <ScreenFrame asset={heroAsset} priority sizes="(min-width: 1320px) 1200px, 100vw" />
             </div>
           </div>
         </section>
@@ -88,7 +93,7 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
             <SectionHead id="blocks-title" eyebrow={t.blocks.eyebrow} title={t.blocks.h2} />
             <div className="sx-features">
               {t.blocks.items.map((b, i) => (
-                <article key={b.title} className={`sx-feature${i % 2 ? ' is-flipped' : ''}`}>
+                <article key={b.title} className={`sx-feature${i % 2 ? ' is-flipped' : ''}${blockAssets[i] ? '' : ' is-textonly'}`}>
                   <div className="sx-feature-copy">
                     <span className="sx-feature-num">{String(i + 1).padStart(2, '0')} / {total}</span>
                     <h3>{b.title}</h3>
@@ -97,7 +102,7 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
                       {b.link}<ArrowRight size={14} aria-hidden />
                     </a>
                   </div>
-                  <ScreenFrame asset={b.asset} />
+                  <ScreenFrame asset={blockAssets[i]} />
                 </article>
               ))}
             </div>

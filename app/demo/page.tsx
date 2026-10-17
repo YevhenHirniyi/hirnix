@@ -7,7 +7,7 @@ import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { ContactSection } from '@/components/site/ContactSection';
 import { PageJsonLd } from '@/components/site/PageJsonLd';
-import { Breadcrumbs, ScreenFrame, href } from '@/components/site/blocks';
+import { Breadcrumbs, ScreenFrame, createAssetPicker, href } from '@/components/site/blocks';
 
 const route = ROUTES.demo;
 
@@ -22,6 +22,10 @@ export const metadata: Metadata = pageMetadata({
 export const dynamic = 'force-static';
 
 export default function DemoPage() {
+  // Each screenshot at most once per page.
+  const pick = createAssetPicker();
+  const chapterAssets = t.chapters.map((c) => c.assets.map((a) => pick(a)).filter((a) => a !== undefined));
+
   return (
     <>
       <PageJsonLd breadcrumbs={[
@@ -75,8 +79,8 @@ export default function DemoPage() {
                     {c.link}<ArrowRight size={14} aria-hidden />
                   </a>
                 </div>
-                <div className={`dm-shots${c.assets.length > 1 ? ' is-pair' : ''}`}>
-                  {c.assets.map((a) => <ScreenFrame key={a} asset={a} ratio={c.assets.length > 1 ? '4 / 3' : '16 / 10'} />)}
+                <div className={`dm-shots${chapterAssets[i].length > 1 ? ' is-pair' : ''}`}>
+                  {chapterAssets[i].map((a) => <ScreenFrame key={a} asset={a} />)}
                 </div>
               </div>
             </div>

@@ -7,7 +7,8 @@ import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 import { ContactSection } from './ContactSection';
 import { PageJsonLd } from './PageJsonLd';
-import { Breadcrumbs, FaqList, ScreenFrame, SectionHead, href } from './blocks';
+import type { AssetId } from '@/config/site/assets';
+import { Breadcrumbs, FaqList, ScreenFrame, SectionHead, createAssetPicker, href } from './blocks';
 
 /**
  * Copy for one feature page (P02–P06). Every feature page shares this
@@ -18,15 +19,15 @@ export interface FeatureCopy {
   meta: { title: string; description: string };
   /** Section of the demo page this feature links to, e.g. 'client'. */
   demoAnchor: string;
-  hero: { breadcrumb: string; h1: string; lead: string; primary: string; secondary: string; asset: string };
+  hero: { breadcrumb: string; h1: string; lead: string; primary: string; secondary: string; asset: AssetId };
   why: { eyebrow: string; h2: string; body: string };
   scenarios: {
     eyebrow: string;
     h2: string;
-    items: { title: string; body: string; points: string[]; asset: string }[];
+    items: { title: string; body: string; points: string[]; asset?: AssetId }[];
   };
   connections: { eyebrow: string; h2: string; items: { route: string; title: string; body: string; link: string }[] };
-  proof: { eyebrow: string; h2: string; body: string; asset: string; demoLink: string };
+  proof: { eyebrow: string; h2: string; body: string; asset?: AssetId; demoLink: string };
   faq: { eyebrow: string; h2: string; items: { q: string; a: string }[] };
   cta: { h2: string; lead: string; submit: string };
 }
@@ -45,6 +46,11 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
   const route = ROUTES[key];
   const demoHref = `${ROUTES.demo.path}#${t.demoAnchor}`;
   const total = String(t.scenarios.items.length).padStart(2, '0');
+  // Each screenshot at most once per page, in reading order.
+  const pick = createAssetPicker();
+  const heroAsset = pick(t.hero.asset);
+  const scenarioAssets = t.scenarios.items.map((s) => pick(s.asset));
+  const proofAsset = pick(t.proof.asset);
   // "Можливості" has no page of its own, so it is shown as plain text and left
   // out of the structured breadcrumb trail.
   const crumbs = [
@@ -76,7 +82,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
               </div>
             </div>
             <div className="sx-inner-visual">
-              <ScreenFrame asset={t.hero.asset} ratio="16 / 8" />
+              <ScreenFrame asset={heroAsset} priority sizes="(min-width: 1320px) 1200px, 100vw" />
             </div>
           </div>
         </section>
@@ -93,7 +99,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
             <SectionHead id="scenarios-title" eyebrow={t.scenarios.eyebrow} title={t.scenarios.h2} />
             <div className="sx-features">
               {t.scenarios.items.map((s, i) => (
-                <article key={s.title} className={`sx-feature${i % 2 ? ' is-flipped' : ''}`}>
+                <article key={s.title} className={`sx-feature${i % 2 ? ' is-flipped' : ''}${scenarioAssets[i] ? '' : ' is-textonly'}`}>
                   <div className="sx-feature-copy">
                     <span className="sx-feature-num">{String(i + 1).padStart(2, '0')} / {total}</span>
                     <h3>{s.title}</h3>
@@ -102,7 +108,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
                       {s.points.map((p) => <li key={p}><Check size={15} strokeWidth={2.6} aria-hidden />{p}</li>)}
                     </ul>
                   </div>
-                  <ScreenFrame asset={s.asset} />
+                  <ScreenFrame asset={scenarioAssets[i]} />
                 </article>
               ))}
             </div>
@@ -125,14 +131,14 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
         </section>
 
         <section className="sx sx-soft" aria-labelledby="proof-title">
-          <div className="container sx-split">
+          <div className={`container${proofAsset ? ' sx-split' : ''}`}>
             <div>
               <SectionHead id="proof-title" eyebrow={t.proof.eyebrow} title={t.proof.h2} lead={t.proof.body} />
               <a href={demoHref} className="btn btn-secondary btn-md" data-cta={`${key}-proof-demo`}>
                 {t.proof.demoLink}<ArrowRight size={16} aria-hidden />
               </a>
             </div>
-            <ScreenFrame asset={t.proof.asset} ratio="4 / 3" />
+            <ScreenFrame asset={proofAsset} />
           </div>
         </section>
 

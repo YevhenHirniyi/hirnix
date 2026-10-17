@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import { ChevronRight, Plus } from 'lucide-react';
+import { SITE_ASSETS, type AssetId, type SiteAsset } from '@/config/site/assets';
 import { common } from '@/config/site/uk/common';
 import { ROUTES, type RouteKey } from '@/config/site/routes';
 
@@ -9,23 +11,59 @@ export function href(route: string): string {
   return r.path;
 }
 
-type AssetId = keyof Omit<typeof common.assets, 'demoNote' | 'placeholderNote'>;
+/**
+ * Hands out each screenshot at most once per page. Create one picker per page
+ * render and pass every asset through it: the first request for an id gets
+ * it, repeats get undefined, so that block renders as text only.
+ */
+export function createAssetPicker() {
+  const used = new Set<AssetId>();
+  return (id?: AssetId): AssetId | undefined => {
+    if (!id || used.has(id)) return undefined;
+    used.add(id);
+    return id;
+  };
+}
+
+interface FrameProps {
+  /** Missing (or already used on this page) → nothing is rendered. */
+  asset?: AssetId;
+  size?: 'sm' | 'md';
+  /** Load eagerly — only for the screenshot in the first screen. */
+  priority?: boolean;
+  /** Rendered width hint for responsive image selection. */
+  sizes?: string;
+}
 
 /**
- * Frame for a product screenshot. Until the A01–A08 assets with training data
- * exist, it renders a labelled placeholder rather than an invented screen.
+ * Frame for a real product screenshot: a browser window for admin screens, a
+ * phone for the client booking page. Renders nothing without an asset — the
+ * site never shows invented screens or placeholders.
  */
-export function ScreenFrame({ asset, ratio = '16 / 10', size = 'md' }: { asset: string; ratio?: string; size?: 'sm' | 'md' }) {
-  const a = common.assets[asset as AssetId];
+export function ScreenFrame({ asset, size = 'md', priority, sizes = '(min-width: 960px) 60vw, 100vw' }: FrameProps) {
+  if (!asset) return null;
+  const shot: SiteAsset = SITE_ASSETS[asset];
+
+  if (shot.device === 'phone') {
+    return (
+      <figure className={`sf-phone sf-phone--${size}`}>
+        <div className="sf-phone-screen">
+          <Image src={shot.src} width={shot.width} height={shot.height} alt={shot.alt} sizes="(min-width: 960px) 320px, 70vw" priority={priority} />
+        </div>
+        <figcaption className="sf-frame-caption">{common.assets.demoNote}</figcaption>
+      </figure>
+    );
+  }
+
+  // Tall dialogs (e.g. the service editor) are narrowed so they don't fill the screen.
+  const portrait = shot.height > shot.width * 1.2;
   return (
-    <figure className={`sf-frame sf-frame--${size}`}>
+    <figure className={`sf-frame sf-frame--${size} sf-frame--shot${portrait ? ' sf-frame--portrait' : ''}`}>
       <div className="sf-frame-bar" aria-hidden>
         <span /><span /><span />
       </div>
-      <div className="sf-frame-body" style={{ aspectRatio: ratio }} role="img" aria-label={a.alt}>
-        <span className="sf-frame-id">{asset}</span>
-        <span className="sf-frame-title">{a.title}</span>
-        <span className="sf-frame-note">{common.assets.placeholderNote}</span>
+      <div className="sf-frame-img">
+        <Image src={shot.src} width={shot.width} height={shot.height} alt={shot.alt} sizes={sizes} priority={priority} />
       </div>
       <figcaption className="sf-frame-caption">{common.assets.demoNote}</figcaption>
     </figure>

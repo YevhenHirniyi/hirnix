@@ -534,3 +534,28 @@
 }
 .ct-login .sx-title { margin: 0 0 6px; }
 .ct-login p { margin: 0; font-size: 16px; color: var(--text-secondary); }
+
+/* ============ Real screenshots ============ */
+.sf-frame-img {
+  border: 1px solid var(--border-light); border-radius: 0 0 16px 16px; overflow: hidden;
+  background: var(--surface); box-shadow: var(--shadow-float);
+}
+.sf-frame-img img { display: block; width: 100%; height: auto; }
+.sf-frame--sm .sf-frame-img { border-radius: 0 0 12px 12px; }
+
+.sf-phone { margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; max-width: 320px; }
+.sf-phone-screen {
+  width: 100%; border: 8px solid #1F2420; border-radius: 34px; overflow: hidden; background: #1F2420;
+  box-shadow: var(--shadow-float);
+}
+.sf-phone-screen img { display: block; width: 100%; height: auto; border-radius: 26px; }
+.sf-phone--sm { max-width: 100%; }
+.sf-phone--sm .sf-phone-screen { border-width: 5px; border-radius: 22px; }
+.sf-phone--sm .sf-phone-screen img { border-radius: 17px; }
+.sf-phone--sm .sf-frame-caption { display: none; }
+
+/* Feature row without its own screenshot: text only, readable width. */
+.sx-feature.is-textonly { grid-template-columns: 1fr; max-width: 720px; }
+.sx-feature.is-textonly.is-flipped .sx-feature-copy { order: 0; }
+
+.sf-frame--portrait { width: 100%; max-width: 420px; margin-inline: auto; }

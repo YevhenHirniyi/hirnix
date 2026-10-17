@@ -8,7 +8,8 @@ import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { ContactSection } from '@/components/site/ContactSection';
 import { PageJsonLd } from '@/components/site/PageJsonLd';
-import { FaqList, ScreenFrame, SectionHead, href } from '@/components/site/blocks';
+import type { AssetId } from '@/config/site/assets';
+import { FaqList, ScreenFrame, SectionHead, createAssetPicker, href } from '@/components/site/blocks';
 
 export const metadata: Metadata = pageMetadata({
   path: '',
@@ -22,6 +23,12 @@ export const metadata: Metadata = pageMetadata({
 export const dynamic = 'force-static';
 
 export default function Home() {
+  // Each screenshot at most once per page, in reading order.
+  const pick = createAssetPicker();
+  const hero = { main: pick('calendarDay'), card: pick('clientCard'), booking: pick('bookingSummary') };
+  const featureAssets = t.features.items.map((f) => pick(f.asset as AssetId));
+  const exampleAsset = pick('dashboard');
+
   return (
     <>
       <PageJsonLd site faq={t.faq.items} />
@@ -49,9 +56,9 @@ export default function Home() {
               </ul>
             </div>
             <div className="sx-hero-visual">
-              <ScreenFrame asset="A01" ratio="16 / 11" />
-              <div className="sx-hero-float sx-hero-float--card"><ScreenFrame asset="A04" ratio="4 / 3" size="sm" /></div>
-              <div className="sx-hero-float sx-hero-float--booking"><ScreenFrame asset="A08" ratio="3 / 4" size="sm" /></div>
+              <ScreenFrame asset={hero.main} priority sizes="(min-width: 1080px) 640px, 100vw" />
+              <div className="sx-hero-float sx-hero-float--card"><ScreenFrame asset={hero.card} size="sm" sizes="280px" /></div>
+              <div className="sx-hero-float sx-hero-float--booking"><ScreenFrame asset={hero.booking} size="sm" /></div>
               <p className="sx-hero-note">{common.assets.demoNote}</p>
             </div>
           </div>
@@ -100,7 +107,7 @@ export default function Home() {
             <SectionHead id="features-title" eyebrow={t.features.eyebrow} title={t.features.h2} lead={t.features.lead} />
             <div className="sx-features">
               {t.features.items.map((f, i) => (
-                <article key={f.route} className={`sx-feature${i % 2 ? ' is-flipped' : ''}`}>
+                <article key={f.route} className={`sx-feature${i % 2 ? ' is-flipped' : ''}${featureAssets[i] ? '' : ' is-textonly'}`}>
                   <div className="sx-feature-copy">
                     <span className="sx-feature-num">{String(i + 1).padStart(2, '0')} / 05</span>
                     <h3>{f.title}</h3>
@@ -109,7 +116,7 @@ export default function Home() {
                       {f.link}<ArrowRight size={14} aria-hidden />
                     </a>
                   </div>
-                  <ScreenFrame asset={f.asset} />
+                  <ScreenFrame asset={featureAssets[i]} />
                 </article>
               ))}
             </div>
@@ -155,7 +162,7 @@ export default function Home() {
                 {t.example.link}<ArrowRight size={16} aria-hidden />
               </a>
             </div>
-            <ScreenFrame asset="A07" ratio="4 / 3" />
+            <ScreenFrame asset={exampleAsset} />
           </div>
         </section>
 
