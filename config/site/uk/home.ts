@@ -16,6 +16,16 @@ export const home = {
     primary: 'Обговорити підключення',
     secondary: 'Подивитися платформу',
     // ПОГОДИТИ — keep only points the owner confirms as operational commitments.
+    // Illustration of a client reminder. H10 B — ПОГОДИТИ: confirm the channel and
+    // that reminders reach clients before release; don't name SMS until verified.
+    reminder: {
+      app: 'NOIR Beauty Studio',
+      time: 'зараз',
+      title: 'Нагадування про запис',
+      body: 'Олено, чекаємо вас завтра о 14:30 — манікюр з покриттям гель-лак у Софії.',
+      address: 'Stroupežnického 21, Praha 5',
+      label: 'Так бачить нагадування клієнт',
+    },
     trust: ['Перші 2 тижні — безкоштовно', 'Індивідуальне підключення', 'Огляд платформи — без реєстрації'],
   },
 

@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { pageMetadata } from '@/config/seo';
 import { home as t } from '@/config/site/uk/home';
 import { common } from '@/config/site/uk/common';
+import { ReminderMockup } from '@/components/site/ReminderMockup';
 import { ROUTES } from '@/config/site/routes';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
@@ -25,7 +26,7 @@ export const dynamic = 'force-static';
 export default function Home() {
   // Each screenshot at most once per page, in reading order.
   const pick = createAssetPicker();
-  const hero = { main: pick('calendarDay'), card: pick('clientCard'), booking: pick('bookingSummary') };
+  const heroAsset = pick('calendarDay');
   const featureAssets = t.features.items.map((f) => pick(f.asset as AssetId));
   const exampleAsset = pick('dashboard');
 
@@ -56,9 +57,8 @@ export default function Home() {
               </ul>
             </div>
             <div className="sx-hero-visual">
-              <ScreenFrame asset={hero.main} priority sizes="(min-width: 1080px) 640px, 100vw" />
-              <div className="sx-hero-float sx-hero-float--card"><ScreenFrame asset={hero.card} size="sm" sizes="280px" /></div>
-              <div className="sx-hero-float sx-hero-float--booking"><ScreenFrame asset={hero.booking} size="sm" /></div>
+              <ScreenFrame asset={heroAsset} priority sizes="(min-width: 1080px) 640px, 100vw" />
+              <ReminderMockup t={t.hero.reminder} />
               <p className="sx-hero-note">{common.assets.demoNote}</p>
             </div>
           </div>
