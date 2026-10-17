@@ -175,7 +175,7 @@
 .sx-trust svg { color: var(--brand-primary); }
 
 .sx-hero-visual { position: relative; padding: 0 0 8px; }
-@media (min-width: 640px) { .sx-hero-visual { padding: 0 32px 64px 0; } }
+@media (min-width: 640px) { .sx-hero-visual { padding: 0 150px 64px 0; } }
 .sx-hero-visual .sf-frame-caption { display: none; }
 .sx-hero-note { margin: 12px 0 0; font-size: 12px; color: var(--text-muted); }
 @media (min-width: 640px) { .sx-hero-note { position: absolute; left: 0; bottom: 30px; margin: 0; } }
@@ -183,10 +183,10 @@
 /* Client reminder notification mockup (HTML, not a screenshot) */
 .rm { margin: 16px auto 0; max-width: 340px; }
 @media (min-width: 640px) {
-  .rm { position: absolute; right: 0; bottom: 0; width: 330px; margin: 0; }
+  .rm { position: absolute; right: -24px; bottom: 8px; width: 270px; margin: 0; }
 }
 .rm-card {
-  display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 14px 16px;
+  padding: 14px 16px;
   background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-light); border-radius: 20px; box-shadow: var(--shadow-float);
 }
