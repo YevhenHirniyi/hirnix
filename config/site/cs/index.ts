@@ -53,7 +53,7 @@ export const cs: SiteCopy = {
       copyright: `© ${new Date().getFullYear()} Hirnix`,
     },
     assets: {
-      demoNote: 'Ukázková data · rozhraní v ukrajinštině',
+      demoNote: 'Ukázková data · rozhraní v angličtině',
       alt: {
         dashboard: 'Přehled Hirnix: dnešní rezervace, poslední klienti, oblíbené služby',
         calendarDay: 'Denní kalendář Hirnix s rezervacemi ve sloupcích tří specialistek',
@@ -522,7 +522,7 @@ export const cs: SiteCopy = {
       breadcrumb: 'Demo',
       h1: 'Podívejte se, jak Hirnix funguje',
       lead: 'Krátká prohlídka jednoho ukázkového podniku — od denního rozvrhu po online rezervaci. Bez registrace a bez zanechání kontaktu.',
-      note: 'Všechna jména, služby a čísla v prohlídce jsou ukázková. Snímky zachycují ukrajinské rozhraní.',
+      note: 'Všechna jména, služby a čísla v prohlídce jsou ukázková. Snímky zachycují anglické rozhraní.',
       tocLabel: 'Části prohlídky',
     },
     chapters: [

@@ -1,7 +1,7 @@
 import { SITE, absoluteUrl } from '@/config/seo';
 import contacts from '@/config/contacts';
 import { getCopy } from '@/config/site/copy';
-import type { Locale } from '@/config/site/i18n';
+import { LOCALES, type Locale } from '@/config/site/i18n';
 
 interface Props {
   locale: Locale;
@@ -38,7 +38,7 @@ export function PageJsonLd({ locale, breadcrumbs, faq, site }: Props) {
         '@id': `${SITE.url}/#website`,
         url: SITE.url,
         name: 'Hirnix',
-        inLanguage: ['uk', 'en', 'cs', 'de'],
+        inLanguage: [...LOCALES],
         publisher: { '@id': `${SITE.url}/#organization` },
       },
       {

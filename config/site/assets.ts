@@ -73,3 +73,13 @@ export const SITE_ASSETS = {
 } satisfies Record<string, SiteAsset>;
 
 export type AssetId = keyof typeof SITE_ASSETS;
+
+/**
+ * Ukrainian pages show the Ukrainian CRM interface; every other language shows
+ * the same screens captured with the English interface (public/product/site/en/,
+ * identical file names and sizes).
+ */
+export function assetSrc(asset: AssetId, locale: string): string {
+  const { src } = SITE_ASSETS[asset];
+  return locale === 'uk' ? src : src.replace('/product/site/', '/product/site/en/');
+}

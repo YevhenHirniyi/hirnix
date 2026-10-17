@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { ChevronRight, Plus } from 'lucide-react';
-import { SITE_ASSETS, type AssetId, type SiteAsset } from '@/config/site/assets';
+import { SITE_ASSETS, assetSrc, type AssetId, type SiteAsset } from '@/config/site/assets';
 import { getCopy } from '@/config/site/copy';
 import { localePath, type Locale } from '@/config/site/i18n';
 import { ROUTES, type RouteKey } from '@/config/site/routes';
@@ -47,12 +47,13 @@ export function ScreenFrame({ locale, asset, size = 'md', priority, sizes = '(mi
   const shot: SiteAsset = SITE_ASSETS[asset];
   const { demoNote, alt: altTexts } = getCopy(locale).common.assets;
   const alt = altTexts[asset];
+  const src = assetSrc(asset, locale);
 
   if (shot.device === 'phone') {
     return (
       <figure className={`sf-phone sf-phone--${size}`}>
         <div className="sf-phone-screen">
-          <Image src={shot.src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 320px, 70vw" priority={priority} />
+          <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 320px, 70vw" priority={priority} />
         </div>
         <figcaption className="sf-frame-caption">{demoNote}</figcaption>
       </figure>
@@ -67,7 +68,7 @@ export function ScreenFrame({ locale, asset, size = 'md', priority, sizes = '(mi
         <span /><span /><span />
       </div>
       <div className="sf-frame-img">
-        <Image src={shot.src} width={shot.width} height={shot.height} alt={alt} sizes={sizes} priority={priority} />
+        <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes={sizes} priority={priority} />
       </div>
       <figcaption className="sf-frame-caption">{demoNote}</figcaption>
     </figure>

@@ -53,7 +53,7 @@ export const en: SiteCopy = {
       copyright: `© ${new Date().getFullYear()} Hirnix`,
     },
     assets: {
-      demoNote: 'Demo data · Ukrainian interface',
+      demoNote: 'Demo data',
       alt: {
         dashboard: 'Hirnix dashboard: today’s bookings, recent clients, popular services',
         calendarDay: 'Hirnix day calendar with bookings in three specialist columns',
@@ -522,7 +522,7 @@ export const en: SiteCopy = {
       breadcrumb: 'Demo',
       h1: 'See how Hirnix works',
       lead: 'A short tour of one training business — from the day’s schedule to online booking. No sign-up and no contact details needed.',
-      note: 'All names, services and figures in the tour are demo data. The screenshots show the Ukrainian interface.',
+      note: 'All names, services and figures in the tour are demo data.',
       tocLabel: 'Tour sections',
     },
     chapters: [
