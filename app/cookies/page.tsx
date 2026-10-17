@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 export default function CookiesPage() {
   return (
     <>
-      <SiteHeader ctaHref={ROUTES.contact.path} />
+      <SiteHeader locale="uk" ctaHref={ROUTES.contact.path} />
       <main id="main" style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="container" style={{ maxWidth: 760 }}>
           <h1 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 8 }}>
@@ -91,7 +91,7 @@ export default function CookiesPage() {
           </section>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter locale="uk" />
     </>
   );
 }

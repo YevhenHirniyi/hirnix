@@ -1,28 +1,32 @@
 import type { MetadataRoute } from 'next';
 import { absoluteUrl } from '@/config/seo';
-import { ROUTES, type SiteRoute } from '@/config/site/routes';
+import { LOCALES, localePath } from '@/config/site/i18n';
+import { LOCALIZED_KEYS, ROUTES } from '@/config/site/routes';
 
-/** Only built, canonical, indexable pages are listed (strategy T06). */
+/**
+ * Only built, canonical, indexable pages (strategy T06). Every localized page
+ * is listed once per language with hreflang alternates for the others.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const url = (r: SiteRoute) => absoluteUrl(r.path === '/' ? '' : r.path);
+  const url = (path: string) => absoluteUrl(path === '/' ? '' : path);
 
-  const homeAlternates = {
-    languages: {
-      uk: absoluteUrl(''),
-      en: absoluteUrl('/en'),
-      'x-default': absoluteUrl(''),
-    },
-  };
-
-  const legal = new Set<SiteRoute>([ROUTES.privacy, ROUTES.cookies]);
-  const pages = Object.values(ROUTES).filter((r: SiteRoute) => r.live && r !== ROUTES.home && !legal.has(r));
+  const localized = LOCALIZED_KEYS.filter((k) => ROUTES[k].live).flatMap((k) => {
+    const path = ROUTES[k].path;
+    const languages: Record<string, string> = Object.fromEntries(LOCALES.map((l) => [l, url(localePath(l, path))]));
+    languages['x-default'] = url(path);
+    return LOCALES.map((l) => ({
+      url: url(localePath(l, path)),
+      lastModified: now,
+      changeFrequency: (k === 'home' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
+      priority: k === 'home' ? (l === 'uk' ? 1 : 0.9) : 0.8,
+      alternates: { languages },
+    }));
+  });
 
   return [
-    { url: url(ROUTES.home), lastModified: now, changeFrequency: 'weekly', priority: 1, alternates: homeAlternates },
-    { url: absoluteUrl('/en'), lastModified: now, changeFrequency: 'weekly', priority: 0.6, alternates: homeAlternates },
-    ...pages.map((r) => ({ url: url(r), lastModified: now, changeFrequency: 'monthly' as const, priority: 0.8 })),
-    { url: url(ROUTES.privacy), lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: url(ROUTES.cookies), lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
+    ...localized,
+    { url: url(ROUTES.privacy.path), lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: url(ROUTES.cookies.path), lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
   ];
 }

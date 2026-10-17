@@ -1,9 +1,8 @@
-import { scheduling } from '@/config/site/uk/scheduling';
 import { FeaturePage, featureMetadata } from '@/components/site/FeaturePage';
 
-export const metadata = featureMetadata('scheduling', scheduling);
+export const metadata = featureMetadata('scheduling', 'uk');
 export const dynamic = 'force-static';
 
-export default function SchedulingPage() {
-  return <FeaturePage route="scheduling" t={scheduling} />;
+export default function Page() {
+  return <FeaturePage route="scheduling" locale="uk" />;
 }

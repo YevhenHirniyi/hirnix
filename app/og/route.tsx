@@ -12,7 +12,8 @@ const DEFAULT_TAGLINE = '24/7 запис і адміністрування ва�
 const FONT_TEXT =
   '0123456789/—-,.!?\' ' +
   'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдежзиіїйклмнопрстуфхцчшщьюяʼ' +
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' +
+  'ÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýžÄÖÜäöüß’&:';
 
 let logoDataUri: string | undefined;
 function getLogoDataUri() {

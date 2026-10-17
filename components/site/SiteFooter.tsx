@@ -1,17 +1,20 @@
 import { Logo } from '@/components/Header';
 import contacts, { MESSENGERS } from '@/config/contacts';
-import { common } from '@/config/site/uk/common';
-import { FEATURE_KEYS, LOGIN_URL, ROUTES, SEGMENT_KEYS } from '@/config/site/routes';
+import { getCopy } from '@/config/site/copy';
+import { localePath, type Locale } from '@/config/site/i18n';
+import { FEATURE_KEYS, LOGIN_URL, ROUTES, SEGMENT_KEYS, type RouteKey } from '@/config/site/routes';
 
-const t = common.footer;
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const c = getCopy(locale).common;
+  const t = c.footer;
+  const link = (k: RouteKey) => <a href={localePath(locale, ROUTES[k].path)}>{c.routes[k].label}</a>;
 
-export function SiteFooter() {
   return (
     <footer className="hx-footer">
       <div className="container">
         <div className="hx-footer-grid">
           <div className="hx-footer-brand">
-            <Logo size={22} href={ROUTES.home.path} />
+            <Logo size={22} href={localePath(locale, '/')} />
             <p style={{ marginTop: 14 }}>{t.brand}</p>
           </div>
 
@@ -19,7 +22,7 @@ export function SiteFooter() {
             <h2 className="sf-heading">{t.featuresHeading}</h2>
             <ul>
               {FEATURE_KEYS.map((k) => (
-                <li key={k}><a href={ROUTES[k].path}>{ROUTES[k].label}</a></li>
+                <li key={k}>{link(k)}</li>
               ))}
             </ul>
           </nav>
@@ -28,12 +31,12 @@ export function SiteFooter() {
             <h2 className="sf-heading">{t.companyHeading}</h2>
             <ul>
               {SEGMENT_KEYS.map((k) => (
-                <li key={k}><a href={ROUTES[k].path}>{ROUTES[k].label}</a></li>
+                <li key={k}>{link(k)}</li>
               ))}
-              <li><a href={ROUTES.demo.path}>{ROUTES.demo.label}</a></li>
-              <li><a href={ROUTES.conditions.path}>{ROUTES.conditions.label}</a></li>
-              <li><a href={ROUTES.contact.path}>{ROUTES.contact.label}</a></li>
-              <li><a href={LOGIN_URL}>Увійти в кабінет</a></li>
+              <li>{link('demo')}</li>
+              <li>{link('conditions')}</li>
+              <li>{link('contact')}</li>
+              <li><a href={LOGIN_URL}>{c.ui.loginCabinet}</a></li>
             </ul>
           </nav>
 
@@ -52,8 +55,9 @@ export function SiteFooter() {
         <div className="hx-footer-bottom">
           <div>{t.copyright}</div>
           <div className="legal">
-            <a href={ROUTES.privacy.path}>{ROUTES.privacy.label}</a>
-            <a href={ROUTES.cookies.path}>{ROUTES.cookies.label}</a>
+            {/* Legal pages exist in Ukrainian only for now. */}
+            <a href={ROUTES.privacy.path}>{c.routes.privacy.label}</a>
+            <a href={ROUTES.cookies.path}>{c.routes.cookies.label}</a>
           </div>
         </div>
       </div>

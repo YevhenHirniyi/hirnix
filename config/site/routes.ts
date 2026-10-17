@@ -14,49 +14,31 @@ export const LOGIN_URL = 'https://www.hirnix.biz/login';
 export interface SiteRoute {
   id: string;
   path: string;
-  /** Short label for menus and footer. */
-  label: string;
-  /** One-line explanation shown in the "Можливості" / "Для кого" dropdowns. */
-  hint?: string;
   live: boolean;
 }
 
+/** Labels and menu hints live in each locale's copy (common.routes). */
 export const ROUTES = {
-  home: { id: 'P01', path: '/', label: 'Головна', live: true },
-  scheduling: {
-    id: 'P02', path: '/features/scheduling', label: 'Записи та розклад',
-    hint: 'Робочий день, візити й майстри в календарі', live: true,
-  },
-  clients: {
-    id: 'P03', path: '/features/clients', label: 'Клієнтська база',
-    hint: 'Контакти й історія візитів кожного клієнта', live: true,
-  },
-  team: {
-    id: 'P04', path: '/features/team-and-services', label: 'Послуги та команда',
-    hint: 'Каталог послуг, виконавці й графіки', live: true,
-  },
-  reports: {
-    id: 'P05', path: '/features/reports', label: 'Звіти та результати',
-    hint: 'Показники записів, послуг і майстрів за період', live: true,
-  },
-  booking: {
-    id: 'P06', path: '/features/online-booking', label: 'Онлайн-запис',
-    hint: 'Сторінка, де клієнт сам обирає послугу й час', live: true,
-  },
-  independent: {
-    id: 'P07', path: '/solutions/independent-professionals', label: 'Для приватних майстрів',
-    hint: 'Працюєте самостійно, без адміністратора', live: true,
-  },
-  studios: {
-    id: 'P08', path: '/solutions/beauty-studios', label: 'Для б’юті-студій',
-    hint: 'Організація роботи кількох майстрів', live: true,
-  },
-  demo: { id: 'P09', path: '/demo', label: 'Демо', live: true },
-  conditions: { id: 'P10', path: '/conditions', label: 'Умови', live: true },
-  contact: { id: 'P11', path: '/contact', label: 'Контакти', live: true },
-  privacy: { id: 'L01', path: '/privacy', label: 'Політика конфіденційності', live: true },
-  cookies: { id: 'L02', path: '/cookies', label: 'Cookies', live: true },
+  home: { id: 'P01', path: '/', live: true },
+  scheduling: { id: 'P02', path: '/features/scheduling', live: true },
+  clients: { id: 'P03', path: '/features/clients', live: true },
+  team: { id: 'P04', path: '/features/team-and-services', live: true },
+  reports: { id: 'P05', path: '/features/reports', live: true },
+  booking: { id: 'P06', path: '/features/online-booking', live: true },
+  independent: { id: 'P07', path: '/solutions/independent-professionals', live: true },
+  studios: { id: 'P08', path: '/solutions/beauty-studios', live: true },
+  demo: { id: 'P09', path: '/demo', live: true },
+  conditions: { id: 'P10', path: '/conditions', live: true },
+  contact: { id: 'P11', path: '/contact', live: true },
+  privacy: { id: 'L01', path: '/privacy', live: true },
+  cookies: { id: 'L02', path: '/cookies', live: true },
 } satisfies Record<string, SiteRoute>;
+
+/** Pages that exist in every locale (legal pages are Ukrainian only for now). */
+export const LOCALIZED_KEYS = [
+  'home', 'scheduling', 'clients', 'team', 'reports', 'booking',
+  'independent', 'studios', 'demo', 'conditions', 'contact',
+] as const;
 
 export type RouteKey = keyof typeof ROUTES;
 

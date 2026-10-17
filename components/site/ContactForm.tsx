@@ -1,15 +1,19 @@
 'use client';
 
 import { useEffect, useId, useRef, useState } from 'react';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber, type Country } from 'react-phone-number-input';
 import { ArrowUpRight, Check, ChevronDown, Loader2, RotateCcw } from 'lucide-react';
 import contacts, { MESSENGERS } from '@/config/contacts';
-import { common } from '@/config/site/uk/common';
-import { ROUTES } from '@/config/site/routes';
+import type { SiteCopy } from '@/config/site/copy';
 
 type Field = 'name' | 'phone' | 'email' | 'contact';
 
 interface Props {
+  t: SiteCopy['common']['form'];
+  optionalLabel: string;
+  locale: string;
+  demoHref: string;
+  privacyHref: string;
   /** Page id from the route map (e.g. 'P01'), sent as request context. */
   page: string;
   /** What the visitor is asking for: 'connect' | 'quote'. */
@@ -19,7 +23,6 @@ interface Props {
   askFormat?: boolean;
 }
 
-const t = common.form;
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
@@ -30,7 +33,7 @@ function newRequestId(): string {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-export function ContactForm({ page, intent, submitLabel, askFormat = false }: Props) {
+export function ContactForm({ t, optionalLabel, locale, demoHref, privacyHref, page, intent, submitLabel, askFormat = false }: Props) {
   const uid = useId();
   const [name, setName] = useState('');
   // E.164 value from the country-code picker (same widget as the old landing form).
@@ -126,7 +129,7 @@ export function ContactForm({ page, intent, submitLabel, askFormat = false }: Pr
           link,
           comment,
           intent,
-          context: { page, cta: cta.current, locale: 'uk', ...utm.current },
+          context: { page, cta: cta.current, locale, ...utm.current },
         }),
       });
       const data = await res.json().catch(() => null);
@@ -150,7 +153,7 @@ export function ContactForm({ page, intent, submitLabel, askFormat = false }: Pr
         </p>
         <p className="cf-success-next">
           {t.successNext}{' '}
-          <a href={ROUTES.demo.path}>{t.successNextLink}</a>
+          <a href={demoHref}>{t.successNextLink}</a>
         </p>
       </div>
     );
@@ -182,7 +185,7 @@ export function ContactForm({ page, intent, submitLabel, askFormat = false }: Pr
           <label htmlFor={ids.phone}>{t.phoneLabel}</label>
           <PhoneInput
             id={ids.phone}
-            defaultCountry="UA"
+            defaultCountry={t.phoneCountry ? (t.phoneCountry as Country) : undefined}
             international
             countryCallingCodeEditable={false}
             autoComplete="tel"
@@ -219,7 +222,7 @@ export function ContactForm({ page, intent, submitLabel, askFormat = false }: Pr
 
       {askFormat && (
         <div className="cf-field">
-          <label htmlFor={ids.format}>{t.formatLabel} <span className="cf-optional">— необовʼязково</span></label>
+          <label htmlFor={ids.format}>{t.formatLabel} <span className="cf-optional">— {optionalLabel}</span></label>
           <div className="cf-select">
             <select id={ids.format} value={format} onChange={(e) => setFormat(e.target.value)}>
               <option value="">—</option>
@@ -274,7 +277,7 @@ export function ContactForm({ page, intent, submitLabel, askFormat = false }: Pr
       </button>
 
       <p className="cf-privacy">
-        {t.privacyNote} <a href={ROUTES.privacy.path}>{t.privacyLink}</a>
+        {t.privacyNote} <a href={privacyHref}>{t.privacyLink}</a>
       </p>
     </form>
   );

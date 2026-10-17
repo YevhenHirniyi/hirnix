@@ -1,9 +1,8 @@
-import { studios } from '@/config/site/uk/studios';
 import { SegmentPage, segmentMetadata } from '@/components/site/SegmentPage';
 
-export const metadata = segmentMetadata('studios', studios);
+export const metadata = segmentMetadata('studios', 'uk');
 export const dynamic = 'force-static';
 
-export default function StudiosPage() {
-  return <SegmentPage route="studios" t={studios} />;
+export default function Page() {
+  return <SegmentPage route="studios" locale="uk" />;
 }

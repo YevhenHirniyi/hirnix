@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { LOCALES, localePath } from './site/i18n';
 
 /**
  * Single source of truth for SEO: site-level defaults plus a helper that
@@ -14,7 +15,7 @@ export const SITE = {
   // canonical/hreflang/sitemap URL points at a redirect.
   url: 'https://www.hirnix.studio',
   defaultLocale: 'uk' as const,
-  locales: ['uk', 'en'] as const,
+  locales: LOCALES,
 };
 
 /** Display form of the brand in titles. */
@@ -25,6 +26,8 @@ export type Locale = (typeof SITE.locales)[number];
 const OG_LOCALE: Record<Locale, string> = {
   uk: 'uk_UA',
   en: 'en_US',
+  cs: 'cs_CZ',
+  de: 'de_DE',
 };
 
 export function absoluteUrl(path = ''): string {
@@ -34,7 +37,9 @@ export function absoluteUrl(path = ''): string {
 /** Default OG image tagline per locale — shown under the logo on the branded share image. */
 const OG_TAGLINE: Record<Locale, string> = {
   uk: 'CRM для майстрів і б’юті-студій',
-  en: '24/7 booking and management for your salon',
+  en: 'CRM for beauty professionals and studios',
+  cs: 'CRM pro beauty mistry a studia',
+  de: 'CRM für Beauty-Profis und Studios',
 };
 
 interface OgImageParams {
@@ -118,4 +123,27 @@ export function pageMetadata(cfg: PageSeoConfig): Metadata {
       images: [ogImage],
     },
   };
+}
+
+/**
+ * Metadata for a page that exists in every site language: canonical for this
+ * locale plus hreflang alternates (and x-default → Ukrainian) for the others.
+ */
+export function localizedMetadata(cfg: {
+  locale: Locale;
+  /** Route path without locale prefix, e.g. '/' or '/features/clients'. */
+  path: string;
+  title: string;
+  description: string;
+  ogImageTagline?: string;
+}): Metadata {
+  const toUrlPath = (p: string) => (p === '/' ? '' : p);
+  return pageMetadata({
+    path: toUrlPath(localePath(cfg.locale, cfg.path)),
+    locale: cfg.locale,
+    title: cfg.title,
+    description: cfg.description,
+    ogImageTagline: cfg.ogImageTagline,
+    variants: LOCALES.filter((l) => l !== cfg.locale).map((l) => ({ locale: l, path: toUrlPath(localePath(l, cfg.path)) })),
+  });
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
-import { pageMetadata } from '@/config/seo';
-import { common } from '@/config/site/uk/common';
-import { ROUTES, type RouteKey } from '@/config/site/routes';
+import { localizedMetadata } from '@/config/seo';
+import { getCopy } from '@/config/site/copy';
+import { localePath, type Locale } from '@/config/site/i18n';
+import { ROUTES } from '@/config/site/routes';
 import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 import { ContactSection } from './ContactSection';
@@ -32,19 +33,27 @@ export interface FeatureCopy {
   cta: { h2: string; lead: string; submit: string };
 }
 
-export function featureMetadata(route: RouteKey, t: FeatureCopy): Metadata {
-  return pageMetadata({
+export type FeatureKey = 'scheduling' | 'clients' | 'team' | 'reports' | 'booking';
+
+export function featureMetadata(route: FeatureKey, locale: Locale): Metadata {
+  const t: FeatureCopy = getCopy(locale)[route];
+  return localizedMetadata({
     path: ROUTES[route].path,
-    locale: 'uk',
+    locale,
     title: t.meta.title,
     description: t.meta.description,
     ogImageTagline: t.hero.h1,
   });
 }
 
-export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy }) {
+export function FeaturePage({ route: key, locale }: { route: FeatureKey; locale: Locale }) {
   const route = ROUTES[key];
-  const demoHref = `${ROUTES.demo.path}#${t.demoAnchor}`;
+  const copy = getCopy(locale);
+  const t: FeatureCopy = copy[key];
+  const ui = copy.common.ui;
+  const home = { label: copy.common.routes.home.label, path: localePath(locale, '/') };
+  const pagePath = localePath(locale, route.path);
+  const demoHref = `${localePath(locale, ROUTES.demo.path)}#${t.demoAnchor}`;
   const total = String(t.scenarios.items.length).padStart(2, '0');
   // Each screenshot at most once per page, in reading order.
   const pick = createAssetPicker();
@@ -54,19 +63,19 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
   // "Можливості" has no page of its own, so it is shown as plain text and left
   // out of the structured breadcrumb trail.
   const crumbs = [
-    { label: ROUTES.home.label, path: ROUTES.home.path },
-    { label: t.hero.breadcrumb, path: route.path },
+    home,
+    { label: t.hero.breadcrumb, path: pagePath },
   ];
 
   return (
     <>
-      <PageJsonLd breadcrumbs={crumbs} faq={t.faq.items} />
-      <SiteHeader />
+      <PageJsonLd locale={locale} breadcrumbs={crumbs} faq={t.faq.items} />
+      <SiteHeader locale={locale} path={route.path} />
 
       <main id="main">
         <section className="sx-hero sx-hero--inner" aria-labelledby="hero-title">
           <div className="container">
-            <Breadcrumbs items={[{ label: ROUTES.home.label, href: ROUTES.home.path }, { label: common.header.featuresLabel }, { label: t.hero.breadcrumb }]} />
+            <Breadcrumbs label={ui.breadcrumbs} items={[{ label: home.label, href: home.path }, { label: copy.common.header.featuresLabel }, { label: t.hero.breadcrumb }]} />
             <div className="sx-inner-head">
               <h1 id="hero-title" className="sx-h1">{t.hero.h1}</h1>
               <div>
@@ -82,7 +91,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
               </div>
             </div>
             <div className="sx-inner-visual">
-              <ScreenFrame asset={heroAsset} priority sizes="(min-width: 1320px) 1200px, 100vw" />
+              <ScreenFrame locale={locale} asset={heroAsset} priority sizes="(min-width: 1320px) 1200px, 100vw" />
             </div>
           </div>
         </section>
@@ -108,7 +117,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
                       {s.points.map((p) => <li key={p}><Check size={15} strokeWidth={2.6} aria-hidden />{p}</li>)}
                     </ul>
                   </div>
-                  <ScreenFrame asset={scenarioAssets[i]} />
+                  <ScreenFrame locale={locale} asset={scenarioAssets[i]} />
                 </article>
               ))}
             </div>
@@ -120,7 +129,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
             <SectionHead id="links-title" eyebrow={t.connections.eyebrow} title={t.connections.h2} />
             <div className="sx-links">
               {t.connections.items.map((c) => (
-                <a key={c.route} href={href(c.route)} className="sx-linkcard">
+                <a key={c.route} href={href(c.route, locale)} className="sx-linkcard">
                   <h3>{c.title}</h3>
                   <p>{c.body}</p>
                   <span className="sx-textlink">{c.link}<ArrowRight size={14} aria-hidden /></span>
@@ -138,7 +147,7 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
                 {t.proof.demoLink}<ArrowRight size={16} aria-hidden />
               </a>
             </div>
-            <ScreenFrame asset={proofAsset} />
+            <ScreenFrame locale={locale} asset={proofAsset} />
           </div>
         </section>
 
@@ -150,16 +159,17 @@ export function FeaturePage({ route: key, t }: { route: RouteKey; t: FeatureCopy
         </section>
 
         <ContactSection
+          locale={locale}
           page={route.id}
           intent="connect"
-          eyebrow="Звернення"
+          eyebrow={ui.contactEyebrow}
           title={t.cta.h2}
           lead={t.cta.lead}
           submitLabel={t.cta.submit}
         />
       </main>
 
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   );
 }

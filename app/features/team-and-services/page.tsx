@@ -1,9 +1,8 @@
-import { team } from '@/config/site/uk/team';
 import { FeaturePage, featureMetadata } from '@/components/site/FeaturePage';
 
-export const metadata = featureMetadata('team', team);
+export const metadata = featureMetadata('team', 'uk');
 export const dynamic = 'force-static';
 
-export default function TeamPage() {
-  return <FeaturePage route="team" t={team} />;
+export default function Page() {
+  return <FeaturePage route="team" locale="uk" />;
 }

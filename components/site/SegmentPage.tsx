@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { pageMetadata } from '@/config/seo';
-import { common } from '@/config/site/uk/common';
-import { ROUTES, type RouteKey } from '@/config/site/routes';
+import { localizedMetadata } from '@/config/seo';
+import { getCopy } from '@/config/site/copy';
+import { localePath, type Locale } from '@/config/site/i18n';
+import { ROUTES } from '@/config/site/routes';
 import { SiteHeader } from './SiteHeader';
 import { SiteFooter } from './SiteFooter';
 import { ContactSection } from './ContactSection';
@@ -28,18 +29,26 @@ export interface SegmentCopy {
   cta: { h2: string; lead: string; submit: string };
 }
 
-export function segmentMetadata(route: RouteKey, t: SegmentCopy): Metadata {
-  return pageMetadata({
+export type SegmentKey = 'independent' | 'studios';
+
+export function segmentMetadata(route: SegmentKey, locale: Locale): Metadata {
+  const t: SegmentCopy = getCopy(locale)[route];
+  return localizedMetadata({
     path: ROUTES[route].path,
-    locale: 'uk',
+    locale,
     title: t.meta.title,
     description: t.meta.description,
     ogImageTagline: t.hero.h1,
   });
 }
 
-export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy }) {
+export function SegmentPage({ route: key, locale }: { route: SegmentKey; locale: Locale }) {
   const route = ROUTES[key];
+  const copy = getCopy(locale);
+  const t: SegmentCopy = copy[key];
+  const ui = copy.common.ui;
+  const home = { label: copy.common.routes.home.label, path: localePath(locale, '/') };
+  const pagePath = localePath(locale, route.path);
   const total = String(t.blocks.items.length).padStart(2, '0');
   // Each screenshot at most once per page, in reading order.
   const pick = createAssetPicker();
@@ -49,18 +58,19 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
   return (
     <>
       <PageJsonLd
+        locale={locale}
         breadcrumbs={[
-          { label: ROUTES.home.label, path: ROUTES.home.path },
-          { label: t.hero.breadcrumb, path: route.path },
+          home,
+          { label: t.hero.breadcrumb, path: pagePath },
         ]}
         faq={t.faq.items}
       />
-      <SiteHeader />
+      <SiteHeader locale={locale} path={route.path} />
 
       <main id="main">
         <section className="sx-hero sx-hero--inner" aria-labelledby="hero-title">
           <div className="container">
-            <Breadcrumbs items={[{ label: ROUTES.home.label, href: ROUTES.home.path }, { label: common.header.segmentsLabel }, { label: t.hero.breadcrumb }]} />
+            <Breadcrumbs label={ui.breadcrumbs} items={[{ label: home.label, href: home.path }, { label: copy.common.header.segmentsLabel }, { label: t.hero.breadcrumb }]} />
             <div className="sx-inner-head">
               <h1 id="hero-title" className="sx-h1">{t.hero.h1}</h1>
               <div>
@@ -69,14 +79,14 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
                   <a href="#contact" className="btn btn-primary btn-lg" data-cta={`${key}-hero`}>
                     {t.hero.primary}<ArrowUpRight size={18} strokeWidth={2.2} aria-hidden />
                   </a>
-                  <a href={ROUTES.demo.path} className="btn btn-secondary btn-lg" data-cta={`${key}-demo`}>
+                  <a href={localePath(locale, ROUTES.demo.path)} className="btn btn-secondary btn-lg" data-cta={`${key}-demo`}>
                     {t.hero.secondary}
                   </a>
                 </div>
               </div>
             </div>
             <div className="sx-inner-visual">
-              <ScreenFrame asset={heroAsset} priority sizes="(min-width: 1320px) 1200px, 100vw" />
+              <ScreenFrame locale={locale} asset={heroAsset} priority sizes="(min-width: 1320px) 1200px, 100vw" />
             </div>
           </div>
         </section>
@@ -98,11 +108,11 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
                     <span className="sx-feature-num">{String(i + 1).padStart(2, '0')} / {total}</span>
                     <h3>{b.title}</h3>
                     <p>{b.body}</p>
-                    <a href={href(b.route)} className="sx-textlink">
+                    <a href={href(b.route, locale)} className="sx-textlink">
                       {b.link}<ArrowRight size={14} aria-hidden />
                     </a>
                   </div>
-                  <ScreenFrame asset={blockAssets[i]} />
+                  <ScreenFrame locale={locale} asset={blockAssets[i]} />
                 </article>
               ))}
             </div>
@@ -132,16 +142,17 @@ export function SegmentPage({ route: key, t }: { route: RouteKey; t: SegmentCopy
         </section>
 
         <ContactSection
+          locale={locale}
           page={route.id}
           intent="connect"
-          eyebrow="Звернення"
+          eyebrow={ui.contactEyebrow}
           title={t.cta.h2}
           lead={t.cta.lead}
           submitLabel={t.cta.submit}
         />
       </main>
 
-      <SiteFooter />
+      <SiteFooter locale={locale} />
     </>
   );
 }

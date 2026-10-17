@@ -1,9 +1,8 @@
-import { independent } from '@/config/site/uk/independent';
 import { SegmentPage, segmentMetadata } from '@/components/site/SegmentPage';
 
-export const metadata = segmentMetadata('independent', independent);
+export const metadata = segmentMetadata('independent', 'uk');
 export const dynamic = 'force-static';
 
-export default function IndependentPage() {
-  return <SegmentPage route="independent" t={independent} />;
+export default function Page() {
+  return <SegmentPage route="independent" locale="uk" />;
 }

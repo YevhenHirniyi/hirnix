@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import { ChevronRight, Plus } from 'lucide-react';
 import { SITE_ASSETS, type AssetId, type SiteAsset } from '@/config/site/assets';
-import { common } from '@/config/site/uk/common';
+import { getCopy } from '@/config/site/copy';
+import { localePath, type Locale } from '@/config/site/i18n';
 import { ROUTES, type RouteKey } from '@/config/site/routes';
 
-/** Resolves a route key from page copy to its path. */
-export function href(route: string): string {
+/** Resolves a route key from page copy to its path in the given locale. */
+export function href(route: string, locale: Locale): string {
   const r = ROUTES[route as RouteKey];
   if (!r) throw new Error(`Unknown route key in site copy: ${route}`);
-  return r.path;
+  return localePath(locale, r.path);
 }
 
 /**
@@ -26,6 +27,7 @@ export function createAssetPicker() {
 }
 
 interface FrameProps {
+  locale: Locale;
   /** Missing (or already used on this page) → nothing is rendered. */
   asset?: AssetId;
   size?: 'sm' | 'md';
@@ -40,17 +42,19 @@ interface FrameProps {
  * phone for the client booking page. Renders nothing without an asset — the
  * site never shows invented screens or placeholders.
  */
-export function ScreenFrame({ asset, size = 'md', priority, sizes = '(min-width: 960px) 60vw, 100vw' }: FrameProps) {
+export function ScreenFrame({ locale, asset, size = 'md', priority, sizes = '(min-width: 960px) 60vw, 100vw' }: FrameProps) {
   if (!asset) return null;
   const shot: SiteAsset = SITE_ASSETS[asset];
+  const { demoNote, alt: altTexts } = getCopy(locale).common.assets;
+  const alt = altTexts[asset];
 
   if (shot.device === 'phone') {
     return (
       <figure className={`sf-phone sf-phone--${size}`}>
         <div className="sf-phone-screen">
-          <Image src={shot.src} width={shot.width} height={shot.height} alt={shot.alt} sizes="(min-width: 960px) 320px, 70vw" priority={priority} />
+          <Image src={shot.src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 320px, 70vw" priority={priority} />
         </div>
-        <figcaption className="sf-frame-caption">{common.assets.demoNote}</figcaption>
+        <figcaption className="sf-frame-caption">{demoNote}</figcaption>
       </figure>
     );
   }
@@ -63,9 +67,9 @@ export function ScreenFrame({ asset, size = 'md', priority, sizes = '(min-width:
         <span /><span /><span />
       </div>
       <div className="sf-frame-img">
-        <Image src={shot.src} width={shot.width} height={shot.height} alt={shot.alt} sizes={sizes} priority={priority} />
+        <Image src={shot.src} width={shot.width} height={shot.height} alt={alt} sizes={sizes} priority={priority} />
       </div>
-      <figcaption className="sf-frame-caption">{common.assets.demoNote}</figcaption>
+      <figcaption className="sf-frame-caption">{demoNote}</figcaption>
     </figure>
   );
 }
@@ -97,9 +101,9 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   );
 }
 
-export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
+export function Breadcrumbs({ items, label }: { items: { label: string; href?: string }[]; label: string }) {
   return (
-    <nav aria-label="Навігаційний ланцюжок" className="sx-crumbs">
+    <nav aria-label={label} className="sx-crumbs">
       <ol>
         {items.map((it, i) => (
           <li key={it.label}>
