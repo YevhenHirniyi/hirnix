@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, ChevronDown, Menu, X } from 'lucide-react';
+import { ArrowUpRight, BarChart3, CalendarDays, ChevronDown, Globe, Menu, Scissors, User, Users, X, type LucideIcon } from 'lucide-react';
 import { Logo } from '@/components/Header';
 import { common } from '@/config/site/uk/common';
 import { FEATURE_KEYS, LOGIN_URL, ROUTES, SEGMENT_KEYS } from '@/config/site/routes';
@@ -14,6 +14,16 @@ const GROUPS = [
 ] as const;
 
 const PLAIN = [ROUTES.demo, ROUTES.conditions];
+
+const ICONS: Record<string, LucideIcon> = {
+  scheduling: CalendarDays,
+  clients: Users,
+  team: Scissors,
+  reports: BarChart3,
+  booking: Globe,
+  independent: User,
+  studios: Users,
+};
 
 interface Props {
   /** Equivalent page in English, when one exists; the language switch is shown only then. */
@@ -84,10 +94,14 @@ export function SiteHeader({ enHref, ctaHref = '#contact' }: Props) {
                 <div className="sh-panel" id={`sh-panel-${g.id}`} hidden={!open}>
                   {g.keys.map((k) => {
                     const r = ROUTES[k];
+                    const Icon = ICONS[k];
                     return (
                       <a key={k} href={r.path} className="sh-panel-link" onClick={closeAll}>
-                        <span className="sh-panel-title">{r.label}</span>
-                        <span className="sh-panel-hint">{r.hint}</span>
+                        <span className="sh-panel-icon" aria-hidden><Icon size={18} strokeWidth={1.9} /></span>
+                        <span className="sh-panel-text">
+                          <span className="sh-panel-title">{r.label}</span>
+                          <span className="sh-panel-hint">{r.hint}</span>
+                        </span>
                       </a>
                     );
                   })}
