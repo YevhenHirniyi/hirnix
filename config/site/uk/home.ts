@@ -16,16 +16,6 @@ export const home = {
     primary: 'Обговорити підключення',
     secondary: 'Подивитися платформу',
     // ПОГОДИТИ — keep only points the owner confirms as operational commitments.
-    // Client reminder as a phone push from Telegram (owner: reminders go via
-    // Telegram and email). H10 — confirm delivery on a test client before release.
-    reminder: {
-      app: 'Telegram',
-      sender: 'NOIR Beauty Studio',
-      time: 'зараз',
-      title: 'Нагадування про запис',
-      body: 'Олено, чекаємо вас завтра о 14:30 — манікюр з покриттям гель-лак у Софії.',
-      address: 'Stroupežnického 21, Praha 5',
-    },
     trust: ['Перші 2 тижні — безкоштовно', 'Індивідуальне підключення', 'Огляд платформи — без реєстрації'],
   },
 

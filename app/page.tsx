@@ -3,7 +3,6 @@ import { ArrowRight, ArrowUpRight, Check } from 'lucide-react';
 import { pageMetadata } from '@/config/seo';
 import { home as t } from '@/config/site/uk/home';
 import { common } from '@/config/site/uk/common';
-import { ReminderMockup } from '@/components/site/ReminderMockup';
 import { ROUTES } from '@/config/site/routes';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
@@ -58,7 +57,6 @@ export default function Home() {
             </div>
             <div className="sx-hero-visual">
               <ScreenFrame asset={heroAsset} priority sizes="(min-width: 1080px) 640px, 100vw" />
-              <ReminderMockup t={t.hero.reminder} />
               <p className="sx-hero-note">{common.assets.demoNote}</p>
             </div>
           </div>
