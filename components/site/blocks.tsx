@@ -52,8 +52,20 @@ export function ScreenFrame({ locale, asset, size = 'md', priority, sizes = '(mi
   if (shot.device === 'phone') {
     return (
       <figure className={`sf-phone sf-phone--${size}`}>
-        <div className="sf-phone-screen">
-          <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 320px, 70vw" priority={priority} />
+        <div className="sf-phone-body">
+          <div className="sf-phone-screen">
+            {/* Decorative status bar so the full-screen capture reads as a phone. */}
+            <div className="sf-phone-status" aria-hidden>
+              <span className="sf-phone-time">9:41</span>
+              <span className="sf-phone-island" />
+              <span className="sf-phone-icons">
+                <svg viewBox="0 0 18 12" width="17" height="11"><rect x="0" y="8" width="3" height="4" rx="1" /><rect x="5" y="5.5" width="3" height="6.5" rx="1" /><rect x="10" y="3" width="3" height="9" rx="1" /><rect x="15" y="0" width="3" height="12" rx="1" /></svg>
+                <svg viewBox="0 0 26 12" width="24" height="11"><rect x="0.5" y="0.5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".45" /><rect x="2.5" y="2.5" width="16" height="7" rx="2" /><rect x="23.5" y="4" width="2" height="4" rx="1" opacity=".45" /></svg>
+              </span>
+            </div>
+            <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 300px, 70vw" priority={priority} />
+            <span className="sf-phone-home" aria-hidden />
+          </div>
         </div>
         <figcaption className="sf-frame-caption">{demoNote}</figcaption>
       </figure>

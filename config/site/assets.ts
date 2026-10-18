@@ -56,19 +56,19 @@ export const SITE_ASSETS = {
     src: '/product/site/booking-settings.webp', width: 1600, height: 1000,
   },
   bookingStart: {
-    src: '/product/site/booking-start.webp', width: 780, height: 1060, device: 'phone',
+    src: '/product/site/booking-start-phone.webp', width: 780, height: 1688, device: 'phone',
   },
   bookingMasters: {
-    src: '/product/site/booking-masters.webp', width: 780, height: 1400, device: 'phone',
+    src: '/product/site/booking-masters-phone.webp', width: 780, height: 1688, device: 'phone',
   },
   bookingServices: {
-    src: '/product/site/booking-services.webp', width: 780, height: 1520, device: 'phone',
+    src: '/product/site/booking-services-phone.webp', width: 780, height: 1688, device: 'phone',
   },
   bookingSummary: {
-    src: '/product/site/booking-summary.webp', width: 780, height: 1060, device: 'phone',
+    src: '/product/site/booking-summary-phone.webp', width: 780, height: 1688, device: 'phone',
   },
   bookingTime: {
-    src: '/product/site/booking-datetime.webp', width: 780, height: 820, device: 'phone',
+    src: '/product/site/booking-datetime-phone.webp', width: 780, height: 1688, device: 'phone',
   },
 } satisfies Record<string, SiteAsset>;
 

@@ -535,15 +535,27 @@
 .sf-frame-img img { display: block; width: 100%; height: auto; }
 .sf-frame--sm .sf-frame-img { border-radius: 0 0 12px 12px; }
 
-.sf-phone { margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; max-width: 320px; }
-.sf-phone-screen {
-  width: 100%; border: 8px solid #1F2420; border-radius: 34px; overflow: hidden; background: #1F2420;
-  box-shadow: var(--shadow-float);
+/* Phone mockup: real phone proportions (full 390×844 screen captures),
+   bezel, status bar with camera island and home indicator. */
+.sf-phone { margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; max-width: 300px; }
+.sf-phone-body {
+  width: 100%; padding: 9px; border-radius: 46px; background: linear-gradient(145deg, #2B302C, #121513);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset, 0 30px 60px -18px rgba(23, 105, 76, 0.28), 0 12px 24px -10px rgba(31, 36, 32, 0.35);
 }
-.sf-phone-screen img { display: block; width: 100%; height: auto; border-radius: 26px; }
+.sf-phone-screen { position: relative; overflow: hidden; border-radius: 37px; background: #F8F8F4; }
+.sf-phone-status {
+  height: 44px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 22px 0 26px;
+  background: #F8F8F4; color: #1F2420; font: 600 14px/1 var(--font-sans); letter-spacing: -0.01em;
+}
+.sf-phone-island { width: 92px; height: 26px; border-radius: 999px; background: #0E100F; }
+.sf-phone-icons { justify-self: end; display: inline-flex; gap: 5px; align-items: center; }
+.sf-phone-icons svg { fill: currentColor; }
+.sf-phone-screen img { display: block; width: 100%; height: auto; }
+.sf-phone-home {
+  position: absolute; left: 50%; bottom: 7px; width: 34%; height: 4px; border-radius: 999px;
+  background: rgba(31, 36, 32, 0.55); translate: -50% 0;
+}
 .sf-phone--sm { max-width: 100%; }
-.sf-phone--sm .sf-phone-screen { border-width: 5px; border-radius: 22px; }
-.sf-phone--sm .sf-phone-screen img { border-radius: 17px; }
 .sf-phone--sm .sf-frame-caption { display: none; }
 
 /* Feature row without its own screenshot: text only, readable width. */
