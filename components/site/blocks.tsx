@@ -63,7 +63,7 @@ export function ScreenFrame({ locale, asset, size = 'md', priority, sizes = '(mi
                 <svg viewBox="0 0 26 12" width="24" height="11"><rect x="0.5" y="0.5" width="22" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".45" /><rect x="2.5" y="2.5" width="16" height="7" rx="2" /><rect x="23.5" y="4" width="2" height="4" rx="1" opacity=".45" /></svg>
               </span>
             </div>
-            <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 300px, 70vw" priority={priority} />
+            <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes="(min-width: 960px) 250px, 66vw" priority={priority} />
             <span className="sf-phone-home" aria-hidden />
           </div>
         </div>
