@@ -1,4 +1,6 @@
 import { supabase } from '@/lib/supabase';
+import { ROUTES } from '@/config/site/routes';
+import { common } from '@/config/site/uk/common';
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -168,6 +170,12 @@ export async function POST(request: Request) {
       'saas-uk': 'Лендинг CRM · UA',
       'saas-en': 'Лендинг CRM · EN',
     };
+    // Page ids from the route map ('P11') → readable page name.
+    for (const [key, route] of Object.entries(ROUTES)) {
+      sourceLabel[route.id] = common.routes[key as keyof typeof common.routes].label;
+    }
+    const pageLabel = [sourceLabel[lead.source ?? ''] ?? lead.source, lead.context.locale?.toUpperCase()]
+      .filter(Boolean).join(' · ');
     const utm = UTM_KEYS.map((k) => lead.context[k]).filter(Boolean).join(' / ');
 
     // HTML parse mode with escaped values: with Markdown, a name or email
@@ -185,7 +193,7 @@ export async function POST(request: Request) {
       ...line('🔗 <b>Посилання:</b>', lead.businessLink),
       ...line('📝 <b>Коментар:</b>', lead.comment),
       '',
-      `🏷 <b>Сторінка:</b> ${v(sourceLabel[lead.source ?? ''] ?? lead.source ?? '—')}`,
+      `🏷 <b>Сторінка:</b> ${v(pageLabel || '—')}`,
       ...line('🎯 <b>Кнопка:</b>', lead.context.cta),
       ...line('📣 <b>UTM:</b>', utm),
       `🕐 ${new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Prague' })}`,
