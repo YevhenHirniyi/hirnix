@@ -535,24 +535,25 @@
 .sf-frame-img img { display: block; width: 100%; height: auto; }
 .sf-frame--sm .sf-frame-img { border-radius: 0 0 12px 12px; }
 
-/* Phone mockup: real phone proportions (full 390×844 screen captures),
-   bezel, status bar with camera island and home indicator. */
+/* Phone mockup to the iPhone standard: a 390×844 pt screen (19.5:9) made of a
+   47 pt status bar plus a 390×797 capture, so the screen never runs long.
+   Status-bar parts scale with the screen width (cqw) to keep proportions. */
 .sf-phone { margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; max-width: 250px; }
 .sf-phone-body {
-  width: 100%; padding: 6px; border-radius: 38px; background: linear-gradient(145deg, #2B302C, #121513);
+  width: 100%; padding: 6px; border-radius: 40px; background: linear-gradient(145deg, #2B302C, #121513);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset, 0 30px 60px -18px rgba(23, 105, 76, 0.28), 0 12px 24px -10px rgba(31, 36, 32, 0.35);
 }
-.sf-phone-screen { position: relative; overflow: hidden; border-radius: 32px; background: #F8F8F4; }
+.sf-phone-screen { position: relative; overflow: hidden; border-radius: 34px; background: #F8F8F4; container-type: inline-size; }
 .sf-phone-status {
-  height: 36px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 18px 0 22px;
-  background: #F8F8F4; color: #1F2420; font: 600 12px/1 var(--font-sans); letter-spacing: -0.01em;
+  height: 12.05cqw; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 6cqw 0 8cqw;
+  background: #F8F8F4; color: #1F2420; font: 600 4.2cqw/1 var(--font-sans); letter-spacing: -0.01em;
 }
-.sf-phone-island { width: 74px; height: 21px; border-radius: 999px; background: #0E100F; }
-.sf-phone-icons { justify-self: end; display: inline-flex; gap: 5px; align-items: center; }
-.sf-phone-icons svg { fill: currentColor; }
+.sf-phone-island { width: 31cqw; height: 8.6cqw; border-radius: 999px; background: #0E100F; }
+.sf-phone-icons { justify-self: end; display: inline-flex; gap: 1.5cqw; align-items: center; }
+.sf-phone-icons svg { fill: currentColor; height: 3.4cqw; width: auto; }
 .sf-phone-screen img { display: block; width: 100%; height: auto; }
 .sf-phone-home {
-  position: absolute; left: 50%; bottom: 7px; width: 34%; height: 4px; border-radius: 999px;
+  position: absolute; left: 50%; bottom: 2.2cqw; width: 34%; height: 1.3cqw; border-radius: 999px;
   background: rgba(31, 36, 32, 0.55); translate: -50% 0;
 }
 .sf-phone--sm { max-width: 100%; }
