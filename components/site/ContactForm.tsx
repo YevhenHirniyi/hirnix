@@ -187,7 +187,6 @@ export function ContactForm({ t, optionalLabel, locale, demoHref, privacyHref, p
             id={ids.phone}
             defaultCountry={t.phoneCountry ? (t.phoneCountry as Country) : undefined}
             international
-            countryCallingCodeEditable={false}
             autoComplete="tel"
             value={phone}
             onChange={(v) => { setPhone(v); clearError('phone', 'contact'); }}
