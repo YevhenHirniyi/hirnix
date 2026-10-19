@@ -1,10 +1,10 @@
 import type { MetadataRoute } from 'next';
-import { SITE } from '@/config/seo';
+import { BRAND } from '@/config/seo';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${SITE.name} — CRM для сфери послуг`,
-    short_name: SITE.name,
+    name: `${BRAND} — CRM для сфери послуг`,
+    short_name: BRAND,
     description: 'Онлайн-запис 24/7 і панель адміністрування для сфери послуг.',
     start_url: '/',
     display: 'standalone',

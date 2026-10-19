@@ -110,7 +110,7 @@ export function pageMetadata(cfg: PageSeoConfig): Metadata {
       title: socialTitle,
       description: cfg.description,
       url: canonical,
-      siteName: SITE.name,
+      siteName: BRAND,
       type: 'website',
       locale: OG_LOCALE[cfg.locale],
       ...(alternateLocales.length ? { alternateLocale: alternateLocales } : {}),

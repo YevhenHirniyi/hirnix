@@ -8,7 +8,6 @@ import { LOCALIZED_KEYS, ROUTES } from '@/config/site/routes';
  * is listed once per language with hreflang alternates for the others.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const url = (path: string) => absoluteUrl(path === '/' ? '' : path);
 
   const localized = LOCALIZED_KEYS.filter((k) => ROUTES[k].live).flatMap((k) => {
@@ -17,16 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     languages['x-default'] = url(path);
     return LOCALES.map((l) => ({
       url: url(localePath(l, path)),
-      lastModified: now,
-      changeFrequency: (k === 'home' ? 'weekly' : 'monthly') as 'weekly' | 'monthly',
-      priority: k === 'home' ? (l === 'uk' ? 1 : 0.9) : 0.8,
+      lastModified: ROUTES[k].updated,
       alternates: { languages },
     }));
   });
 
   return [
     ...localized,
-    { url: url(ROUTES.privacy.path), lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: url(ROUTES.cookies.path), lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
+    { url: url(ROUTES.privacy.path), lastModified: ROUTES.privacy.updated },
+    { url: url(ROUTES.cookies.path), lastModified: ROUTES.cookies.updated },
   ];
 }

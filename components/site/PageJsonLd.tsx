@@ -1,7 +1,9 @@
 import { SITE, absoluteUrl } from '@/config/seo';
 import contacts from '@/config/contacts';
 import { getCopy } from '@/config/site/copy';
-import { LOCALES, type Locale } from '@/config/site/i18n';
+import { LOCALES, localePath, type Locale } from '@/config/site/i18n';
+import { FEATURE_KEYS } from '@/config/site/routes';
+import { assetSrc } from '@/config/site/assets';
 
 interface Props {
   locale: Locale;
@@ -18,8 +20,10 @@ interface Props {
  * prices, ratings or reviews (strategy T12).
  */
 export function PageJsonLd({ locale, breadcrumbs, faq, site }: Props) {
-  const seo = getCopy(locale).common.seo;
+  const copy = getCopy(locale);
+  const seo = copy.common.seo;
   const graph: Record<string, unknown>[] = [];
+  const url = (path: string) => absoluteUrl(path === '/' ? '' : path);
 
   if (site) {
     graph.push(
@@ -31,6 +35,12 @@ export function PageJsonLd({ locale, breadcrumbs, faq, site }: Props) {
         logo: absoluteUrl('/icon-512.png'),
         email: contacts.emailDisplay,
         telephone: contacts.phoneDisplay.replace(/\s/g, ''),
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'customer support',
+          email: contacts.emailDisplay,
+          telephone: contacts.phoneDisplay.replace(/\s/g, ''),
+        },
         sameAs: [contacts.instagram],
       },
       {
@@ -43,10 +53,16 @@ export function PageJsonLd({ locale, breadcrumbs, faq, site }: Props) {
       },
       {
         '@type': 'SoftwareApplication',
+        '@id': `${SITE.url}/#software`,
         name: 'Hirnix',
+        url: url(localePath(locale, '/')),
         applicationCategory: 'BusinessApplication',
+        applicationSubCategory: 'CRM',
         operatingSystem: 'Web',
         description: seo.appDescription,
+        // Modules named exactly as the site's feature pages.
+        featureList: FEATURE_KEYS.map((k) => copy.common.routes[k].label),
+        screenshot: absoluteUrl(assetSrc('dashboard', locale)),
         publisher: { '@id': `${SITE.url}/#organization` },
       },
     );
@@ -59,7 +75,7 @@ export function PageJsonLd({ locale, breadcrumbs, faq, site }: Props) {
         '@type': 'ListItem',
         position: i + 1,
         name: b.label,
-        item: absoluteUrl(b.path === '/' ? '' : b.path),
+        item: url(b.path),
       })),
     });
   }
