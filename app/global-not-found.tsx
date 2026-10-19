@@ -2,15 +2,18 @@ import type { Metadata } from 'next';
 import { ROUTES } from '@/config/site/routes';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
+import { RootDocument } from '@/components/site/RootDocument';
 
+// Every unmatched URL in any language lands here (there is no single root
+// layout to hang a not-found.tsx on). Next adds noindex for the 404 status.
 export const metadata: Metadata = {
-  title: 'Сторінку не знайдено',
+  title: 'Сторінку не знайдено — Hirnix',
   robots: { index: false, follow: true },
 };
 
-export default function NotFound() {
+export default function GlobalNotFound() {
   return (
-    <>
+    <RootDocument lang="uk">
       <SiteHeader locale="uk" ctaHref={ROUTES.contact.path} />
       <main id="main" className="sx">
         <div className="container sx-narrow">
@@ -24,6 +27,6 @@ export default function NotFound() {
         </div>
       </main>
       <SiteFooter locale="uk" />
-    </>
+    </RootDocument>
   );
 }

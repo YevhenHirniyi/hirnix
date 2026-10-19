@@ -3,10 +3,17 @@ import { Manrope } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { SITE, ogImagePath } from "@/config/seo";
-import "./globals.css";
-import "./site.css";
+import { BRAND, SITE, ogImagePath } from "@/config/seo";
+import "@/app/globals.css";
+import "@/app/site.css";
 import "react-phone-number-input/style.css";
+
+/**
+ * The <html> shell shared by both root layouts — app/(uk)/layout.tsx and
+ * app/[lang]/layout.tsx — and the global 404. Two root layouts exist so the
+ * server-rendered <html lang> matches the page language: crawlers (Bing, and
+ * the AI search built on it) read the attribute without running JS.
+ */
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -15,7 +22,7 @@ const manrope = Manrope({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export const rootMetadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
     default: "Hirnix — CRM для майстрів і б’юті-студій",
@@ -24,7 +31,7 @@ export const metadata: Metadata = {
   description:
     "Hirnix — CRM для майстрів і б’юті-студій: клієнти, записи, послуги, команда та звіти в одній системі.",
   openGraph: {
-    siteName: SITE.name,
+    siteName: BRAND,
     type: "website",
     images: [
       {
@@ -45,19 +52,15 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
+export const rootViewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: "#17694C",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export function RootDocument({ lang, children }: { lang: string; children: React.ReactNode }) {
   return (
-    <html lang="uk" className={manrope.variable}>
+    <html lang={lang} className={manrope.variable}>
       <body>
         {children}
         <Analytics />
