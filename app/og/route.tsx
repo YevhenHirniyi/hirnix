@@ -90,6 +90,9 @@ export async function GET(request: Request) {
       width: 1200,
       height: 630,
       fonts: [{ name: 'Manrope', data: font, weight: 800, style: 'normal' }],
+      // Each tagline renders the same image every time; let the CDN keep it
+      // so social and search crawlers don't wait ~2 s for a fresh render.
+      headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400' },
     }
   );
 }
