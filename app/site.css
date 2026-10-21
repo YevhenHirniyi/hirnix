@@ -375,20 +375,48 @@
   content: ''; position: absolute; z-index: -1; right: -180px; top: -220px; width: 620px; height: 620px; border-radius: 50%;
   background: radial-gradient(circle, rgba(47, 143, 107, 0.38), transparent 65%);
 }
-@media (min-width: 960px) { .sx-contact-shell { grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; } }
+/* minmax(0, 1fr): long unbreakable content (button labels, the phone) must not widen the track past the shell. */
+.sx-contact-shell { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 960px) {
+  .sx-contact-shell {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr;
+    grid-template-areas: 'copy card' 'direct card'; column-gap: 64px; row-gap: 0; align-items: start;
+  }
+  .sx-contact-copy { grid-area: copy; }
+  .sx-contact-card { grid-area: card; }
+  .sx-direct { grid-area: direct; }
+}
 .sx-contact-copy h2 {
   margin: 16px 0 16px; font-size: clamp(28px, 3.4vw, 44px); font-weight: 700; line-height: 1.08;
   letter-spacing: -0.035em; color: var(--background); text-wrap: balance;
 }
 .sx-contact-copy > p { margin: 0; font-size: 17px; line-height: 1.6; color: rgba(250, 250, 247, 0.72); max-width: 46ch; }
-.sx-direct { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.sx-direct { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+@media (min-width: 960px) { .sx-direct { margin-top: 32px; } }
+.sx-direct-phone { white-space: nowrap; }
 .sx-direct-label { width: 100%; margin: 0 0 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250, 250, 247, 0.5); }
 .sx-direct a {
+.sx-direct a:active { background: rgba(250, 250, 247, 0.14); }
   display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px;
   border: 1px solid rgba(250, 250, 247, 0.2); color: var(--background); text-decoration: none; font-size: 14px; font-weight: 600;
 }
 .sx-direct a:hover { background: rgba(250, 250, 247, 0.08); }
 .sx-direct a:focus-visible { outline-color: #9EDCBF; }
+/* Phones: the card nearly fills the dark shell (8px frame, concentric radii) so fields get the width,
+   and the direct channels become one compact row of chips under the form. */
+@media (max-width: 559px) {
+  .sx-contact-shell { padding: 28px 20px 24px; gap: 28px; }
+  .sx-contact-card { margin-inline: -12px; padding: 22px 18px; }
+  .sx-direct { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .sx-direct-label { grid-column: 1 / -1; }
+  .sx-direct-sep { display: none; }
+  .sx-direct-phone { display: block; margin-top: 4px; }
+  .sx-direct a { justify-content: center; padding: 10px 6px; font-size: 13px; gap: 6px; }
+  .sx-direct a[data-channel='email'] { display: none; }
+  .sx-direct a svg { flex-shrink: 0; }
+  .cf-submit { padding-inline: 20px; }
+}
+@media (max-width: 389px) { .sx-direct a svg { display: none; } }
 .sx-contact-card {
   background: var(--surface); color: var(--text-primary); border-radius: 24px;
   padding: clamp(20px, 3vw, 32px); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.4);
@@ -429,7 +457,7 @@
 .cf-alert p { margin: 4px 0 0; color: var(--text-secondary); line-height: 1.5; }
 .cf-alert a { color: var(--brand-dark); font-weight: 600; }
 
-.cf-submit { width: 100%; justify-content: center; }
+.cf-submit { width: 100%; justify-content: center; white-space: normal; text-align: center; }
 .cf-spin { animation: spin 1s linear infinite; }
 .cf-privacy { margin: -4px 0 0; font-size: 13px; line-height: 1.5; color: var(--text-muted); text-align: center; }
 .cf-privacy a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: 2px; }

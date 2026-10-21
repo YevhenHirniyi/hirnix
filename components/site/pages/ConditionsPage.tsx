@@ -125,7 +125,6 @@ export function ConditionsPage({ locale }: { locale: Locale }) {
           title={t.form.h2}
           lead={t.form.lead}
           submitLabel={t.form.submit}
-          askFormat
         />
 
         <section className="sx" id="faq" aria-labelledby="faq-title">

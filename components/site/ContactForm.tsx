@@ -19,8 +19,6 @@ interface Props {
   /** What the visitor is asking for: 'connect' | 'quote'. */
   intent: 'connect' | 'quote';
   submitLabel: string;
-  /** Show the "Формат роботи" question (conditions page only, where it helps prepare the offer). */
-  askFormat?: boolean;
 }
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
@@ -33,7 +31,7 @@ function newRequestId(): string {
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-export function ContactForm({ t, optionalLabel, locale, demoHref, privacyHref, page, intent, submitLabel, askFormat = false }: Props) {
+export function ContactForm({ t, optionalLabel, locale, demoHref, privacyHref, page, intent, submitLabel }: Props) {
   const uid = useId();
   const [name, setName] = useState('');
   // E.164 value from the country-code picker (same widget as the old landing form).
@@ -124,7 +122,7 @@ export function ContactForm({ t, optionalLabel, locale, demoHref, privacyHref, p
           name,
           phone: phone ?? '',
           email,
-          format: askFormat ? format : undefined,
+          format,
           business,
           link,
           comment,
@@ -219,18 +217,16 @@ export function ContactForm({ t, optionalLabel, locale, demoHref, privacyHref, p
         ? <p className="cf-error cf-pair-note" id={ids.contactErr}>{errors.contact}</p>
         : <p className="cf-hint cf-pair-note" id={ids.contactHint}>{t.contactHint}</p>}
 
-      {askFormat && (
-        <div className="cf-field">
-          <label htmlFor={ids.format}>{t.formatLabel} <span className="cf-optional">— {optionalLabel}</span></label>
-          <div className="cf-select">
-            <select id={ids.format} value={format} onChange={(e) => setFormat(e.target.value)}>
-              <option value="">—</option>
-              {t.formatOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-            <ChevronDown size={16} aria-hidden />
-          </div>
+      <div className="cf-field">
+        <label htmlFor={ids.format}>{t.formatLabel} <span className="cf-optional">— {optionalLabel}</span></label>
+        <div className="cf-select">
+          <select id={ids.format} value={format} onChange={(e) => setFormat(e.target.value)}>
+            <option value="">—</option>
+            {t.formatOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+          <ChevronDown size={16} aria-hidden />
         </div>
-      )}
+      </div>
 
       <details className="cf-details" id={ids.details}>
         <summary>{t.detailsToggle}</summary>
