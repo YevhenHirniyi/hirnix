@@ -46,6 +46,11 @@ export function HomePage({ locale }: { locale: Locale }) {
               <span className="eyebrow"><span className="dot" />{t.hero.eyebrow}</span>
               <h1 id="hero-title" className="sx-h1">{t.hero.h1}</h1>
               <p className="sx-hero-lead">{t.hero.lead}</p>
+              {t.hero.highlights.length > 0 && (
+                <ul className="sx-hero-points">
+                  {t.hero.highlights.map((x) => <li key={x}>{x}</li>)}
+                </ul>
+              )}
               <div className="sx-actions">
                 <a href="#contact" className="btn btn-primary btn-lg" data-cta="hero-primary">
                   {t.hero.primary}
@@ -67,7 +72,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </section>
 
         {/* One working day */}
-        <section className="sx sx-soft" aria-labelledby="workday-title">
+        <section className="sx" aria-labelledby="workday-title">
           <div className="container">
             <SectionHead id="workday-title" eyebrow={t.workday.eyebrow} title={t.workday.h2} lead={t.workday.lead} />
             <ol className="sx-day">
@@ -83,22 +88,6 @@ export function HomePage({ locale }: { locale: Locale }) {
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
-
-        {/* Three tasks */}
-        <section className="sx" aria-labelledby="tasks-title">
-          <div className="container">
-            <SectionHead id="tasks-title" eyebrow={t.tasks.eyebrow} title={t.tasks.h2} />
-            <div className="sx-tasks">
-              {t.tasks.items.map((it, i) => (
-                <div key={it.title} className="sx-task">
-                  <span className="sx-task-num" aria-hidden>{i + 1}</span>
-                  <h3>{it.title}</h3>
-                  <p>{it.body}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 

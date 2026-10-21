@@ -165,7 +165,7 @@ export async function POST(request: Request) {
 
   if (token && chatId) {
     const formatLabel: Record<string, string> = { solo: 'Працює самостійно', team: 'Студія з командою', other: 'Інший формат' };
-    const intentLabel: Record<string, string> = { connect: 'Обговорити підключення', quote: 'Запит пропозиції' };
+    const intentLabel: Record<string, string> = { connect: 'Показати на моїх послугах', quote: 'Запит пропозиції' };
     const sourceLabel: Record<string, string> = {
       'saas-uk': 'Лендинг CRM · UA',
       'saas-en': 'Лендинг CRM · EN',

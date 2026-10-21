@@ -123,6 +123,7 @@ export const en: SiteCopy = {
       h1: 'Clients, bookings and your daily work — in one system',
       lead:
         'Keep your client base, organise your schedule, set up services and your team, and see your results. Hirnix takes care of the daily routine, and your clients can book online in the language that suits them.',
+      highlights: [],
       primary: 'Talk to us',
       secondary: 'See the platform',
       trust: ['First 2 weeks free', 'Personal onboarding', 'Platform tour — no sign-up'],
@@ -137,15 +138,6 @@ export const en: SiteCopy = {
         { time: 'Before the visit', title: 'Client card', body: 'Open the contact details and past visits so you remember what you did last time.', link: { route: 'clients', label: 'About the client base' } },
         { time: 'After the visit', title: 'Booking status', body: 'Mark the visit as done, cancelled or no-show — so the client’s history stays accurate.', link: { route: 'scheduling', label: 'Booking statuses' } },
         { time: 'End of the period', title: 'Report', body: 'See which services were done most often and how your specialists worked in the chosen period.', link: { route: 'reports', label: 'What the reports show' } },
-      ],
-    },
-    tasks: {
-      eyebrow: 'What Hirnix solves',
-      h2: 'Three jobs every beauty professional deals with',
-      items: [
-        { title: 'Organise bookings', body: 'Visits, services and each specialist’s time in one calendar — not spread across chats, a notebook and memory.' },
-        { title: 'Look after clients', body: 'Contact details and visit history are kept together, so before each appointment you know who you’re working with.' },
-        { title: 'Run the work and see results', body: 'Services, working hours and reports for any period show how things are going — without counting by hand.' },
       ],
     },
     features: {

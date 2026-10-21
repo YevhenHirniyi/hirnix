@@ -123,6 +123,7 @@ export const cs: SiteCopy = {
       h1: 'Klienti, rezervace a každodenní práce — v jednom systému',
       lead:
         'Veďte databázi klientů, organizujte rozvrh, nastavte služby a práci týmu a sledujte výsledky. Hirnix vám pomůže s každodenní agendou a klienti se k vám objednají online — i v češtině.',
+      highlights: [],
       primary: 'Domluvit se na spuštění',
       secondary: 'Prohlédnout platformu',
       trust: ['První 2 týdny zdarma', 'Individuální spuštění', 'Prohlídka platformy bez registrace'],
@@ -137,15 +138,6 @@ export const cs: SiteCopy = {
         { time: 'Před návštěvou', title: 'Karta klienta', body: 'Otevřete kontakty a předchozí návštěvy, abyste věděli, co jste dělali minule.', link: { route: 'clients', label: 'O databázi klientů' } },
         { time: 'Po návštěvě', title: 'Stav rezervace', body: 'Označíte návštěvu jako hotovou, zrušenou nebo nedostavení — historie klienta tak zůstane přesná.', link: { route: 'scheduling', label: 'Stavy rezervací' } },
         { time: 'Na konci období', title: 'Přehled', body: 'Uvidíte, které služby byly nejčastější a jak pracovali specialisté za zvolené období.', link: { route: 'reports', label: 'Co ukazují přehledy' } },
-      ],
-    },
-    tasks: {
-      eyebrow: 'Co Hirnix řeší',
-      h2: 'Tři úkoly, které řeší každý beauty profesionál',
-      items: [
-        { title: 'Mít pořádek v rezervacích', body: 'Návštěvy, služby a čas každého specialisty v jednom kalendáři — ne rozházené mezi chaty, diář a paměť.' },
-        { title: 'Starat se o klienty', body: 'Kontakty a historie návštěv jsou pohromadě, takže před každým termínem víte, s kým pracujete.' },
-        { title: 'Řídit práci a vidět výsledky', body: 'Služby, pracovní doba a přehledy za období ukazují, jak se daří — bez ručního počítání.' },
       ],
     },
     features: {

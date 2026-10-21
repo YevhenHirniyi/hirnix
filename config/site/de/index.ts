@@ -126,6 +126,7 @@ export const de: SiteCopy = {
       h1: 'Kunden, Termine und Ihr Arbeitsalltag — in einem System',
       lead:
         'Führen Sie Ihre Kundenkartei, organisieren Sie den Kalender, richten Sie Leistungen und Team ein und behalten Sie die Ergebnisse im Blick. Hirnix übernimmt die tägliche Routine, und Ihre Kunden buchen ihre Termine online selbst.',
+      highlights: [],
       primary: 'Gespräch vereinbaren',
       secondary: 'Plattform ansehen',
       trust: ['Die ersten 2 Wochen kostenlos', 'Persönliche Einrichtung', 'Plattform-Tour ohne Anmeldung'],
@@ -140,15 +141,6 @@ export const de: SiteCopy = {
         { time: 'Vor dem Termin', title: 'Kundenkarte', body: 'Sie öffnen Kontaktdaten und frühere Besuche und wissen, was beim letzten Mal gemacht wurde.', link: { route: 'clients', label: 'Zur Kundenkartei' } },
         { time: 'Nach dem Termin', title: 'Terminstatus', body: 'Sie markieren den Termin als erledigt, storniert oder nicht erschienen — so bleibt die Kundenhistorie korrekt.', link: { route: 'scheduling', label: 'Terminstatus' } },
         { time: 'Am Ende des Zeitraums', title: 'Auswertung', body: 'Sie sehen, welche Leistungen am häufigsten gebucht wurden und wie Ihr Team im gewählten Zeitraum gearbeitet hat.', link: { route: 'reports', label: 'Was die Auswertungen zeigen' } },
-      ],
-    },
-    tasks: {
-      eyebrow: 'Was Hirnix löst',
-      h2: 'Drei Aufgaben, die jeder Beauty-Profi kennt',
-      items: [
-        { title: 'Termine organisieren', body: 'Termine, Leistungen und die Zeit jeder Mitarbeiterin in einem Kalender — statt verteilt auf Chats, Terminbuch und Gedächtnis.' },
-        { title: 'Kunden betreuen', body: 'Kontaktdaten und Besuchshistorie liegen zusammen, sodass Sie vor jedem Termin wissen, mit wem Sie arbeiten.' },
-        { title: 'Arbeit steuern und Ergebnisse sehen', body: 'Leistungen, Arbeitszeiten und Auswertungen zeigen, wie es läuft — ohne Rechnen von Hand.' },
       ],
     },
     features: {
