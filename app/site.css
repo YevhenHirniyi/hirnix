@@ -556,7 +556,8 @@
   border: 1px solid var(--border-light); border-radius: 0 0 16px 16px; overflow: hidden;
   background: var(--surface); box-shadow: var(--shadow-float);
 }
-.sf-frame-img img { display: block; width: 100%; height: auto; }
+.sf-frame-img img, .sf-frame-img video { display: block; width: 100%; height: auto; }
+.sf-frame--video { gap: 0; }
 .sf-frame--sm .sf-frame-img { border-radius: 0 0 12px 12px; }
 
 /* Phone mockup to the iPhone standard: a 390×844 pt screen (19.5:9) made of a

@@ -8,8 +8,8 @@ import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { ContactSection } from '@/components/site/ContactSection';
 import { PageJsonLd } from '@/components/site/PageJsonLd';
-import type { AssetId } from '@/config/site/assets';
-import { FaqList, ScreenFrame, SectionHead, createAssetPicker, href } from '@/components/site/blocks';
+import { HERO_VIDEOS, type AssetId } from '@/config/site/assets';
+import { FaqList, ScreenFrame, SectionHead, VideoFrame, createAssetPicker, href } from '@/components/site/blocks';
 
 export function homeMetadata(locale: Locale): Metadata {
   const t = getCopy(locale).home;
@@ -29,7 +29,8 @@ export function HomePage({ locale }: { locale: Locale }) {
   const link = (path: string) => localePath(locale, path);
   // Each screenshot at most once per page, in reading order.
   const pick = createAssetPicker();
-  const heroAsset = pick('calendarDay');
+  const heroVideo = HERO_VIDEOS[locale];
+  const heroAsset = heroVideo ? undefined : pick('calendarDay');
   const featureAssets = t.features.items.map((f) => pick(f.asset as AssetId));
   const exampleAsset = pick('dashboard');
 
@@ -65,7 +66,9 @@ export function HomePage({ locale }: { locale: Locale }) {
               </ul>
             </div>
             <div className="sx-hero-visual">
-              <ScreenFrame locale={locale} asset={heroAsset} priority sizes="(min-width: 1080px) 640px, 100vw" />
+              {heroVideo
+                ? <VideoFrame video={heroVideo} />
+                : <ScreenFrame locale={locale} asset={heroAsset} priority sizes="(min-width: 1080px) 640px, 100vw" />}
               <p className="sx-hero-note">{copy.common.assets.demoNote}</p>
             </div>
           </div>

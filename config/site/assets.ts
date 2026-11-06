@@ -8,6 +8,8 @@
  * screenshot is shown as text only. Retake affected shots when the CRM changes.
  */
 
+import type { Locale } from './i18n';
+
 export interface SiteAsset {
   src: string;
   width: number;
@@ -83,3 +85,27 @@ export function assetSrc(asset: AssetId, locale: string): string {
   const { src } = SITE_ASSETS[asset];
   return locale === 'uk' ? src : src.replace('/product/site/', '/product/site/en/');
 }
+
+export interface SiteVideo {
+  src: string;
+  /** Shown until the video starts, and instead of it with reduced motion. */
+  poster: string;
+  width: number;
+  height: number;
+  /** Text alternative — the video has no sound or captions. */
+  label: string;
+}
+
+/**
+ * Silent looping demo for the home hero. The footage has Ukrainian text baked
+ * in, so a language without an entry here keeps its hero screenshot.
+ */
+export const HERO_VIDEOS: Partial<Record<Locale, SiteVideo>> = {
+  uk: {
+    src: '/video/hero-demo-uk.mp4',
+    poster: '/video/hero-demo-uk-poster.webp',
+    width: 1280,
+    height: 720,
+    label: 'Демонстрація Hirnix: онлайн-запис клієнта, календар, клієнтська база, послуги, аналітика й маркетинг',
+  },
+};

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { ChevronRight, Plus } from 'lucide-react';
-import { SITE_ASSETS, assetSrc, type AssetId, type SiteAsset } from '@/config/site/assets';
+import { SITE_ASSETS, assetSrc, type AssetId, type SiteAsset, type SiteVideo } from '@/config/site/assets';
 import { getCopy } from '@/config/site/copy';
 import { localePath, type Locale } from '@/config/site/i18n';
 import { ROUTES, type RouteKey } from '@/config/site/routes';
@@ -83,6 +83,36 @@ export function ScreenFrame({ locale, asset, size = 'md', priority, sizes = '(mi
         <Image src={src} width={shot.width} height={shot.height} alt={alt} sizes={sizes} priority={priority} />
       </div>
       <figcaption className="sf-frame-caption">{demoNote}</figcaption>
+    </figure>
+  );
+}
+
+/**
+ * Browser-window frame around a silent looping video. Autoplay needs `muted`
+ * and, on iOS, `playsInline`. The source is skipped with reduced motion, which
+ * leaves the poster on screen.
+ */
+export function VideoFrame({ video }: { video: SiteVideo }) {
+  return (
+    <figure className="sf-frame sf-frame--md sf-frame--video">
+      <div className="sf-frame-bar" aria-hidden>
+        <span /><span /><span />
+      </div>
+      <div className="sf-frame-img">
+        <video
+          width={video.width}
+          height={video.height}
+          poster={video.poster}
+          aria-label={video.label}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src={video.src} type="video/mp4" media="(prefers-reduced-motion: no-preference)" />
+        </video>
+      </div>
     </figure>
   );
 }
