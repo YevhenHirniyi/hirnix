@@ -9,8 +9,9 @@ import { pageMetadata } from '@/config/seo';
 export const metadata: Metadata = pageMetadata({
   path: '/onboarding',
   locale: 'uk',
-  title: 'Онбординг',
-  description: 'Відео-інструкція для клієнтів hirnix.',
+  title: 'Hirnix | Як почати роботу з платформою',
+  description:
+    'У цьому відео ми проведемо вас через увесь функціонал Hirnix та покажемо, як ефективно користуватися платформою для управління вашим б’юті-бізнесом. Дізнайтеся, як керувати онлайн-записами, клієнтами, послугами, робочим графіком та іншими можливостями Hirnix 💚',
   noIndex: true,
 });
 
@@ -21,10 +22,13 @@ export default function OnboardingPage() {
       <main id="main" style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="container" style={{ maxWidth: 1040 }}>
           <h1 style={{ fontSize: 36, fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 8 }}>
-            Онбординг
+            Як почати роботу з платформою
           </h1>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 12 }}>
+            У цьому відео ми проведемо вас через увесь функціонал Hirnix та покажемо, як ефективно користуватися платформою для управління вашим б’юті-бізнесом.
+          </p>
           <p style={{ color: 'var(--text-muted)', marginBottom: 32 }}>
-            Коротке відео про те, як усе працює. Якщо залишаться питання — напишіть нам.
+            Дізнайтеся, як керувати онлайн-записами, клієнтами, послугами, робочим графіком та іншими можливостями Hirnix 💚
           </p>
           <video
             src="/video/onboarding.mp4"
