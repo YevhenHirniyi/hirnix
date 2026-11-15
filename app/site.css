@@ -509,6 +509,7 @@
   font-size: 15px; font-weight: 600; color: var(--text-primary);
 }
 .dm-toc a:hover { border-color: var(--brand-primary); color: var(--brand-dark); }
+.dm-video { margin-top: 40px; max-width: 1080px; margin-inline: auto; }
 .dm-toc-num { font-family: var(--font-mono); font-size: 12px; color: var(--brand-primary); }
 .dm-chapter-head { display: flex; flex-direction: column; gap: 12px; max-width: 720px; margin-bottom: 36px; }
 .dm-chapter-body { display: grid; gap: 32px; align-items: start; }

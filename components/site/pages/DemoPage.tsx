@@ -8,7 +8,8 @@ import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { ContactSection } from '@/components/site/ContactSection';
 import { PageJsonLd } from '@/components/site/PageJsonLd';
-import { Breadcrumbs, ScreenFrame, createAssetPicker, href } from '@/components/site/blocks';
+import { HERO_VIDEOS } from '@/config/site/assets';
+import { Breadcrumbs, ScreenFrame, VideoFrame, createAssetPicker, href } from '@/components/site/blocks';
 
 export function demoMetadata(locale: Locale): Metadata {
   const t = getCopy(locale).demo;
@@ -29,6 +30,8 @@ export function DemoPage({ locale }: { locale: Locale }) {
   const link = (path: string) => localePath(locale, path);
   // Each screenshot at most once per page.
   const pick = createAssetPicker();
+  // Same silent demo as the home hero; only languages whose footage exists.
+  const heroVideo = HERO_VIDEOS[locale];
   const chapterAssets = t.chapters.map((c) => c.assets.map((a) => pick(a)).filter((a) => a !== undefined));
 
   return (
@@ -63,6 +66,12 @@ export function DemoPage({ locale }: { locale: Locale }) {
                 ))}
               </ol>
             </nav>
+
+            {heroVideo && (
+              <div className="dm-video">
+                <VideoFrame video={heroVideo} />
+              </div>
+            )}
           </div>
         </section>
 

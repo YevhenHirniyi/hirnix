@@ -33,7 +33,7 @@ export const ROUTES = {
   booking: { id: 'P06', path: '/features/online-booking', live: true, updated: '2026-10-22' },
   independent: { id: 'P07', path: '/solutions/independent-professionals', live: true, updated: '2026-10-22' },
   studios: { id: 'P08', path: '/solutions/beauty-studios', live: true, updated: '2026-10-22' },
-  demo: { id: 'P09', path: '/demo', live: true, updated: '2026-10-18' },
+  demo: { id: 'P09', path: '/demo', live: true, updated: '2026-11-15' },
   conditions: { id: 'P10', path: '/conditions', live: true, updated: '2026-10-22' },
   contact: { id: 'P11', path: '/contact', live: true, updated: '2026-10-18' },
   privacy: { id: 'L01', path: '/privacy', live: true, updated: '2026-10-18' },
