@@ -559,6 +559,10 @@
 }
 .sf-frame-img img, .sf-frame-img video { display: block; width: 100%; height: auto; }
 .sf-frame--video { gap: 0; }
+/* Fixed 16:9 box with the video covering it: no light gap under the last
+   frame row, and a slight zoom hides thin dark edge columns in the footage. */
+.sf-frame--video .sf-frame-img { aspect-ratio: 16 / 9; }
+.sf-frame--video video { height: 100%; object-fit: cover; transform: scale(1.012); }
 .sf-frame--sm .sf-frame-img { border-radius: 0 0 12px 12px; }
 
 /* Phone mockup to the iPhone standard: a 390×844 pt screen (19.5:9) made of a
