@@ -46,7 +46,7 @@ export const common = {
     featuresLabel: 'Можливості',
     segmentsLabel: 'Для кого',
     login: 'Увійти',
-    cta: 'Показати на моїх послугах',
+    cta: 'Спробувати безкоштовно',
     openMenu: 'Відкрити меню',
     closeMenu: 'Закрити меню',
   },
