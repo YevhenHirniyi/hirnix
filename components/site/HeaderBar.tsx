@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, BarChart3, CalendarDays, ChevronDown, Globe, Menu, Scissors, User, Users, X, type LucideIcon } from 'lucide-react';
+import { ArrowUpRight, BarChart3, CalendarDays, Check, ChevronDown, Globe, Menu, Scissors, User, Users, X, type LucideIcon } from 'lucide-react';
 import { Logo } from '@/components/Header';
 import type { SiteCopy } from '@/config/site/copy';
 import { FEATURE_KEYS, LOGIN_URL, SEGMENT_KEYS } from '@/config/site/routes';
+import { LangSuggest, rememberLangChoice } from './LangSuggest';
 
 const PLAIN = ['demo', 'conditions'] as const;
 
@@ -41,7 +42,10 @@ export function HeaderBar({ t, ui, routes, hrefs, homeHref, langs, ctaHref }: Pr
   const [scrolled, setScrolled] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const langRef = useRef<HTMLDivElement>(null);
+  const langBtnRef = useRef<HTMLButtonElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -56,9 +60,14 @@ export function HeaderBar({ t, ui, routes, hrefs, homeHref, langs, ctaHref }: Pr
       if (e.key !== 'Escape') return;
       if (menuOpen) { setMenuOpen(false); burgerRef.current?.focus(); }
       setOpenGroup(null);
+      setLangOpen((open) => {
+        if (open) langBtnRef.current?.focus();
+        return false;
+      });
     };
     const onPointer = (e: PointerEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenGroup(null);
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
     };
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onPointer);
@@ -78,6 +87,7 @@ export function HeaderBar({ t, ui, routes, hrefs, homeHref, langs, ctaHref }: Pr
   return (
     <header className={`sh${scrolled ? ' is-scrolled' : ''}`}>
       <a href="#main" className="sh-skip">{ui.skipLink}</a>
+      {langs && <LangSuggest langs={langs} />}
       <div className="container sh-inner">
         <Logo href={homeHref} />
 
@@ -120,13 +130,43 @@ export function HeaderBar({ t, ui, routes, hrefs, homeHref, langs, ctaHref }: Pr
         </nav>
 
         <div className="sh-actions">
-          {langs && (
-            <div className="sh-lang" role="group" aria-label={ui.languageNav}>
-              {langs.map((l) => l.current
-                ? <span key={l.code} aria-current="true" title={l.name}>{l.label}</span>
-                : <a key={l.code} href={l.href} hrefLang={l.code} lang={l.code} title={l.name}>{l.label}</a>)}
-            </div>
-          )}
+          {langs && (() => {
+            const current = langs.find((l) => l.current);
+            return (
+              <div className={`sh-lang${langOpen ? ' is-open' : ''}`} ref={langRef}>
+                <button
+                  ref={langBtnRef}
+                  type="button"
+                  className="sh-lang-btn"
+                  aria-expanded={langOpen}
+                  aria-controls="sh-lang-panel"
+                  aria-label={`${ui.languageNav}: ${current?.name ?? ''}`}
+                  onClick={() => { setLangOpen((v) => !v); setOpenGroup(null); }}
+                >
+                  <Globe size={15} strokeWidth={2} aria-hidden />
+                  {current?.label}
+                  <ChevronDown size={14} strokeWidth={2.2} aria-hidden className="sh-chevron" />
+                </button>
+                <ul className="sh-lang-panel" id="sh-lang-panel" hidden={!langOpen} aria-label={ui.languageNav}>
+                  {langs.map((l) => (
+                    <li key={l.code}>
+                      {l.current ? (
+                        <span className="sh-lang-item is-current" aria-current="true">
+                          <span className="sh-lang-name">{l.name}</span>
+                          <Check size={16} strokeWidth={2.4} aria-hidden />
+                        </span>
+                      ) : (
+                        <a className="sh-lang-item" href={l.href} hrefLang={l.code} lang={l.code} onClick={rememberLangChoice}>
+                          <span className="sh-lang-name">{l.name}</span>
+                          <span className="sh-lang-code" aria-hidden>{l.label}</span>
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })()}
           <a href={LOGIN_URL} className="sh-login">{t.login}</a>
           <a href={ctaHref} className="btn btn-primary btn-sm sh-cta" data-cta="header">
             {t.cta}
@@ -177,7 +217,7 @@ export function HeaderBar({ t, ui, routes, hrefs, homeHref, langs, ctaHref }: Pr
             <p className="sh-mob-lang" role="group" aria-label={ui.languageNav}>
               {langs.map((l) => l.current
                 ? <span key={l.code} aria-current="true">{l.name}</span>
-                : <a key={l.code} href={l.href} hrefLang={l.code} lang={l.code}>{l.name}</a>)}
+                : <a key={l.code} href={l.href} hrefLang={l.code} lang={l.code} onClick={rememberLangChoice}>{l.name}</a>)}
             </p>
           )}
         </div>

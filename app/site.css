@@ -46,6 +46,35 @@
   padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none;
 }
 .sh-skip:focus { top: 12px; }
+.sh-hint { background: var(--text-primary); color: var(--background); animation: sh-hint-in 240ms var(--ease-out); }
+@keyframes sh-hint-in { from { opacity: 0; } to { opacity: 1; } }
+.sh-hint-inner { display: flex; align-items: center; gap: 12px; min-height: 44px; padding-top: 6px; padding-bottom: 6px; }
+.sh-hint-text { margin: 0; font-size: 14px; line-height: 1.35; opacity: 0.88; }
+.sh-hint-cta {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  font-size: 14px; font-weight: 700; color: var(--background); text-decoration: none;
+  padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.12);
+  transition: background-color 160ms var(--ease-out);
+}
+.sh-hint-cta svg { transition: transform 160ms var(--ease-out); }
+.sh-hint-cta:hover { background: rgba(255, 255, 255, 0.2); }
+.sh-hint-cta:hover svg { transform: translateX(2px); }
+.sh-hint-cta:active { transform: scale(0.97); }
+.sh-hint-close {
+  margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 999px; border: 0; cursor: pointer;
+  background: transparent; color: var(--background); opacity: 0.7;
+  transition: opacity 160ms var(--ease-out);
+}
+.sh-hint-close:hover { opacity: 1; background: rgba(255, 255, 255, 0.1); }
+.sh-hint-close:active { transform: scale(0.94); }
+.sh-hint :focus-visible { outline-color: var(--brand-soft); }
+@media (max-width: 560px) {
+  .sh-hint-inner { flex-wrap: wrap; gap: 8px 12px; }
+  .sh-hint-text { flex: 1 1 calc(100% - 44px); }
+  .sh-hint-close { order: 2; margin-left: 0; }
+  .sh-hint-cta { order: 3; }
+}
 .sh-inner { display: flex; align-items: center; gap: 20px; min-height: 68px; }
 .sh-inner .hx-logo { padding-left: 0; }
 
@@ -77,15 +106,36 @@
 .sh-panel-hint { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
 .sh-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.sh-lang {
-  display: none; align-items: center; gap: 2px;
-  border: 1px solid var(--border-light); border-radius: 999px; padding: 3px;
-  font-size: 11px; font-weight: 700;
+.sh-lang { display: none; position: relative; }
+@media (min-width: 1080px) { .sh-lang { display: block; } }
+.sh-lang-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 700 12px/1 var(--font-sans); letter-spacing: 0.02em; color: var(--text-primary);
+  padding: 9px 12px; border-radius: 999px; border: 1px solid var(--border-light);
+  background: transparent; cursor: pointer;
+  transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out);
 }
-@media (min-width: 1080px) { .sh-lang { display: inline-flex; } }
-.sh-lang span, .sh-lang a { padding: 5px 9px; border-radius: 999px; text-decoration: none; color: var(--text-secondary); }
-.sh-lang span { background: var(--text-primary); color: var(--background); }
-.sh-lang a:hover { color: var(--text-primary); }
+.sh-lang-btn svg:first-child { color: var(--text-secondary); }
+.sh-lang-btn:hover, .sh-lang.is-open .sh-lang-btn { background: rgba(31, 36, 32, 0.05); border-color: var(--border-medium); }
+.sh-lang-btn:active { transform: scale(0.97); }
+.sh-lang.is-open .sh-chevron { transform: rotate(180deg); }
+.sh-lang-panel {
+  position: absolute; top: calc(100% + 10px); right: 0; min-width: 200px;
+  margin: 0; padding: 6px; list-style: none;
+  background: var(--surface); border: 1px solid var(--border-light); border-radius: 16px;
+  box-shadow: var(--shadow-float); display: grid; gap: 2px; z-index: 10;
+}
+.sh-lang-panel[hidden] { display: none; }
+.sh-lang-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 10px 12px; border-radius: 10px; text-decoration: none;
+  font-size: 14px; font-weight: 550; color: var(--text-primary);
+}
+a.sh-lang-item:hover { background: var(--brand-extra-soft); }
+a.sh-lang-item:active { background: var(--brand-soft); }
+.sh-lang-item.is-current { color: var(--brand-dark); font-weight: 700; }
+.sh-lang-item.is-current svg { color: var(--brand-primary); }
+.sh-lang-code { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: var(--text-muted); }
 .sh-login {
   display: none; font-size: 14px; font-weight: 600; color: var(--text-primary);
   padding: 10px 14px; border-radius: 999px; text-decoration: none; white-space: nowrap;
