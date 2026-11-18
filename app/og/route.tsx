@@ -13,7 +13,8 @@ const FONT_TEXT =
   '0123456789/—-,.!?\' ' +
   'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдежзиіїйклмнопрстуфхцчшщьюяʼ' +
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' +
-  'ÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýžÄÖÜäöüß’&:';
+  'ÁČĎÉĚÍŇÓŘŠŤÚŮÝŽáčďéěíňóřšťúůýžÄÖÜäöüß’&:' +
+  'ĄĆĘŁŃŚŹŻąćęłńśźż';
 
 let logoDataUri: string | undefined;
 function getLogoDataUri() {

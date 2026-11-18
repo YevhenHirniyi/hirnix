@@ -27,6 +27,7 @@ const OG_LOCALE: Record<Locale, string> = {
   uk: 'uk_UA',
   en: 'en_US',
   cs: 'cs_CZ',
+  pl: 'pl_PL',
   de: 'de_DE',
 };
 
@@ -39,6 +40,7 @@ const OG_TAGLINE: Record<Locale, string> = {
   uk: 'CRM для майстрів і б’юті-студій',
   en: 'CRM for beauty professionals and studios',
   cs: 'CRM pro beauty mistry a studia',
+  pl: 'CRM dla specjalistów beauty i salonów',
   de: 'CRM für Beauty-Profis und Studios',
 };
 

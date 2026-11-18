@@ -4,15 +4,15 @@
  */
 
 /** Every language the site has copy for. */
-export const ALL_LOCALES = ['uk', 'en', 'cs', 'de'] as const;
+export const ALL_LOCALES = ['uk', 'en', 'cs', 'pl', 'de'] as const;
 export type Locale = (typeof ALL_LOCALES)[number];
 
 /**
  * Languages actually published: routes, switcher, hreflang and sitemap use
- * only these. German is on hold (owner decision 2026-10-18) — the copy stays
- * in config/site/de; add 'de' back here to publish it.
+ * only these. Polish added and German published 2026-11-18 (German was on
+ * hold since 2026-10-18); remove a locale here to take it off the site.
  */
-export const LOCALES: readonly Locale[] = ['uk', 'en', 'cs'];
+export const LOCALES: readonly Locale[] = ['uk', 'en', 'cs', 'pl', 'de'];
 
 export const DEFAULT_LOCALE: Locale = 'uk';
 
@@ -20,13 +20,14 @@ export const DEFAULT_LOCALE: Locale = 'uk';
 export const PREFIXED_LOCALES = LOCALES.filter((l) => l !== DEFAULT_LOCALE);
 
 /** Short label in the language switcher. */
-export const LOCALE_LABEL: Record<Locale, string> = { uk: 'UA', en: 'EN', cs: 'CS', de: 'DE' };
+export const LOCALE_LABEL: Record<Locale, string> = { uk: 'UA', en: 'EN', cs: 'CS', pl: 'PL', de: 'DE' };
 
 /** Native language name, for accessible switcher labels. */
 export const LOCALE_NAME: Record<Locale, string> = {
   uk: 'Українська',
   en: 'English',
   cs: 'Čeština',
+  pl: 'Polski',
   de: 'Deutsch',
 };
 

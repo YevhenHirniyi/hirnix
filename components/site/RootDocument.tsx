@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import Script from "next/script";
+import { MetaPixel } from "@/components/site/MetaPixel";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BRAND, SITE, ogImagePath } from "@/config/seo";
@@ -16,7 +17,7 @@ import "react-phone-number-input/style.css";
  */
 
 const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "latin-ext", "cyrillic"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-manrope",
   display: "swap",
@@ -65,6 +66,7 @@ export function RootDocument({ lang, children }: { lang: string; children: React
         {children}
         <Analytics />
         <SpeedInsights />
+        <MetaPixel />
         <Script id="plerdy" strategy="afterInteractive">
           {`(function(w,d){
   if(w.__plerdyCode)return;
